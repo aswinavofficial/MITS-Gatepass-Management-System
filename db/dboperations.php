@@ -40,9 +40,10 @@ class User {
   
   
 
-    public function select_land()
+    public function activity_log($regno)
 	{
-	$sql = "select id,reg_no,email_id,title,pic,descr from land";	
+		echo "<p style='color:red;'>inside log</p>";
+	$sql = "select reqid,regno,cat,reason,exp_time from register where status='WAITING_FACULTY_APPROVAL' and f_regno='$regno'";	
 		
 		return $this->dbObj->ExecuteQuery($sql, 1);
 	
