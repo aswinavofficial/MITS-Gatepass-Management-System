@@ -20,7 +20,7 @@ session_start();
 		    if($_SESSION['type']=='ADMIN')
             header("location:admin.php"); 
 		    if($_SESSION['type']=='OFFICE')
-            header("location:offfice.php"); 
+            header("location:office.php"); 
 		
 		
 			

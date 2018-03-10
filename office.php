@@ -7,7 +7,7 @@ if (empty($_SESSION['regno'])) {
 } 
 include_once 'db/dboperations.php';
  $objUser = new User();
-$act=$objUser->activity_log($_SESSION['regno']);
+$act=$objUser->activity_office($_SESSION['regno']);
 $no1=mysqli_num_rows( $act );
 //print_r($act);
 
@@ -24,7 +24,7 @@ $no1=mysqli_num_rows( $act );
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Faculty</title>
+  <title>OFFICE</title>
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
@@ -333,10 +333,10 @@ $no1=mysqli_num_rows( $act );
                                  }else{
                                 while( $row = mysqli_fetch_assoc( $act ) ){
 									$req_id=$row['reqid'];
-									$appr="FACULTY_APPROVED";
-									$rej="FACULTY_REJECTED";
+									$appr="GATEPASS_ISSUED";
+									$rej="GATEPASS_REJECTED";
 									$fd=$_SESSION['regno'];
-									$url="faculty.php";
+									$url="office.php";
 									
                                echo " <tr ><td>{$row['regno']}</td><td><a href='detailed.php?id=$req_id'>{$row['name']}</a></td><td>{$row['cat']}</td><td>{$row['exp_time']}</td> <td>{$row['reason']}</td> <td> <a href='trans.php?req_id=$req_id&regno=$fd&status=$appr&type=$url'>APPROVE</a></td><td> <a href='trans.php?req_id=$req_id&regno=$fd&status=$rej&type=$url'>REJECT</a></td></tr>\n";
                                 }

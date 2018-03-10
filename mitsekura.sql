@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 10, 2018 at 06:56 PM
+-- Generation Time: Mar 10, 2018 at 07:56 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `register` (
   `password` varchar(30) NOT NULL,
   `reg_as` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `register`
@@ -69,7 +69,9 @@ INSERT INTO `register` (`id`, `regno`, `password`, `reg_as`) VALUES
 (1, '15CS181', 'Aswin9037#', 'STUDENT'),
 (2, '15GA101', 'guard123', 'GUARD'),
 (3, 'admin', 'admin123', 'ADMIN'),
-(4, 'EMP172/16', 'faculty1', 'FACULTY');
+(4, 'EMP172/16', 'faculty1', 'FACULTY'),
+(5, 'EMP200/17', 'hod123', 'HOD'),
+(6, 'EMP100/13', 'office123', 'OFFICE');
 
 -- --------------------------------------------------------
 
@@ -93,6 +95,7 @@ CREATE TABLE IF NOT EXISTS `request` (
   `f_regno` varchar(200) DEFAULT NULL,
   `hod_regno` varchar(20) NOT NULL,
   `name` varchar(30) DEFAULT NULL,
+  `office_regno` varchar(20) NOT NULL,
   PRIMARY KEY (`reqid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
@@ -100,8 +103,8 @@ CREATE TABLE IF NOT EXISTS `request` (
 -- Dumping data for table `request`
 --
 
-INSERT INTO `request` (`reqid`, `regno`, `cat`, `reason`, `exp_time`, `curr_time`, `STATUS`, `fappr_time`, `hodappr_time`, `officeappr_time`, `out_time`, `f_regno`, `hod_regno`, `name`) VALUES
-(7, '15CS181', 'Attending Events', 'Paper Presentation at Chennai', '2018-03-10 10:30:00', '2018-03-10 22:42:03', 'WAITING_FACULTY_APPROVAL', NULL, NULL, NULL, NULL, 'EMP172/16', 'EMP200/17', 'A V Aswin');
+INSERT INTO `request` (`reqid`, `regno`, `cat`, `reason`, `exp_time`, `curr_time`, `STATUS`, `fappr_time`, `hodappr_time`, `officeappr_time`, `out_time`, `f_regno`, `hod_regno`, `name`, `office_regno`) VALUES
+(7, '15CS181', 'Attending Events', 'Paper Presentation at Chennai', '2018-03-10 10:30:00', '2018-03-10 22:42:03', 'GATEPASS_ISSUED', '2018-03-11 01:05:30', '2018-03-11 01:12:32', '2018-03-11 01:25:07', NULL, 'EMP172/16', 'EMP200/17', 'A V Aswin', 'EMP100/13');
 
 -- --------------------------------------------------------
 

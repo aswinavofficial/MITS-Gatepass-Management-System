@@ -49,19 +49,50 @@ class User {
 	
 		
 	}
+	
+	 public function activity_hod($regno)
+	{
+		
+	$sql = "select reqid,regno,cat,reason,exp_time,name from request where status='FACULTY_APPROVED' and hod_regno='$regno'";	
+		
+		return $this->dbObj->ExecuteQuery($sql, 1);
+	
+		
+	}
 
 
+public function activity_office($regno)
+	{
+		
+	$sql = "select reqid,regno,cat,reason,exp_time,name from request where status='HOD_APPROVED' ";	
+		
+		return $this->dbObj->ExecuteQuery($sql, 1);
+	
+		
+	}
    
    
    
   
    
-   public function  trans_ok($trans_id,$vtrans_id,$status)
+   public function faculty_sign($req_id,$regno,$status)
    {
-	   $sql="update vendor_trans v set status='$status' where vtrans_id='$vtrans_id'  ";
+	   $sql="update request set status='$status',fappr_time=now() where reqid='$req_id'";
     return $this->dbObj->ExecuteQuery($sql, 3);
    }
    
+     public function hod_sign($req_id,$regno,$status)
+   {
+	   $sql="update request set status='$status',hodappr_time=now() where reqid='$req_id'";
+    return $this->dbObj->ExecuteQuery($sql, 3);
+   }
+   
+     public function office_sign($req_id,$regno,$status)
+   {
+	  
+	   $sql="update request set status='$status',officeappr_time=now(),office_regno='$regno' where reqid='$req_id'";
+    return $this->dbObj->ExecuteQuery($sql, 3);
+   }
    
    
   
