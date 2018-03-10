@@ -42,8 +42,8 @@ class User {
 
     public function activity_log($regno)
 	{
-		echo "<p style='color:red;'>inside log</p>";
-	$sql = "select reqid,regno,cat,reason,exp_time from register where status='WAITING_FACULTY_APPROVAL' and f_regno='$regno'";	
+		
+	$sql = "select reqid,regno,cat,reason,exp_time,name from request where status='WAITING_FACULTY_APPROVAL' and f_regno='$regno'";	
 		
 		return $this->dbObj->ExecuteQuery($sql, 1);
 	

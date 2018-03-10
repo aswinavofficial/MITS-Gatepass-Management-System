@@ -1,11 +1,16 @@
 <?php
 $no1=0;
 session_start();
+if (empty($_SESSION['regno'])) {
+    header("location:index.html");
+    exit();
+} 
 include_once 'db/dboperations.php';
  $objUser = new User();
+ echo $_SESSION['regno'];
 $act=$objUser->activity_log($_SESSION['regno']);
-
-
+$no1=mysqli_num_rows( $act );
+//print_r($act);
 
 
 ?>
@@ -20,7 +25,7 @@ $act=$objUser->activity_log($_SESSION['regno']);
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title><?php echo $act['name']; ?></title>
+  <title>Faculty</title>
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
@@ -30,7 +35,7 @@ $act=$objUser->activity_log($_SESSION['regno']);
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="index.html"><?php echo $act['name']; ?></a>
+    <a class="navbar-brand" href="index.html">dash</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -311,7 +316,10 @@ $act=$objUser->activity_log($_SESSION['regno']);
 				  <th>Name</th>
                   <th>Category</th>
                   <th>Time</th>
-                  <th>Details</th>
+				  <th>Reason </th>
+				  <th></th>
+				  <th></th>
+				  
                 </tr>
               </thead>
               <tfoot>
@@ -325,8 +333,9 @@ $act=$objUser->activity_log($_SESSION['regno']);
                                  echo '<tr><td colspan="5">No Rows Returned</td></tr>';
                                  }else{
                                 while( $row = mysqli_fetch_assoc( $act ) ){
-									$req_id=$row['id'];
-                               echo " <tr ><td>{$row['s_regno']}</td><td>{$row['name']}</td><td>{$row['cat']}</td><td>{$row['exp_time']}</td> <td><a href='detailed.php?id=$req_id'>More</a></td></tr>\n";
+									$req_id=$row['reqid'];
+									
+                               echo " <tr ><td>{$row['regno']}</td><td><a href='detailed.php?id=$req_id'>{$row['name']}</a></td><td>{$row['cat']}</td><td>{$row['exp_time']}</td> <td>{$row['reason']}</td> <td> <button id='details' value=$req_id type='submit' class='btn btn-info btn-lg'  data-toggle='modal' data-target='#myModal'>Approve</button></td> <td><button id='details' value=$req_id type='submit' class='btn btn-info btn-lg'  data-toggle='modal' data-target='#myModal'>Reject</button></td></tr>\n";
                                 }
                                   }
                                       ?>
@@ -334,15 +343,36 @@ $act=$objUser->activity_log($_SESSION['regno']);
             </table>
           </div>
         </div>
-        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        
       </div> </section>
+	  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+		<h4 class="modal-title">Modal Header</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <button id"approve" type="button"> APPROVE </button>
+		  <button type="button" onclick="location.href = 'https://google.com'"> REJECT</button>
+	
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
     </div>
     <!-- /.container-fluid-->
     <!-- /.content-wrapper-->
     <footer class="sticky-footer">
       <div class="container">
         <div class="text-center">
-          <small>Copyright © Your Website 2018</small>
+          <small>Copyright © MITSEKURA 2018</small>
         </div>
       </div>
     </footer>
@@ -382,6 +412,8 @@ $act=$objUser->activity_log($_SESSION['regno']);
     <!-- Custom scripts for this page-->
     <script src="js/sb-admin-datatables.min.js"></script>
     <script src="js/sb-admin-charts.min.js"></script>
+
+   </script>
   </div>
 </body>
 
