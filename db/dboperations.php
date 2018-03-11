@@ -50,6 +50,16 @@ class User {
 		
 	}
 	
+	    public function search_student($s_regno)
+	{
+		
+	$sql = "select r.regno,s.name,s.branch,s.batch,s.photo,r.cat,r.reason,r.exp_time,r.f_regno,r.hod_regno,r.office_regno,r.status  from request r,student s where r.regno=s.s_regno";	
+		
+		return $this->dbObj->ExecuteQuery($sql, 1);
+	
+		
+	}
+	
 	 public function activity_hod($regno)
 	{
 		

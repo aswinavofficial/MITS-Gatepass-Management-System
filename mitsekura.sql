@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 10, 2018 at 07:56 PM
+-- Generation Time: Mar 11, 2018 at 09:16 AM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `register` (
   `password` varchar(30) NOT NULL,
   `reg_as` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `register`
@@ -71,7 +71,8 @@ INSERT INTO `register` (`id`, `regno`, `password`, `reg_as`) VALUES
 (3, 'admin', 'admin123', 'ADMIN'),
 (4, 'EMP172/16', 'faculty1', 'FACULTY'),
 (5, 'EMP200/17', 'hod123', 'HOD'),
-(6, 'EMP100/13', 'office123', 'OFFICE');
+(6, 'EMP100/13', 'office123', 'OFFICE'),
+(7, 'EMP500/16', 'guard123', 'GUARD');
 
 -- --------------------------------------------------------
 
@@ -93,18 +94,19 @@ CREATE TABLE IF NOT EXISTS `request` (
   `officeappr_time` datetime DEFAULT NULL,
   `out_time` datetime DEFAULT NULL,
   `f_regno` varchar(200) DEFAULT NULL,
-  `hod_regno` varchar(20) NOT NULL,
+  `hod_regno` varchar(20) DEFAULT NULL,
   `name` varchar(30) DEFAULT NULL,
-  `office_regno` varchar(20) NOT NULL,
+  `office_regno` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`reqid`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `request`
 --
 
 INSERT INTO `request` (`reqid`, `regno`, `cat`, `reason`, `exp_time`, `curr_time`, `STATUS`, `fappr_time`, `hodappr_time`, `officeappr_time`, `out_time`, `f_regno`, `hod_regno`, `name`, `office_regno`) VALUES
-(7, '15CS181', 'Attending Events', 'Paper Presentation at Chennai', '2018-03-10 10:30:00', '2018-03-10 22:42:03', 'GATEPASS_ISSUED', '2018-03-11 01:05:30', '2018-03-11 01:12:32', '2018-03-11 01:25:07', NULL, 'EMP172/16', 'EMP200/17', 'A V Aswin', 'EMP100/13');
+(7, '15CS181', 'Attending Events', 'Paper Presentation at Chennai', '2018-03-10 10:30:00', '2018-03-10 22:42:03', 'GATEPASS_ISSUED', '2018-03-11 01:05:30', '2018-03-11 01:12:32', '2018-03-11 01:25:07', NULL, 'EMP172/16', 'EMP200/17', 'A V Aswin', 'EMP100/13'),
+(8, '15CS181', 'Health Problems', 'fever', '2018-03-11 10:30:00', '2018-03-11 01:36:26', 'WAITING_FACULTY_APPROVAL', NULL, NULL, NULL, NULL, 'EMP172/16', 'EMP200/17', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -130,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `student` (
 --
 
 INSERT INTO `student` (`s_regno`, `name`, `branch`, `batch`, `photo`, `fad_regno`, `hod_regno`) VALUES
-('15CS181', 'A V Aswin', 'CSE', '2015', '15cs181.jpg', 'EMP172/16', 'EMP200/17');
+('15CS181', 'A V Aswin', 'CSE', '2015', '15CS181.jpg', 'EMP172/16', 'EMP200/17');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
