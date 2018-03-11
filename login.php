@@ -10,17 +10,17 @@ session_start();
             $_SESSION['regno'] = $fetch_data['regno'];
 			$_SESSION['id'] = $fetch_data['id'];
 			if($_SESSION['type']=='STUDENT')
-            header("location:student.php");
+            header("location:student/student.php");
 		     if($_SESSION['type']=='GUARD')
-            header("location:guard.php");
+            header("location:guard/guard.php");
 		    if($_SESSION['type']=='FACULTY')
-            header("location:faculty.php");  
+            header("location:faculty/faculty.php");  
 		    if($_SESSION['type']=='HOD')
-            header("location:hod.php"); 
+            header("location:hod/hod.php"); 
 		    if($_SESSION['type']=='ADMIN')
-            header("location:admin.php"); 
+            header("location:admin/admin.php"); 
 		    if($_SESSION['type']=='OFFICE')
-            header("location:office.php"); 
+            header("location:office/office.php"); 
 		
 		
 			

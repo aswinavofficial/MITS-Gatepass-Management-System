@@ -2,14 +2,14 @@
 $no1=0;
 session_start();
 if (empty($_SESSION['regno'])) {
-    header("location:index.html");
+    header("location:../index.html");
     exit();
 } 
-include_once 'db/dboperations.php';
+include_once '../db/dboperations.php';
  $objUser = new User();
-$act=$objUser->activity_office($_SESSION['regno']);
+$act=$objUser->activity_log($_SESSION['regno']);
 $no1=mysqli_num_rows( $act );
-//print_r($act);
+
 
 
 ?>
@@ -24,11 +24,11 @@ $no1=mysqli_num_rows( $act );
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>OFFICE</title>
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
-  <link href="css/sb-admin.css" rel="stylesheet">
+  <title>Faculty</title>
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="../vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <link href="../css/sb-admin.css" rel="stylesheet">
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -330,15 +330,16 @@ $no1=mysqli_num_rows( $act );
                  <?php
                               if( $no1==0 ){
                                  echo '<tr><td colspan="5">No Rows Returned</td></tr>';
+		
                                  }else{
                                 while( $row = mysqli_fetch_assoc( $act ) ){
 									$req_id=$row['reqid'];
-									$appr="GATEPASS_ISSUED";
-									$rej="GATEPASS_REJECTED";
+									$appr="FACULTY_APPROVED";
+									$rej="FACULTY_REJECTED";
 									$fd=$_SESSION['regno'];
-									$url="office.php";
+									$url="faculty.php";
 									
-                               echo " <tr ><td>{$row['regno']}</td><td><a href='detailed.php?id=$req_id'>{$row['name']}</a></td><td>{$row['cat']}</td><td>{$row['exp_time']}</td> <td>{$row['reason']}</td> <td> <a href='trans.php?req_id=$req_id&regno=$fd&status=$appr&type=$url'>APPROVE</a></td><td> <a href='trans.php?req_id=$req_id&regno=$fd&status=$rej&type=$url'>REJECT</a></td></tr>\n";
+                               echo " <tr ><td>{$row['regno']}</td><td><a href='../profile.php?id=$req_id'>{$row['name']}</a></td><td>{$row['cat']}</td><td>{$row['exp_time']}</td> <td>{$row['reason']}</td> <td> <a href='../trans.php?req_id=$req_id&regno=$fd&status=$appr&type=$url'>APPROVE</a></td><td> <a href='../trans.php?req_id=$req_id&regno=$fd&status=$rej&type=$url'>REJECT</a></td></tr>\n";
                                 }
                                   }
                                       ?>
@@ -396,25 +397,25 @@ $no1=mysqli_num_rows( $act );
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="logout.php">Logout</a>
+            <a class="btn btn-primary" href="../logout.php">Logout</a>
           </div>
         </div>
       </div>
     </div>
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
     <!-- Page level plugin JavaScript-->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+    <script src="../vendor/chart.js/Chart.min.js"></script>
+    <script src="../vendor/datatables/jquery.dataTables.js"></script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin.min.js"></script>
+    <script src="../js/sb-admin.min.js"></script>
     <!-- Custom scripts for this page-->
-    <script src="js/sb-admin-datatables.min.js"></script>
-    <script src="js/sb-admin-charts.min.js"></script>
+    <script src="../js/sb-admin-datatables.min.js"></script>
+    <script src="../js/sb-admin-charts.min.js"></script>
    
   </div>
 </body>

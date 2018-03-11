@@ -5,7 +5,7 @@ if (empty($_SESSION['regno'])) {
     header("location:index.html");
     exit();
 } 
-include_once 'db/dboperations.php';
+include_once '../db/dboperations.php';
  $objUser = new User();
 
 
@@ -42,9 +42,9 @@ include_once 'db/dboperations.php';
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.min.css">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.27/daterangepicker.css">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/11.0.3/nouislider.min.css">
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/request.css">
-    <link rel="stylesheet" type="text/css" href="bootstrap-datepicker.css">
+	<link rel="stylesheet" type="text/css" href="../css/util.css">
+	<link rel="stylesheet" type="text/css" href="../css/request.css">
+    <link rel="stylesheet" type="text/css" href="../bootstrap-datepicker.css">
 
 <!--===============================================================================================-->
 </head>
@@ -114,9 +114,9 @@ include_once 'db/dboperations.php';
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.27/daterangepicker.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/11.0.3/nouislider.min.js"></script>
-	<script src="js/bootstrap-datepicker"></script>
-    <script src="js/combodate.js"></script>
-	<script src="js/request.js"></script>
+	<script src="../js/bootstrap-datepicker"></script>
+    <script src="../js/combodate.js"></script>
+	<script src="../js/request.js"></script>
 	<script>
 $(function(){
     $('#datetime24').combodate();  

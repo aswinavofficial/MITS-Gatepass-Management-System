@@ -1,16 +1,23 @@
 <?php
-$no1=0;
+$no1=-1;
+$permit=0;
 session_start();
+$student['name']="";
+$student['photo']="";
+$student['branch']="";
+$student['batch']="";
 if (empty($_SESSION['regno'])) {
     header("location:index.html");
     exit();
 } 
-include_once 'db/dboperations.php';
+include_once '../db/dboperations.php';
  $objUser = new User();
-$act=$objUser->activity_hod($_SESSION['regno']);
-$no1=mysqli_num_rows( $act );
-//print_r($act);
-
+ if(isset($_POST['submit']))
+ {
+$det=$objUser->search_student($_POST['s_regno']);
+$no1=mysqli_num_rows( $det);
+$student=mysqli_fetch_assoc($det);
+ }
 
 ?>
 
@@ -24,17 +31,19 @@ $no1=mysqli_num_rows( $act );
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>HOD</title>
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
-  <link href="css/sb-admin.css" rel="stylesheet">
+  <title>GUARD</title>
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="../vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <link href="../css/sb-admin.css" rel="stylesheet">
+  <link href="../css/guard.css" rel="stylesheet">
+
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="index.html">dash</a>
+    <a class="navbar-brand" href="guard.php">dash</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -43,7 +52,7 @@ $no1=mysqli_num_rows( $act );
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
           <a class="nav-link" href="index.html">
             <i class="fa fa-fw fa-dashboard"></i>
-            <span class="nav-link-text">Dashboard</span>
+            <span class="nav-link-text">Check Permission</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
@@ -229,146 +238,81 @@ $no1=mysqli_num_rows( $act );
         <li class="breadcrumb-item">
           <a href="#">Dashboard</a>
         </li>
-        <li class="breadcrumb-item active">My Dashboard</li>
+        <li class="breadcrumb-item active">Search</li>
       </ol>
-      <!-- Icon Cards-->
-	  <!--
-      <div class="row">
-        <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card text-white bg-primary o-hidden h-100">
-            <div class="card-body">
-              <div class="card-body-icon">
-                <i class="fa fa-fw fa-comments"></i>
-              </div>
-              <div class="mr-5">26 New Messages!</div>
-            </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
-              <span class="float-left">View Details</span>
-              <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
-            </a>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card text-white bg-warning o-hidden h-100">
-            <div class="card-body">
-              <div class="card-body-icon">
-                <i class="fa fa-fw fa-list"></i>
-              </div>
-              <div class="mr-5">11 New Tasks!</div>
-            </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
-              <span class="float-left">View Details</span>
-              <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
-            </a>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card text-white bg-success o-hidden h-100">
-            <div class="card-body">
-              <div class="card-body-icon">
-                <i class="fa fa-fw fa-shopping-cart"></i>
-              </div>
-              <div class="mr-5">123 New Orders!</div>
-            </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
-              <span class="float-left">View Details</span>
-              <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
-            </a>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card text-white bg-danger o-hidden h-100">
-            <div class="card-body">
-              <div class="card-body-icon">
-                <i class="fa fa-fw fa-support"></i>
-              </div>
-              <div class="mr-5">13 New Tickets!</div>
-            </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
-              <span class="float-left">View Details</span>
-              <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
-            </a>
-          </div>
-        </div>
-      </div> -->
+     
       
-         
-      <!-- Example DataTables Card-->
-	  <section id="act">
-      <div class="card mb-3">
-        <div class="card-header">
-          <i class="fa fa-table"></i> Gatepass Requests</div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-              <thead>
-                <tr>
-                  <th>Roll Number</th>
-				  <th>Name</th>
-                  <th>Category</th>
-                  <th>Time</th>
-				  <th>Reason </th>
-				  <th></th>
-				  <th></th>
-				  
-                </tr>
-              </thead>
-              <tfoot>
-                <tr>
-                  
-                </tr>
-              </tfoot>
-              <tbody>
-                 <?php
-                              if( $no1==0 ){
-                                 echo '<tr><td colspan="5">No Rows Returned</td></tr>';
-                                 }else{
-                                while( $row = mysqli_fetch_assoc( $act ) ){
-									$req_id=$row['reqid'];
-									$appr="HOD_APPROVED";
-									$rej="HOD_REJECTED";
-									$fd=$_SESSION['regno'];
-									$url="hod.php";
-									
-                               echo " <tr ><td>{$row['regno']}</td><td><a href='detailed.php?id=$req_id'>{$row['name']}</a></td><td>{$row['cat']}</td><td>{$row['exp_time']}</td> <td>{$row['reason']}</td> <td> <a href='trans.php?req_id=$req_id&regno=$fd&status=$appr&type=$url'>APPROVE</a></td><td> <a href='trans.php?req_id=$req_id&regno=$fd&status=$rej&type=$url'>REJECT</a></td></tr>\n";
-                                }
-                                  }
-                                      ?>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        
-      </div> </section>
-	  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-		<h4 class="modal-title">Modal Header</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          <button id"approve" type="button"> APPROVE </button>
-		  <button type="button" onclick="location.href = 'https://google.com'"> REJECT</button>
-	
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
+	  
+	  <form action="guard.php" method="post">
+    <div class="input-group input-group-lg">
+      <input type="text" class="form-control" name="s_regno" placeholder="Enter Registration Number">
+      <div class="input-group-btn">
+        <button style="height:80px; width:100%;"  name="submit" type="submit"> <i class="fa fa-search"></i></button>
       </div>
-      
     </div>
-  </div>
+     </form>
+	<?php
+        if($no1==-1)
+		{
+			
+		}
+		else if($no1==0)
+		{
+			echo "<p style='align:center;'> No results found</p>";
+		}
+		else
+		{
+			$photo=$student['photo'];
+			$branch=$student['branch'];
+			$name=$student['name'];
+			$batch=$student['batch'];
+			$time=$student['exp_time'];
+			$status=$student['status'];
+			$regno=$student['regno'];
+			$req_id=$student['reqid'];
+			$gd=$_SESSION['regno'];
+			$st="DEPARTED";
+			$url="guard.php";
+			if($status=="GATEPASS_ISSUED")
+			{
+				$stat_photo="../images/appr.png";
+				$permit="1";
+			}
+			else if($status=="FACULTY_REJECTED"||$status=="HOD_REJECTED"||$status=="GATEPASS_REJECTED")
+			{
+				$stat_photo="../images/rej.png";
+				$permit="0";
+			}
+			else
+			{
+				$stat_photo="../images/waiting.png";
+				$permit="0";
+			}
+				
+echo "	
+<div class='row' >
+<div class='col-xl-3'>
+</div>
+<div class='col-xl-3'>
+<div class='card'>
+		<img src='../images/students/$photo' height='200px' width='100%;'alt=''>
+	<a href='profile.php?regno=$regno'>	<h1>{$name}</h1> </a>
+  <p class='title'>{$branch} {$batch}</p>
+  <p>Time : {$time}</p>
+  <p>Status : {$status}</p>
+  <img src='$stat_photo' height='100px' width='100%;'alt=''>";
+  if($permit==1)
+  {
+  echo "<br/><p><a href='../trans.php?req_id=$req_id&regno=$gd&status=$st&type=$url'>PERMIT</a></p>";
+  }
+ echo " </div>
+</div>
+	<div class='col-xl-3'>
+</div>
+</div>";
+		}
+ ?>
+
     </div>
     <!-- /.container-fluid-->
     <!-- /.content-wrapper-->
@@ -402,19 +346,21 @@ $no1=mysqli_num_rows( $act );
       </div>
     </div>
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	    <script src="../js/guard.js"></script>
+
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
     <!-- Page level plugin JavaScript-->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+    <script src="../vendor/chart.js/Chart.min.js"></script>
+    <script src=".//vendor/datatables/jquery.dataTables.js"></script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin.min.js"></script>
+    <script src="../js/sb-admin.min.js"></script>
     <!-- Custom scripts for this page-->
-    <script src="js/sb-admin-datatables.min.js"></script>
-    <script src="js/sb-admin-charts.min.js"></script>
+    <script src="../js/sb-admin-datatables.min.js"></script>
+    <script src="../js/sb-admin-charts.min.js"></script>
    
   </div>
 </body>

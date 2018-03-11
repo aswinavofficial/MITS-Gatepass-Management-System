@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 11, 2018 at 09:16 AM
+-- Generation Time: Mar 11, 2018 at 03:50 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -93,20 +93,17 @@ CREATE TABLE IF NOT EXISTS `request` (
   `hodappr_time` datetime DEFAULT NULL,
   `officeappr_time` datetime DEFAULT NULL,
   `out_time` datetime DEFAULT NULL,
-  `f_regno` varchar(200) DEFAULT NULL,
-  `hod_regno` varchar(20) DEFAULT NULL,
-  `name` varchar(30) DEFAULT NULL,
   `office_regno` varchar(20) DEFAULT NULL,
+  `guard_regno` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`reqid`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `request`
 --
 
-INSERT INTO `request` (`reqid`, `regno`, `cat`, `reason`, `exp_time`, `curr_time`, `STATUS`, `fappr_time`, `hodappr_time`, `officeappr_time`, `out_time`, `f_regno`, `hod_regno`, `name`, `office_regno`) VALUES
-(7, '15CS181', 'Attending Events', 'Paper Presentation at Chennai', '2018-03-10 10:30:00', '2018-03-10 22:42:03', 'GATEPASS_ISSUED', '2018-03-11 01:05:30', '2018-03-11 01:12:32', '2018-03-11 01:25:07', NULL, 'EMP172/16', 'EMP200/17', 'A V Aswin', 'EMP100/13'),
-(8, '15CS181', 'Health Problems', 'fever', '2018-03-11 10:30:00', '2018-03-11 01:36:26', 'WAITING_FACULTY_APPROVAL', NULL, NULL, NULL, NULL, 'EMP172/16', 'EMP200/17', NULL, NULL);
+INSERT INTO `request` (`reqid`, `regno`, `cat`, `reason`, `exp_time`, `curr_time`, `STATUS`, `fappr_time`, `hodappr_time`, `officeappr_time`, `out_time`, `office_regno`, `guard_regno`) VALUES
+(9, '15CS181', 'Health Problems', 'Fever...Its urgent', '2018-03-11 12:30:00', '2018-03-11 18:59:02', 'DEPARTED', '2018-03-11 20:51:23', '2018-03-11 20:59:07', '2018-03-11 21:04:45', '2018-03-11 21:19:27', 'EMP100/13', 'EMP100/13');
 
 -- --------------------------------------------------------
 

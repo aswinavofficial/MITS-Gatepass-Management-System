@@ -13,7 +13,7 @@ if($_GET['type']=='faculty.php')
 	$res=$objUser->faculty_sign($_GET['req_id'],$_GET['regno'],$_GET['status']);
 
 	
-	    header("location:faculty.php");
+	    header("location:faculty/faculty.php");
 	  
 
    }
@@ -25,7 +25,7 @@ if($_GET['type']=='faculty.php')
 	$res=$objUser->hod_sign($_GET['req_id'],$_GET['regno'],$_GET['status']);
 
 	
-	    header("location:hod.php");
+	    header("location:hod/hod.php");
 	  
 
    }
@@ -34,13 +34,22 @@ if($_GET['type']=='faculty.php')
    { 
   
 	$res=$objUser->office_sign($_GET['req_id'],$_GET['regno'],$_GET['status']);
-    echo $res;
+    
 	
-	  //  header("location:office.php");
+	  header("location:office/office.php");
 	  
 
    }
-   
+   if($_GET['type']=='guard.php')
+   { 
+  
+	$res=$objUser->guard_sign($_GET['req_id'],$_GET['regno'],$_GET['status']);
+    
+	
+	  header("location:guard/guard.php");
+	  
+
+   }
    
 	
 

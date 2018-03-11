@@ -42,8 +42,7 @@ class User {
 
     public function activity_log($regno)
 	{
-		
-	$sql = "select reqid,regno,cat,reason,exp_time,name from request where status='WAITING_FACULTY_APPROVAL' and f_regno='$regno'";	
+	$sql = "select r.reqid,r.regno,r.cat,r.reason,r.exp_time,s.name,s.photo,s.branch,s.batch from request r,student s where r.regno=s.s_regno and status='WAITING_FACULTY_APPROVAL' and 	s.fad_regno='$regno'";	
 		
 		return $this->dbObj->ExecuteQuery($sql, 1);
 	
@@ -53,8 +52,8 @@ class User {
 	    public function search_student($s_regno)
 	{
 		
-	$sql = "select r.regno,s.name,s.branch,s.batch,s.photo,r.cat,r.reason,r.exp_time,r.f_regno,r.hod_regno,r.office_regno,r.status  from request r,student s where r.regno=s.s_regno";	
-		
+		$sql="select r.reqid,r.regno,s.name,s.branch,s.batch,s.photo,r.cat,r.reason,r.exp_time,r.office_regno,r.status,s.fad_regno,s.hod_regno  from request r,student s where r.regno=s.s_regno and r.regno='$s_regno'";	
+
 		return $this->dbObj->ExecuteQuery($sql, 1);
 	
 		
@@ -63,8 +62,8 @@ class User {
 	 public function activity_hod($regno)
 	{
 		
-	$sql = "select reqid,regno,cat,reason,exp_time,name from request where status='FACULTY_APPROVED' and hod_regno='$regno'";	
-		
+	$sql = "select r.reqid,r.regno,r.cat,r.reason,r.exp_time,s.name,s.photo,s.branch,s.batch,s.fad_regno,s.hod_regno from request r,student s where r.regno=s.s_regno and status='FACULTY_APPROVED' and s.hod_regno='$regno'";	
+
 		return $this->dbObj->ExecuteQuery($sql, 1);
 	
 		
@@ -74,7 +73,9 @@ class User {
 public function activity_office($regno)
 	{
 		
-	$sql = "select reqid,regno,cat,reason,exp_time,name from request where status='HOD_APPROVED' ";	
+	//$sql = "select reqid,regno,cat,reason,exp_time,name from request where status='HOD_APPROVED' ";	
+		$sql = "select r.reqid,r.regno,r.cat,r.reason,r.exp_time,s.name,s.photo,s.branch,s.batch,s.fad_regno,s.hod_regno from request r,student s where r.regno=s.s_regno and status='HOD_APPROVED'";	
+
 		
 		return $this->dbObj->ExecuteQuery($sql, 1);
 	
@@ -104,6 +105,13 @@ public function activity_office($regno)
     return $this->dbObj->ExecuteQuery($sql, 3);
    }
    
+   
+     public function guard_sign($req_id,$regno,$status)
+   {
+	  
+	   $sql="update request set status='$status',out_time=now(),guard_regno='$regno' where reqid='$req_id'";
+    return $this->dbObj->ExecuteQuery($sql, 3);
+   }
    
   
 
