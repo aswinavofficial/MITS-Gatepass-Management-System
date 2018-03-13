@@ -10,11 +10,11 @@ session_start();
             $_SESSION['regno'] = $fetch_data['regno'];
 			$_SESSION['id'] = $fetch_data['id'];
 			if($_SESSION['type']=='STUDENT')
-            header("location:student/student.php");
+            header("location:student/index.php");
 		     if($_SESSION['type']=='GUARD')
             header("location:guard/guard.php");
 		    if($_SESSION['type']=='FACULTY')
-            header("location:faculty/faculty.php");  
+            header("location:faculty/index.php");  
 		    if($_SESSION['type']=='HOD')
             header("location:hod/hod.php"); 
 		    if($_SESSION['type']=='ADMIN')

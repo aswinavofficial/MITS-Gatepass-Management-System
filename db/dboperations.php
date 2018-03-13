@@ -49,6 +49,33 @@ class User {
 		
 	}
 	
+	public function user_data($regno,$type)
+	{
+		if($type=="STUDENT")
+		{
+			$sql = "select * from student where s_regno='$regno'";
+		}
+		if($type=="FACULTY")
+		{
+	$sql = "select * from fac_adv where f_regno='$regno'";	
+		}
+		return $this->dbObj->ExecuteQuery($sql, 1);
+	
+		
+	}
+	
+	
+	
+	public function req_details($reqid)
+	{
+		
+	$sql = "select * from request r,student s where s.s_regno=r.regno and r.reqid='$reqid'";	
+		
+		return $this->dbObj->ExecuteQuery($sql, 1);
+	
+		
+	}
+	
 	    public function search_student($s_regno)
 	{
 		
@@ -89,6 +116,15 @@ public function activity_office($regno)
    public function faculty_sign($req_id,$regno,$status)
    {
 	   $sql="update request set status='$status',fappr_time=now() where reqid='$req_id'";
+    return $this->dbObj->ExecuteQuery($sql, 3);
+   }
+   
+    public function forward_hod($req_id,$regno,$message)
+   {
+	   echo $req_id;
+	   echo "<br/>".$message;
+	   $status="FORWARD_HOD";
+	   $sql="update request set fa_hod_msg='$message',ffor_time=now(),status='$status' where reqid='$req_id'";
     return $this->dbObj->ExecuteQuery($sql, 3);
    }
    
