@@ -1,22 +1,30 @@
 
 <?php
-$no1=0;
+
+$no1=-1;
+$permit=0;
 session_start();
+include_once '../db/dboperations.php';
+$student['name']="";
+$student['photo']="";
+$student['branch']="";
+$student['batch']="";
 if (empty($_SESSION['regno'])) {
-    header("location:../index.html");
+    header("location:../index.php");
     exit();
 } 
-include_once '../db/dboperations.php';
+
  $objUser = new User();
-  $res=$objUser->user_data($_SESSION['regno'],"GUARD");
+ $res=$objUser->user_data($_SESSION['regno'],"GUARD");
  $details=mysqli_fetch_assoc($res);
-$act=$objUser->activity_log($_SESSION['regno']);
-$no1=mysqli_num_rows( $act );
+ if(isset($_POST['submit']))
+ {
+$det=$objUser->search_student($_POST['regno']);
+$no1=mysqli_num_rows( $det);
+$student=mysqli_fetch_assoc($det);
+ }
 
-
-
-?>
-	
+?>	
 	
 
 <!DOCTYPE html>
@@ -135,7 +143,7 @@ $no1=mysqli_num_rows( $act );
                     <ul class="info-menu right-links list-inline list-unstyled">
                         <li class="profile">
                             <a href="#" data-toggle="dropdown" class="toggle">
-                                <img src="../images/faculty/<?php echo $details['photo']; ?>" alt="" class="img-circle img-inline">
+                                <img src="../images/guard/<?php echo $details['photo']; ?>" alt="" class="img-circle img-inline">
                                 <span><?php echo $details['name']; ?><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul class="dropdown-menu profile animated fadeIn">
@@ -176,7 +184,7 @@ $no1=mysqli_num_rows( $act );
 
                         <div class="profile-image col-md-4 col-sm-4 col-xs-4">
                             <a href="">
-                                <img src="../images/faculty/<?php echo $details['photo']; ?>" alt="" class="img-responsive img-circle">
+                                <img src="../images/guard/<?php echo $details['photo']; ?>" alt="" class="img-responsive img-circle">
                             </a>
                         </div>
 
@@ -204,7 +212,7 @@ $no1=mysqli_num_rows( $act );
                         <li class=""> 
                             <a href="index.php">
                                 <i class="fa fa-dashboard"></i>
-                                <span class="title">Gate Pass Requests</span>
+                                <span class="title">Search for Gatepass</span>
                             </a>
                         </li>
 						
@@ -254,61 +262,105 @@ $no1=mysqli_num_rows( $act );
                     <div class="col-lg-12">
                         <section class="box ">
                             <header class="panel_header">
-                                <h2 class="title pull-left">GATE PASS REQUESTS</h2>
+                                <h2 class="title pull-left">SEARCH FOR GATEPASS</h2>
                                 <div class="actions panel_actions pull-right">
                                     <i class="box_toggle fa fa-chevron-down"></i>
                                     <i class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></i>
                                     <i class="box_close fa fa-times"></i>
                                 </div>
                             </header>
-                            <div class="content-body">  
+                            <div class="content-body"> 
 							<div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-									       <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-              <thead>
-                <tr>
-                  <th></th>
-				  <th>Name</th>
-                  <th>Category</th>
-                  <th>Time</th>
-				  <th>Reason </th>
-				  <th></th>
-				  <th></th>
-				  
-                </tr>
-              </thead>
-              <tfoot>
-                <tr>
-                  
-                </tr>
-              </tfoot>
-              <tbody>
-                 <?php
-                              if( $no1==0 ){
-                                 echo '<tr><td colspan="5">No Rows Returned</td></tr>';
-		
-                                 }else{
-                                while( $row = mysqli_fetch_assoc( $act ) ){
-									$req_id=$row['reqid'];
-									$appr="FACULTY_APPROVED";
-									$rej="FACULTY_REJECTED";
-									$fwd="FORWARD_HOD";
-									$fd=$_SESSION['regno'];
-									$url="faculty.php";
-									//{$row['regno']}
-									$photo1=$row['photo'];
-									//<img src='../images/faculty/{$photo}' alt='' class='img-responsive img-circle'>;
-                               echo " <tr > <td><img src='../images/students/{$photo1}' alt='' class='tb img-circle'> </td><td><a href='../profile.php?id=$req_id'>{$row['name']}</a></td><td>{$row['cat']}</td><td>{$row['exp_time']}</td> <td>{$row['reason']}</td> <td> <a href='details.php?req_id=$req_id&regno=$fd&type=$url'>MORE DETAILS</a></td><td> <a href='../trans.php?req_id=$req_id&regno=$fd&status=$rej&type=$url'>REJECT</a></td></tr>\n";
-                                }
-                                  }
-                                      ?>
-              </tbody>
-            </table>
-          </div>
+                                 <div class="col-md-12 col-sm-12 col-xs-12">
+									<form action="index.php" method="post">
+								
+									
+										
+									 
+				               
+									  <input type="text" name="regno" class="form-control" placeholder="Enter Registration Number">
+									  
+                                      <br/>
+									  <button type="submit" name="submit" class="btn btn-primary ">Submit</button>
+									</form>	
+									</div>	
 									</div>
 									
-							</div>		
+								<div class="row">
+                                 <div class="col-md-4 col-sm-4 col-xs-4">
+								 
+                                  </div>
+
+									<div class="col-md-4 col-sm-4 col-xs-4">
+								      <?php
+        if($no1==-1)
+		{
+			
+		}
+		else if($no1==0)
+		{
+			echo "<p style='align:center;'> No results found</p>";
+		}
+		else
+		{
+			$photo=$student['photo'];
+			$branch=$student['branch'];
+			$name=$student['name'];
+			$batch=$student['batch'];
+			$time=$student['exp_time'];
+			$status=$student['status'];
+			$regno=$student['regno'];
+			$req_id=$student['reqid'];
+			$gd=$_SESSION['regno'];
+			$st="DEPARTED";
+			$url="guard.php";
+			if($status=="GATEPASS_ISSUED")
+			{
+				$stat_photo="../images/appr.png";
+				$permit="1";
+			}
+			else if($status=="FACULTY_REJECTED"||$status=="HOD_REJECTED"||$status=="GATEPASS_REJECTED")
+			{
+				$stat_photo="../images/rej.png";
+				$permit="0";
+			}
+			else
+			{
+				$stat_photo="../images/waiting.png";
+				$permit="0";
+			}
+				
+echo "	
+<div class='row' >
+<div class='col-xl-3'>
+</div>
+<div class='col-xl-3'>
+<div class='card'>
+		<img src='../images/students/$photo' height='200px' width='100%;'alt=''>
+	<a href='profile.php?regno=$regno'>	<h1>{$name}</h1> </a>
+  <p class='title'>{$branch} {$batch}</p>
+  <p>Time : {$time}</p>
+  <p>Status : {$status}</p>
+  <img src='$stat_photo' height='100px' width='100%;'alt=''>";
+  if($permit==1)
+  {
+  echo "<br/><p><a href='../trans.php?req_id=$req_id&regno=$gd&status=$st&type=$url'>PERMIT</a></p>";
+  }
+ echo " </div>
+</div>
+	<div class='col-xl-3'>
+</div>
+</div>";
+		}
+ ?>
+                                  </div>
+								  
+								  <div class="col-md-4 col-sm-4 col-xs-4">
+								 
+                                  </div>
+								  
+                                 </div>								
+									
                             </div>
                         </section></div>
 

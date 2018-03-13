@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 11, 2018 at 03:50 PM
+-- Generation Time: Mar 13, 2018 at 09:44 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -36,6 +36,8 @@ CREATE TABLE IF NOT EXISTS `fac_adv` (
   `batch` varchar(20) NOT NULL,
   `contact` int(10) NOT NULL,
   `branch` varchar(10) NOT NULL,
+  `position` varchar(50) NOT NULL DEFAULT 'Asst Professor',
+  `photo` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`f_regno`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -43,8 +45,31 @@ CREATE TABLE IF NOT EXISTS `fac_adv` (
 -- Dumping data for table `fac_adv`
 --
 
-INSERT INTO `fac_adv` (`f_regno`, `name`, `hod_regno`, `batch`, `contact`, `branch`) VALUES
-('EMP172/16', 'Bineeth Kuriakose', 'EMP200/17', '2017', 987654321, 'CSE');
+INSERT INTO `fac_adv` (`f_regno`, `name`, `hod_regno`, `batch`, `contact`, `branch`, `position`, `photo`) VALUES
+('EMP172/16', 'Bineeth Kuriakose', 'EMP200/17', '2017', 987654321, 'CSE', 'Asst Professor', 'EMP172_16.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `guard`
+--
+
+DROP TABLE IF EXISTS `guard`;
+CREATE TABLE IF NOT EXISTS `guard` (
+  `g_regno` varchar(30) NOT NULL,
+  `name` varchar(30) DEFAULT NULL,
+  `contact` int(10) NOT NULL,
+  `position` varchar(25) NOT NULL DEFAULT 'Asst Security',
+  `photo` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`g_regno`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `guard`
+--
+
+INSERT INTO `guard` (`g_regno`, `name`, `contact`, `position`, `photo`) VALUES
+('EMP500/16', 'Vijay Babu', 987654321, 'Head Security', 'emp500_16,jpg');
 
 -- --------------------------------------------------------
 
@@ -86,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `request` (
   `regno` varchar(20) NOT NULL,
   `cat` varchar(20) DEFAULT NULL,
   `reason` text,
-  `exp_time` datetime DEFAULT NULL,
+  `exp_time` varchar(200) DEFAULT NULL,
   `curr_time` datetime DEFAULT NULL,
   `STATUS` varchar(30) NOT NULL DEFAULT 'WAITING_FACULTY_APPROVAL',
   `fappr_time` datetime DEFAULT NULL,
@@ -95,15 +120,19 @@ CREATE TABLE IF NOT EXISTS `request` (
   `out_time` datetime DEFAULT NULL,
   `office_regno` varchar(20) DEFAULT NULL,
   `guard_regno` varchar(30) DEFAULT NULL,
+  `ffor_time` datetime DEFAULT NULL,
+  `fa_hod_msg` text,
   PRIMARY KEY (`reqid`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `request`
 --
 
-INSERT INTO `request` (`reqid`, `regno`, `cat`, `reason`, `exp_time`, `curr_time`, `STATUS`, `fappr_time`, `hodappr_time`, `officeappr_time`, `out_time`, `office_regno`, `guard_regno`) VALUES
-(9, '15CS181', 'Health Problems', 'Fever...Its urgent', '2018-03-11 12:30:00', '2018-03-11 18:59:02', 'DEPARTED', '2018-03-11 20:51:23', '2018-03-11 20:59:07', '2018-03-11 21:04:45', '2018-03-11 21:19:27', 'EMP100/13', 'EMP100/13');
+INSERT INTO `request` (`reqid`, `regno`, `cat`, `reason`, `exp_time`, `curr_time`, `STATUS`, `fappr_time`, `hodappr_time`, `officeappr_time`, `out_time`, `office_regno`, `guard_regno`, `ffor_time`, `fa_hod_msg`) VALUES
+(20, '15CS181', 'Health Problems', 'fever', '15 March 2018 - 09:35', '2018-03-13 23:13:55', 'FORWARD_HOD', NULL, NULL, NULL, NULL, NULL, NULL, '2018-03-14 02:14:08', 'it can be consideredd '),
+(21, '15CS181', 'Attending Events', 'vyaptivssm  fdkamds;kv;nse v jengjksen;w gek;gn;q;oengq ;engf;qoweng ;oweknf;qowen f;oegnq;oeng ;ekgnq\'wekg ', '15 March 2018 - 09:35', '2018-03-13 23:14:42', 'FORWARD_HOD', NULL, NULL, NULL, NULL, NULL, NULL, '2018-03-14 02:16:30', 'consider it'),
+(23, '15CS181', 'Attending Events', 'Hackathon Meeting', '15 March 2018 - 12:35', '2018-03-14 02:17:13', 'WAITING_FACULTY_APPROVAL', '2018-03-14 02:25:22', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
