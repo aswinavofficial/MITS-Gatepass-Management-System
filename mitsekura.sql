@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 13, 2018 at 09:44 PM
+-- Generation Time: Mar 13, 2018 at 10:03 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -74,6 +74,21 @@ INSERT INTO `guard` (`g_regno`, `name`, `contact`, `position`, `photo`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `office`
+--
+
+DROP TABLE IF EXISTS `office`;
+CREATE TABLE IF NOT EXISTS `office` (
+  `o_regno` varchar(30) NOT NULL,
+  `name` varchar(30) DEFAULT NULL,
+  `contact` int(10) DEFAULT NULL,
+  `position` varchar(30) DEFAULT NULL,
+  `photo` varchar(30) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `register`
 --
 
@@ -130,9 +145,7 @@ CREATE TABLE IF NOT EXISTS `request` (
 --
 
 INSERT INTO `request` (`reqid`, `regno`, `cat`, `reason`, `exp_time`, `curr_time`, `STATUS`, `fappr_time`, `hodappr_time`, `officeappr_time`, `out_time`, `office_regno`, `guard_regno`, `ffor_time`, `fa_hod_msg`) VALUES
-(20, '15CS181', 'Health Problems', 'fever', '15 March 2018 - 09:35', '2018-03-13 23:13:55', 'FORWARD_HOD', NULL, NULL, NULL, NULL, NULL, NULL, '2018-03-14 02:14:08', 'it can be consideredd '),
-(21, '15CS181', 'Attending Events', 'vyaptivssm  fdkamds;kv;nse v jengjksen;w gek;gn;q;oengq ;engf;qoweng ;oweknf;qowen f;oegnq;oeng ;ekgnq\'wekg ', '15 March 2018 - 09:35', '2018-03-13 23:14:42', 'FORWARD_HOD', NULL, NULL, NULL, NULL, NULL, NULL, '2018-03-14 02:16:30', 'consider it'),
-(23, '15CS181', 'Attending Events', 'Hackathon Meeting', '15 March 2018 - 12:35', '2018-03-14 02:17:13', 'WAITING_FACULTY_APPROVAL', '2018-03-14 02:25:22', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(23, '15CS181', 'Attending Events', 'Hackathon Meeting', '15 March 2018 - 12:35', '2018-03-14 02:17:13', 'GATEPASS_ISSUED', '2018-03-14 02:25:22', NULL, '2018-03-14 03:31:35', NULL, 'EMP100/13', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
