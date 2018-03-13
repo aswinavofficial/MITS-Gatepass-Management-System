@@ -12,7 +12,7 @@ session_start();
 			if($_SESSION['type']=='STUDENT')
             header("location:student/index.php");
 		     if($_SESSION['type']=='GUARD')
-            header("location:guard/guard.php");
+            header("location:guard/index.php");
 		    if($_SESSION['type']=='FACULTY')
             header("location:faculty/index.php");  
 		    if($_SESSION['type']=='HOD')

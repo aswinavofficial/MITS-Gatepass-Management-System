@@ -189,7 +189,7 @@ $no1=mysqli_num_rows( $act );
                                 <span class="profile-status online"></span>
                             </h2>
 
-                            <p class="profile-title"><?php echo $details['position'].' '.$details['branch']; ?></p>
+                            <p class="profile-title"><?php echo $details['position']; ?></p>
 
                         </div>
 

@@ -59,6 +59,11 @@ class User {
 		{
 	$sql = "select * from fac_adv where f_regno='$regno'";	
 		}
+		
+		if($type=="GUARD")
+		{
+	$sql = "select * from guard where g_regno='$regno'";	
+		}
 		return $this->dbObj->ExecuteQuery($sql, 1);
 	
 		
