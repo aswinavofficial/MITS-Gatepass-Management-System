@@ -46,7 +46,7 @@ if($_GET['type']=='faculty.php')
 	$res=$objUser->office_sign($_GET['req_id'],$_GET['regno'],$_GET['status']);
     
 	
-	  header("location:office/office.php");
+	  header("location:office/index.php");
 	  
 
    }

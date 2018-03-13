@@ -64,6 +64,11 @@ class User {
 		{
 	$sql = "select * from guard where g_regno='$regno'";	
 		}
+		
+		if($type=="OFFICE")
+		{
+	$sql = "select * from office where o_regno='$regno'";	
+		}
 		return $this->dbObj->ExecuteQuery($sql, 1);
 	
 		
@@ -106,7 +111,7 @@ public function activity_office($regno)
 	{
 		
 	//$sql = "select reqid,regno,cat,reason,exp_time,name from request where status='HOD_APPROVED' ";	
-		$sql = "select r.reqid,r.regno,r.cat,r.reason,r.exp_time,s.name,s.photo,s.branch,s.batch,s.fad_regno,s.hod_regno from request r,student s where r.regno=s.s_regno and status='HOD_APPROVED'";	
+		$sql = "select * from request r,student s where r.regno=s.s_regno and status='HOD_APPROVED' or status='FACULTY_APPROVED'";	
 
 		
 		return $this->dbObj->ExecuteQuery($sql, 1);
