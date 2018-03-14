@@ -9,17 +9,11 @@ include_once '../db/dboperations.php';
  $objUser = new User();
  $rest=$objUser->user_data($_SESSION['regno'],"STUDENT");
 $details=mysqli_fetch_assoc($rest);
+$act=$objUser->activity_stud($_SESSION['regno']);
+$no1=mysqli_num_rows( $act );
+ $row = mysqli_fetch_assoc( $act )
 
 
-   if(isset($_POST['submit']))
-   {
-	   $day1=$_POST['datetime'];
-	   //$day1 = strtotime($_POST["datetime"]);
-       //$day1 = date('Y-m-d H:i:s', $day1); 
-	   $result=$objUser->request($_SESSION['regno'],$_POST['category'],$_POST['reason'],$day1);
-	   echo "<script>alert('Request has been sent...Stay Tuned!!!')</script>";
-
-   }
 	
 	
 	

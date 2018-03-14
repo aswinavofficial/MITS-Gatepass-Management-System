@@ -1,5 +1,5 @@
 <?php
-
+$no1=0;
 if (!isset($_SESSION))
     session_start();
 include_once 'dbconnect.php';
