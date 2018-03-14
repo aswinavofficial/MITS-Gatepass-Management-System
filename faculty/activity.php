@@ -10,7 +10,7 @@ include_once '../db/dboperations.php';
  $objUser = new User();
   $res=$objUser->user_data($_SESSION['regno'],"FACULTY");
  $details=mysqli_fetch_assoc($res);
-$act=$objUser->activity_log($_SESSION['regno']);
+$act=$objUser->activity_fac($_SESSION['regno']);
 $no1=mysqli_num_rows( $act );
 
 
@@ -211,7 +211,7 @@ $no1=mysqli_num_rows( $act );
                         <li class=""> 
                             <a href="notifications.php">
                                 <i class="fa fa-dashboard"></i>
-                                <span style="font-size:1.5em;"  class="title">Notifications</span>
+                                <span  style="font-size:1.5em;" class="title">Notifications</span>
                             </a>
                         </li>
 						
@@ -254,7 +254,7 @@ $no1=mysqli_num_rows( $act );
                     <div class="col-lg-12">
                         <section class="box ">
                             <header class="panel_header">
-                                <h2 class="title pull-left">GATE PASS REQUESTS</h2>
+                                <h2 class="title pull-left">ACTIVITY LOG</h2>
                                 <div class="actions panel_actions pull-right">
                                     <i class="box_toggle fa fa-chevron-down"></i>
                                     <i class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></i>
@@ -268,13 +268,12 @@ $no1=mysqli_num_rows( $act );
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
-                  <th></th>
-				  <th>Name</th>
+                  <th>Request ID</th>
                   <th>Category</th>
-                  <th>Time</th>
-				  <th>Reason </th>
-				  <th></th>
-				  <th></th>
+                  <th>Requested Time</th>
+				  <th>Out Time </th>
+				  <th>Reason</th>
+				  <th>Status</th>
 				  
                 </tr>
               </thead>
@@ -286,20 +285,13 @@ $no1=mysqli_num_rows( $act );
               <tbody>
                  <?php
                               if( $no1==0 ){
-                                 echo '<tr><td colspan="5">No Rows Returned</td></tr>';
+                                 echo '<tr><td colspan="6">No Result Found!!!</td></tr>';
 		
                                  }else{
                                 while( $row = mysqli_fetch_assoc( $act ) ){
 									$req_id=$row['reqid'];
-									$appr="FACULTY_APPROVED";
-									$rej="FACULTY_REJECTED";
-									$fwd="FORWARD_HOD";
-									$fd=$_SESSION['regno'];
-									$url="faculty.php";
-									//{$row['regno']}
-									$photo1=$row['photo'];
-									//<img src='../images/faculty/{$photo}' alt='' class='img-responsive img-circle'>;
-                               echo " <tr > <td><img src='../images/students/{$photo1}' alt='' class='tb img-circle'> </td><td><a href='../profile.php?id=$req_id'>{$row['name']}</a></td><td>{$row['cat']}</td><td>{$row['exp_time']}</td> <td>{$row['reason']}</td> <td> <a href='details.php?req_id=$req_id&regno=$fd&type=$url'>MORE DETAILS</a></td><td> <a href='../trans.php?req_id=$req_id&regno=$fd&status=$rej&type=$url'>REJECT</a></td></tr>\n";
+									
+                               echo " <tr > <td>{$req_id} </td><td>{$row['cat']}</td><td>{$row['exp_time']}</td> <td>{$row['out_time']}</td><td>{$row['reason']}</td> <td>{$row['STATUS']}</td> </tr>\n";
                                 }
                                   }
                                       ?>
