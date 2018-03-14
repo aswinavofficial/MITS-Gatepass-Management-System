@@ -213,21 +213,21 @@ $no1=mysqli_num_rows( $act );
                         <li class=""> 
                             <a href="index.php">
                                 <i class="fa fa-dashboard"></i>
-                                <span class="title">New Request</span>
+                                <span style="font-size:1.5em;" class="title">New Request</span>
                             </a>
                         </li>
 						
                         <li class=""> 
                             <a href="track.php">
                                 <i class="fa fa-dashboard"></i>
-                                <span class="title">Track Your Request</span>
+                                <span  style="font-size:1.5em;" class="title">Track Your Request</span>
                             </a>
                         </li>
 						
                         <li class=""> 
                             <a href="activity.php">
                                 <i class="fa fa-dashboard"></i>
-                                <span class="title">Activity Log</span>
+                                <span style="font-size:1.5em;" class="title">Activity Log</span>
                             </a>
                         </li>
              
