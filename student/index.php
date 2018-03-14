@@ -181,13 +181,13 @@ $details=mysqli_fetch_assoc($rest);
                     <!-- USER INFO - START -->
                     <div class="profile-info row">
 
-                        <div class="profile-image col-md-4 col-sm-4 col-xs-4">
+                        <div class="profile-image col-md-5 col-sm-5 col-xs-5">
                             <a href="">
                                 <img src="../images/students/<?php echo $details['photo']; ?>" alt="" class="img-responsive img-circle">
                             </a>
                         </div>
 
-                        <div class="profile-details col-md-8 col-sm-8 col-xs-8">
+                        <div class="profile-details col-md-7 col-sm-7 col-xs-7">
 
                             <h2>
                                 <a href=""><?php echo $details['name']; ?></a>
@@ -216,7 +216,7 @@ $details=mysqli_fetch_assoc($rest);
                         </li>
 						
                         <li class=""> 
-                            <a href="notificiations.php">
+                            <a href="notifications.php">
                                 <i class="fa fa-dashboard"></i>
                                 <span class="title">Notifications</span>
                             </a>

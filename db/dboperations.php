@@ -69,8 +69,12 @@ class User {
 		{
 	$sql = "select * from office where o_regno='$regno'";	
 		}
+		
+	if($type=="HOD")
+		{
+	$sql = "select * from hod where h_regno='$regno'";	
+		}
 		return $this->dbObj->ExecuteQuery($sql, 1);
-	
 		
 	}
 	

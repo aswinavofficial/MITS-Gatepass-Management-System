@@ -2,13 +2,13 @@
 session_start();
 
 if (empty($_SESSION['regno'])) {
-    header("location:index.html");
+    header("location:../index.php");
     exit();
 } 
 include_once '../db/dboperations.php';
  $objUser = new User();
- $res=$objUser->user_details_st($_SESSION['regno']);
- $details=mysqli_fetch_assoc($res);
+ $rest=$objUser->user_data($_SESSION['regno'],"STUDENT");
+$details=mysqli_fetch_assoc($rest);
 
 
    if(isset($_POST['submit']))
@@ -181,13 +181,13 @@ include_once '../db/dboperations.php';
                     <!-- USER INFO - START -->
                     <div class="profile-info row">
 
-                        <div class="profile-image col-md-4 col-sm-4 col-xs-4">
+                        <div class="profile-image col-md-5 col-sm-5 col-xs-5">
                             <a href="">
                                 <img src="../images/students/<?php echo $details['photo']; ?>" alt="" class="img-responsive img-circle">
                             </a>
                         </div>
 
-                        <div class="profile-details col-md-8 col-sm-8 col-xs-8">
+                        <div class="profile-details col-md-7 col-sm-7 col-xs-7">
 
                             <h2>
                                 <a href=""><?php echo $details['name']; ?></a>
@@ -216,14 +216,14 @@ include_once '../db/dboperations.php';
                         </li>
 						
                         <li class=""> 
-                            <a href="index.html">
+                            <a href="notifications.php">
                                 <i class="fa fa-dashboard"></i>
                                 <span class="title">Notifications</span>
                             </a>
                         </li>
 						
                         <li class=""> 
-                            <a href="index.html">
+                            <a href="activity.php">
                                 <i class="fa fa-dashboard"></i>
                                 <span class="title">Activity Log</span>
                             </a>

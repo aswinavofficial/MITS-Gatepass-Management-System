@@ -8,15 +8,15 @@ if (empty($_SESSION['regno'])) {
 } 
 include_once '../db/dboperations.php';
  $objUser = new User();
-  $res=$objUser->user_data($_SESSION['regno'],"FACULTY");
+  $res=$objUser->user_data($_SESSION['regno'],"HOD");
  $details=mysqli_fetch_assoc($res);
-$act=$objUser->activity_log($_SESSION['regno']);
+
+$act=$objUser->activity_hod($_SESSION['regno']);
 $no1=mysqli_num_rows( $act );
 
 
-
 ?>
-	
+
 	
 
 <!DOCTYPE html>
@@ -135,7 +135,7 @@ $no1=mysqli_num_rows( $act );
                     <ul class="info-menu right-links list-inline list-unstyled">
                         <li class="profile">
                             <a href="#" data-toggle="dropdown" class="toggle">
-                                <img src="../images/faculty/<?php echo $details['photo']; ?>" alt="" class="img-circle img-inline">
+                                <img src="../images/hod/<?php echo $details['photo']; ?>" alt="" class="img-circle img-inline">
                                 <span><?php echo $details['name']; ?><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul class="dropdown-menu profile animated fadeIn">
@@ -174,13 +174,13 @@ $no1=mysqli_num_rows( $act );
                     <!-- USER INFO - START -->
                     <div class="profile-info row">
 
-                        <div class="profile-image col-md-4 col-sm-4 col-xs-4">
+                        <div class="profile-image col-md-5 col-sm-5 col-xs-5">
                             <a href="">
-                                <img src="../images/faculty/<?php echo $details['photo']; ?>" alt="" class="img-responsive img-circle">
+                                <img src="../images/hod/<?php echo $details['photo']; ?>" alt="" class="img-responsive img-circle">
                             </a>
                         </div>
 
-                        <div class="profile-details col-md-8 col-sm-8 col-xs-8">
+                        <div class="profile-details col-md-7 col-sm-7 col-xs-7">
 
                             <h2>
                                 <a href=""><?php echo $details['name']; ?></a>
@@ -189,7 +189,7 @@ $no1=mysqli_num_rows( $act );
                                 <span class="profile-status online"></span>
                             </h2>
 
-                            <p class="profile-title"><?php echo $details['position'].' '.$details['branch']; ?></p>
+                            <p class="profile-title"><?php echo "HOD ".$details['branch']; ?></p>
 
                         </div>
 
@@ -286,7 +286,7 @@ $no1=mysqli_num_rows( $act );
               <tbody>
                  <?php
                               if( $no1==0 ){
-                                 echo '<tr><td colspan="5">No Rows Returned</td></tr>';
+                                 echo '<tr><td colspan="7">No Rows Returned</td></tr>';
 		
                                  }else{
                                 while( $row = mysqli_fetch_assoc( $act ) ){

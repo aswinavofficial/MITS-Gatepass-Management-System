@@ -16,7 +16,7 @@ session_start();
 		    if($_SESSION['type']=='FACULTY')
             header("location:faculty/index.php");  
 		    if($_SESSION['type']=='HOD')
-            header("location:hod/hod.php"); 
+            header("location:hod/index.php"); 
 		    if($_SESSION['type']=='ADMIN')
             header("location:admin/admin.php"); 
 		    if($_SESSION['type']=='OFFICE')
