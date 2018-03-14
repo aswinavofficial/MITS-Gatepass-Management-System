@@ -269,6 +269,7 @@ $no1=mysqli_num_rows( $act );
               <thead>
                 <tr>
                   <th>Request ID</th>
+				  <th>Name</th>
                   <th>Category</th>
                   <th>Requested Time</th>
 				  <th>Out Time </th>
@@ -291,7 +292,7 @@ $no1=mysqli_num_rows( $act );
                                 while( $row = mysqli_fetch_assoc( $act ) ){
 									$req_id=$row['reqid'];
 									
-                               echo " <tr > <td>{$req_id} </td><td>{$row['cat']}</td><td>{$row['exp_time']}</td> <td>{$row['out_time']}</td><td>{$row['reason']}</td> <td>{$row['STATUS']}</td> </tr>\n";
+                               echo " <tr > <td>{$req_id} </td><td>{$row['name']} </td><td>{$row['cat']}</td><td>{$row['exp_time']}</td> <td>{$row['out_time']}</td><td>{$row['reason']}</td> <td>{$row['STATUS']}</td> </tr>\n";
                                 }
                                   }
                                       ?>
