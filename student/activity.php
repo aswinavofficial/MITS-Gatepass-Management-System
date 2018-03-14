@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+$no1=0;
 if (empty($_SESSION['regno'])) {
     header("location:../index.php");
     exit();
@@ -9,7 +9,8 @@ include_once '../db/dboperations.php';
  $objUser = new User();
  $rest=$objUser->user_data($_SESSION['regno'],"STUDENT");
 $details=mysqli_fetch_assoc($rest);
-
+$act=$objUser->activity_stud($_SESSION['regno']);
+$no1=mysqli_num_rows( $act );
 
    if(isset($_POST['submit']))
    {
@@ -64,6 +65,7 @@ $details=mysqli_fetch_assoc($rest);
 
 
 		<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END --> 
+                  <link href="../assets/plugins/responsive-tables/css/rwd-table.min.css" rel="stylesheet" type="text/css" media="screen"/>
 
         <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END --> 
 
@@ -209,16 +211,16 @@ $details=mysqli_fetch_assoc($rest);
 
 
                         <li class=""> 
-                            <a href="index.html">
+                            <a href="index.php">
                                 <i class="fa fa-dashboard"></i>
                                 <span class="title">New Request</span>
                             </a>
                         </li>
 						
                         <li class=""> 
-                            <a href="notifications.php">
+                            <a href="track.php">
                                 <i class="fa fa-dashboard"></i>
-                                <span class="title">Notifications</span>
+                                <span class="title">Track Your Request</span>
                             </a>
                         </li>
 						
@@ -261,7 +263,7 @@ $details=mysqli_fetch_assoc($rest);
                     <div class="col-lg-12">
                         <section class="box ">
                             <header class="panel_header">
-                                <h2 class="title pull-left">NEW GATE PASS REQUEST</h2>
+                                <h2 class="title pull-left">ACTIVITY LOG</h2>
                                 <div class="actions panel_actions pull-right">
                                     <i class="box_toggle fa fa-chevron-down"></i>
                                     <i class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></i>
@@ -269,44 +271,45 @@ $details=mysqli_fetch_assoc($rest);
                                 </div>
                             </header>
                             <div class="content-body">  
-							<div class="row">
+			                 	<div class="row">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
-									<form action="index.php" method="post">
-								<p style="font-size:20px;">	REASON CATEGORY </p>
-									<select name="category" class="form-control input-lg m-bot15">
-                                            <option>Please Choose</option>
-                                            <option>Health Problems</option>
-                                            <option>Attending Events</option>
-											<option>Private Functions</option>
-											<option>Other</option>
-                                        </select>
-										<br/>
-										<p style="font-size:20px;"> REQUIRED DEPERATURE TIME </p>
-									<!--	<input type="text" name="datetime" value="Wed, 14 March 2018" class="form-control datepicker col-md-4" data-format="D, dd MM yyyy">
-                                       <br/> <br/> <br/>
-									   <p style="font-size:20px;"> REQUIRED DEPERATURE TIME </p>
-									   <input type="text" name="time" class="form-control timepicker col-md-4" data-template="dropdown" data-show-seconds="true" data-default-time="11:30 AM" data-show-meridian="true" data-minute-step="5" data-second-step="5">
-                                      -->
-									  <div class="form-group">
-                                            <div class="input-group date form_datetime_meridian" data-date="2018-03-14T05:35:07Z" data-date-format="dd MM  yyyy - HH:ii p" data-link-field="dtpick_2">
-                                                <input name="datetime" class="form-control" size="16" type="text" value="" readonly>
-                                                <span class="input-group-addon"><span class="fa fa-times"></span></span>
-                                                <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
-                                            </div>
-                                            <input type="hidden" id="dtpick_2" value="" />
-                                        </div>
-									  <br> 
-				                    <p style="font-size:20px;"> REASON</p>
-
-									  <textarea  name="reason" class="form-control autogrow" cols="5" id="field-7" placeholder="Enter your request here" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 150px;"></textarea>
-                                      <br/>
-									  
-
-									  <button type="submit" name="submit" class="btn btn-primary ">Submit</button>
-									</form>	
+									       <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Request ID</th>
+                  <th>Category</th>
+                  <th>Requested Time</th>
+				  <th>Out Time </th>
+				  <th>Reason</th>
+				  <th>Status</th>
+				  
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  
+                </tr>
+              </tfoot>
+              <tbody>
+                 <?php
+                              if( $no1==0 ){
+                                 echo '<tr><td colspan="6">No Result Found!!!</td></tr>';
+		
+                                 }else{
+                                while( $row = mysqli_fetch_assoc( $act ) ){
+									$req_id=$row['reqid'];
+									
+                               echo " <tr > <td>{$req_id} </td><td>{$row['cat']}</td><td>{$row['exp_time']}</td> <td>{$row['out_time']}</td><td>{$row['reason']}</td> <td>{$row['STATUS']}</td> </tr>\n";
+                                }
+                                  }
+                                      ?>
+              </tbody>
+            </table>
+          </div>
 									</div>
 									
-							</div>		
+							</div>
                             </div>
                         </section></div>
 

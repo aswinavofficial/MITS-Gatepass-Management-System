@@ -49,6 +49,15 @@ class User {
 		
 	}
 	
+	 public function activity_stud($regno)
+	{
+	$sql = "select * from request r,student s where r.regno=s.s_regno and s.s_regno='$regno'";	
+		
+		return $this->dbObj->ExecuteQuery($sql, 1);
+	
+		
+	}
+	
 	public function user_data($regno,$type)
 	{
 		if($type=="STUDENT")

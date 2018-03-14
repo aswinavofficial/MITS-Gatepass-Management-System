@@ -54,7 +54,10 @@ $details=mysqli_fetch_assoc($rest);
         <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START --> 
 	 <link href="../assets/plugins/jquery-ui/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" media="screen"/>
 	 <link href="../assets/plugins/datepicker/css/datepicker.css" rel="stylesheet" type="text/css" media="screen"/>
-<!--	 <link href="../assets/plugins/daterangepicker/css/daterangepicker-bs3.css" rel="stylesheet" type="text/css" media="screen"/> -->
+     <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+     <link href="../css/track.css" rel="stylesheet" type="text/css" media="all" />
+	 
+	 <!--	 <link href="../assets/plugins/daterangepicker/css/daterangepicker-bs3.css" rel="stylesheet" type="text/css" media="screen"/> -->
 	 <link href="../assets/plugins/timepicker/css/bootstrap-timepicker.css" rel="stylesheet" type="text/css" media="screen"/>
 	 <link href="../assets/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" media="screen"/>
 <!--	 <link href="../assets/plugins/tagsinput/css/bootstrap-tagsinput.css" rel="stylesheet" type="text/css" media="screen"/> -->
@@ -209,9 +212,9 @@ $details=mysqli_fetch_assoc($rest);
 
 
                         <li class=""> 
-                            <a href="index.html">
+                            <a href="index.php">
                                 <i class="fa fa-dashboard"></i>
-                                <span class="title">New Request</span>
+                                <span style="font-size:1.5em;" class="title">New Request</span>
                             </a>
                         </li>
 						
@@ -261,7 +264,7 @@ $details=mysqli_fetch_assoc($rest);
                     <div class="col-lg-12">
                         <section class="box ">
                             <header class="panel_header">
-                                <h2 class="title pull-left">NEW GATE PASS REQUEST</h2>
+                                <h2 class="title pull-left">REQUEST TRACKING</h2>
                                 <div class="actions panel_actions pull-right">
                                     <i class="box_toggle fa fa-chevron-down"></i>
                                     <i class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></i>
@@ -269,44 +272,50 @@ $details=mysqli_fetch_assoc($rest);
                                 </div>
                             </header>
                             <div class="content-body">  
-							<div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-									<form action="index.php" method="post">
-								<p style="font-size:20px;">	REASON CATEGORY </p>
-									<select name="category" class="form-control input-lg m-bot15">
-                                            <option>Please Choose</option>
-                                            <option>Health Problems</option>
-                                            <option>Attending Events</option>
-											<option>Private Functions</option>
-											<option>Other</option>
-                                        </select>
-										<br/>
-										<p style="font-size:20px;"> REQUIRED DEPERATURE TIME </p>
-									<!--	<input type="text" name="datetime" value="Wed, 14 March 2018" class="form-control datepicker col-md-4" data-format="D, dd MM yyyy">
-                                       <br/> <br/> <br/>
-									   <p style="font-size:20px;"> REQUIRED DEPERATURE TIME </p>
-									   <input type="text" name="time" class="form-control timepicker col-md-4" data-template="dropdown" data-show-seconds="true" data-default-time="11:30 AM" data-show-meridian="true" data-minute-step="5" data-second-step="5">
-                                      -->
-									  <div class="form-group">
-                                            <div class="input-group date form_datetime_meridian" data-date="2018-03-14T05:35:07Z" data-date-format="dd MM  yyyy - HH:ii p" data-link-field="dtpick_2">
-                                                <input name="datetime" class="form-control" size="16" type="text" value="" readonly>
-                                                <span class="input-group-addon"><span class="fa fa-times"></span></span>
-                                                <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
-                                            </div>
-                                            <input type="hidden" id="dtpick_2" value="" />
-                                        </div>
-									  <br> 
-				                    <p style="font-size:20px;"> REASON</p>
-
-									  <textarea  name="reason" class="form-control autogrow" cols="5" id="field-7" placeholder="Enter your request here" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 150px;"></textarea>
-                                      <br/>
-									  
-
-									  <button type="submit" name="submit" class="btn btn-primary ">Submit</button>
-									</form>	
-									</div>
+							
 									
-							</div>		
+	
+	<div class="content3">
+        <div class="shipment">
+			<div class="confirm">
+                <div class="imgcircle">
+                    <img src="images/confirm.png" alt="">
+            	</div>
+				<span class="line"></span>
+				<p>FACULTY</p>
+			</div>
+			<div class="process">
+           	 	<div class="imgcircle">
+                	<img src="images/process.png" alt="">
+            	</div>
+				<span class="line"></span>
+				<p>HOD</p>
+			</div>
+			<div class="quality">
+				<div class="imgcircle">
+                	<img src="images/quality.png" alt="">
+            	</div>
+				<span class="line"></span>
+				<p>OFFICE</p>
+			</div>
+			<div class="dispatch">
+				<div class="imgcircle">
+                	<img src="images/dispatch.png" alt="">
+            	</div>
+				<span class="line"></span>
+				<p>GATE</p>
+			</div>
+			<div class="delivery">
+				<div class="imgcircle">
+                	<img src="images/delivery.png" alt="">
+				</div>
+				<p>Product Delivered</p>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+
+									
                             </div>
                         </section></div>
 
