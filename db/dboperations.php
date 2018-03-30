@@ -30,10 +30,14 @@ class User {
    
     public function  request($regno,$cat,$reason,$date1)
    { 
-   echo "Inside request";
+   
     $sql = "INSERT INTO request(regno,cat,reason,exp_time,curr_time) VALUES
 		('$regno', '$cat','$reason','$date1',now())";
-    return $this->dbObj->ExecuteQuery($sql, 2);
+		$req_id=$this->dbObj->ExecuteQuery($sql, 2);
+	$sql1="insert into req_trans(req_id,trans_type,	trans_time,trans_status) 
+	values('$req_id','STUDENT',now(),'REQUEST SEND')";
+	$trans_id=$this->dbObj->ExecuteQuery($sql1, 2);
+    return $req_id;
 
    }
 
@@ -121,7 +125,7 @@ class User {
 	 public function activity_hod($regno)
 	{
 		
-	$sql = "select r.reqid,r.regno,r.cat,r.reason,r.exp_time,s.name,s.photo,s.branch,s.batch,s.fad_regno,s.hod_regno from request r,student s where r.regno=s.s_regno and status='FACULTY_APPROVED' and s.hod_regno='$regno'";	
+	$sql = "select r.reqid,r.regno,r.cat,r.reason,r.exp_time,s.name,s.photo,s.branch,s.batch,s.fad_regno,s.hod_regno from request r,student s where r.regno=s.s_regno and ( status='FACULTY_APPROVED' or status='FORWARD_HOD')  and s.hod_regno='$regno'";	
 
 		return $this->dbObj->ExecuteQuery($sql, 1);
 	
@@ -148,29 +152,46 @@ public function activity_office($regno)
    public function faculty_sign($req_id,$regno,$status)
    {
 	   $sql="update request set status='$status',fappr_time=now() where reqid='$req_id'";
-    return $this->dbObj->ExecuteQuery($sql, 3);
+    $id= $this->dbObj->ExecuteQuery($sql, 3);
+	$sql1="insert into req_trans(req_id,trans_type,	trans_time,trans_status) 
+	values('$req_id','FACULTY',now(),'$status')";
+	$trans_id=$this->dbObj->ExecuteQuery($sql1, 2);
+	return $id;
    }
    
     public function forward_hod($req_id,$regno,$message)
    {
-	   echo $req_id;
-	   echo "<br/>".$message;
+	   
 	   $status="FORWARD_HOD";
 	   $sql="update request set fa_hod_msg='$message',ffor_time=now(),status='$status' where reqid='$req_id'";
-    return $this->dbObj->ExecuteQuery($sql, 3);
+    $id=$this->dbObj->ExecuteQuery($sql, 3);
+	
+	$sql1="insert into req_trans(req_id,trans_type,	trans_time,trans_status) 
+	values('$req_id','FACULTY',now(),'$status')";
+	$trans_id=$this->dbObj->ExecuteQuery($sql1, 2);
+	return $id;
    }
    
      public function hod_sign($req_id,$regno,$status)
    {
 	   $sql="update request set status='$status',hodappr_time=now() where reqid='$req_id'";
-    return $this->dbObj->ExecuteQuery($sql, 3);
+    $id= $this->dbObj->ExecuteQuery($sql, 3);
+	
+	$sql1="insert into req_trans(req_id,trans_type,	trans_time,trans_status) 
+	values('$req_id','HOD',now(),'$status')";
+	$trans_id=$this->dbObj->ExecuteQuery($sql1, 2);
+	return $id;
    }
    
      public function office_sign($req_id,$regno,$status)
    {
 	  
 	   $sql="update request set status='$status',officeappr_time=now(),office_regno='$regno' where reqid='$req_id'";
-    return $this->dbObj->ExecuteQuery($sql, 3);
+  $id=$this->dbObj->ExecuteQuery($sql, 3);
+	$sql1="insert into req_trans(req_id,trans_type,	trans_time,trans_status) 
+	values('$req_id','OFFICE',now(),'$status')";
+	$trans_id=$this->dbObj->ExecuteQuery($sql1, 2);
+	return $id;
    }
    
    
@@ -178,7 +199,11 @@ public function activity_office($regno)
    {
 	  
 	   $sql="update request set status='$status',out_time=now(),guard_regno='$regno' where reqid='$req_id'";
-    return $this->dbObj->ExecuteQuery($sql, 3);
+    $id=$this->dbObj->ExecuteQuery($sql, 3);
+	$sql1="insert into req_trans(req_id,trans_type,	trans_time,trans_status) 
+	values('$req_id','GUARD',now(),'$status')";
+	$trans_id=$this->dbObj->ExecuteQuery($sql1, 2);
+	return $id;
    }
    
   
