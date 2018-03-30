@@ -1,6 +1,5 @@
 
-	
-	<?php
+<?php
 $no1=0;
 session_start();
 if (empty($_SESSION['regno'])) {
@@ -9,14 +8,22 @@ if (empty($_SESSION['regno'])) {
 } 
 include_once '../db/dboperations.php';
  $objUser = new User();
-  $res=$objUser->user_data($_SESSION['regno'],"OFFICE");
+  $res=$objUser->user_data($_SESSION['regno'],"HOD");
  $details=mysqli_fetch_assoc($res);
-$act=$objUser->activity_office($_SESSION['regno']);
+$act=$objUser->activity_log($_SESSION['regno']);
 $no1=mysqli_num_rows( $act );
-//print_r($act);
+
+if(isset($_GET['req_id']))
+{
+$res=$objUser->req_details($_GET['req_id']);
+$request=mysqli_fetch_assoc($res);
+	
+}
 
 
 ?>
+	
+	
 
 <!DOCTYPE html>
 <html class=" ">
@@ -134,7 +141,7 @@ $no1=mysqli_num_rows( $act );
                     <ul class="info-menu right-links list-inline list-unstyled">
                         <li class="profile">
                             <a href="#" data-toggle="dropdown" class="toggle">
-                                <img src="../images/faculty/<?php echo $details['photo']; ?>" alt="" class="img-circle img-inline">
+                                <img src="../images/hod/<?php echo $details['photo']; ?>" alt="" class="img-circle img-inline">
                                 <span><?php echo $details['name']; ?><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul class="dropdown-menu profile animated fadeIn">
@@ -175,7 +182,8 @@ $no1=mysqli_num_rows( $act );
 
                         <div class="profile-image col-md-4 col-sm-4 col-xs-4">
                             <a href="">
-                                <img src="../images/faculty/<?php echo $details['photo']; ?>" alt="" class="img-responsive img-circle">
+		<img src="../images/hod/<?php echo $details['photo']; ?>" alt="" class="img-responsive img-circle">
+
                             </a>
                         </div>
 
@@ -188,8 +196,7 @@ $no1=mysqli_num_rows( $act );
                                 <span class="profile-status online"></span>
                             </h2>
 
-                            <p class="profile-title"><?php echo $details['position'].' '.$details['branch']; ?></p>
-
+                              <p class="profile-title"><?php echo "HOD ".$details['branch']; ?></p>
                         </div>
 
                     </div>
@@ -253,7 +260,7 @@ $no1=mysqli_num_rows( $act );
                     <div class="col-lg-12">
                         <section class="box ">
                             <header class="panel_header">
-                                <h2 class="title pull-left">GATE PASS REQUESTS</h2>
+                                <h2 class="title pull-left">DETAILS</h2>
                                 <div class="actions panel_actions pull-right">
                                     <i class="box_toggle fa fa-chevron-down"></i>
                                     <i class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></i>
@@ -261,52 +268,132 @@ $no1=mysqli_num_rows( $act );
                                 </div>
                             </header>
                             <div class="content-body">  
-							<div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-									       <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-              <thead>
-                <tr>
-                  <th></th>
-				  <th>Name</th>
-                  <th>Category</th>
-                  <th>Time</th>
-				  <th>Reason </th>
-				  <th></th>
-				  <th></th>
-				  
-                </tr>
-              </thead>
-              <tfoot>
-                <tr>
-                  
-                </tr>
-              </tfoot>
-              <tbody>
-                 <?php
-                              if( $no1==0 ){
-                                 echo '<tr><td colspan="5">No Rows Returned</td></tr>';
-		
-                                 }else{
-                                while( $row = mysqli_fetch_assoc( $act ) ){
-									$appr="GATEPASS_ISSUED";
-									$rej="GATEPASS_REJECTED";
+							 <div class="row">
+                                    <div class="col-md-3 col-sm-4 col-xs-12">
+                                        <div class="uprofile-image">
+                                            <img src="../images/students/<?php echo $request['photo']; ?>" alt="" class="img-responsive">
+                                        </div>
+                                        <div class="uprofile-name">
+                                            <h3>
+                                                <a href="#"><?php echo $request['name']; ?></a>
+                                                <!-- Available statuses: online, idle, busy, away and offline -->
+                                                <span class="uprofile-status online"></span>
+                                            </h3>
+                                            <p class="uprofile-title"><?php echo $request['branch'].' '.$request['batch']; ?></p>
+                                        </div>
+                                        <div class="uprofile-info">
+                                            <ul class="list-unstyled">
+                                               
+                                                <li><i class='fa fa-user'></i><?php echo $request['regno']?></li>
+                                                
+                                            </ul>
+                                        </div>
+                                       
+                                        
+
+                                    </div>
+                                   <!-- <div class="col-md-9 col-sm-8 col-xs-12"
+
+
+
+                                    </div> -->
+									   <div class="col-md-6">
+
+                                                
+
+                                                <div class="panel-group transparent" id="accordion-3" role="tablist" aria-multiselectable="true">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading" role="tab" id="headingOne">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion-3" href="#collapseOne-3" aria-expanded="true" aria-controls="collapseOne-3">
+                                                                    <i class='fa fa-check'></i> Category
+                                                                </a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseOne-3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                                            <div class="panel-body">
+                                                              <?php echo $request['cat']; ?>  
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading" role="tab" id="headingTwo">
+                                                            <h4 class="panel-title">
+                                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion-3" href="#collapseTwo-3" aria-expanded="false" aria-controls="collapseTwo-3">
+                                                                    <i class='fa fa-check'></i> Request
+                                                                </a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseTwo-3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                                            <div class="panel-body">
+														<p style="justify">	<?php echo $request['reason']; ?>  </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading" role="tab" id="headingThree">
+                                                            <h4 class="panel-title">
+                                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion-3" href="#collapseThree-3" aria-expanded="false" aria-controls="collapseThree-3">
+                                                                    <i class='fa fa-check'></i> Required Time
+                                                                </a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseThree-3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                                            <div class="panel-body">
+                                                                <?php echo $request['exp_time'] ?>  
+                                                            </div>
+                                                        </div>
+                                                    </div>
+													 <div class="panel panel-default">
+                                                        <div class="panel-heading" role="tab" id="headingFour">
+                                                            <h4 class="panel-title">
+                                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion-3" href="#collapseFour-3" aria-expanded="false" aria-controls="collapseThree-3">
+                                                                    <i class='fa fa-check'></i> Message from Faculty
+                                                                </a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseFour-3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                                                            <div class="panel-body">
+                                                                <?php echo $request['fa_hod_msg'] ?>  
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                </div>	
+
+                               <div class="row">
+                                <div class="col-md-3">
+                               <?php  
+							         $appr="HOD_APPROVED";
+									$rej="HOD_REJECTED";
+									$iss="GATEPASS_ISSUED";
 									$fd=$_SESSION['regno'];
-									$url="office.php";
-									$req_id=$row['reqid'];
-									//{$row['regno']}
-									$photo1=$row['photo'];
-									//<img src='../images/faculty/{$photo}' alt='' class='img-responsive img-circle'>;
-                               echo " <tr > <td><img src='../images/students/{$photo1}' alt='' class='tb img-circle'> </td><td><a href='../profile.php?id=$req_id'>{$row['name']}</a></td><td>{$row['cat']}</td><td>{$row['exp_time']}</td> <td>{$row['reason']}</td> <td> <a href='../trans.php?req_id=$req_id&regno=$fd&status=$appr&type=$url'>APPROVE</a></td><td> <a href='../trans.php?req_id=$req_id&regno=$fd&status=$rej&type=$url'>REJECT</a></td></tr>\n";
-                                }
-                                  }
-                                      ?>
-              </tbody>
-            </table>
-          </div>
-									</div>
+									$url="hod.php";
+									$req_id=$request['reqid'];
+							   echo '<div class="uprofile-buttons">';
+
+                                         echo " <a href='../trans.php?req_id=$req_id&regno=$fd&status=$rej&type=$url' "; echo ' class="btn btn-md btn-primary">REJECT</a> ';
+                                         echo "   <a href='../trans.php?req_id=$req_id&regno=$fd&status=$appr&type=$url' "; echo ' class="btn btn-md btn-primary">FORWARD TO OFFICE </a></div>';
+
+									    ?>
+							   </div>
+							   <div class="col-md-6">
+							   <?php
+							   $iss="GATEPASS_ISSUED";
+							   $url="hod.php";
+							   $fd=$_SESSION['regno'];
+
+									$req_id=$request['reqid'];
 									
-							</div>		
+							 echo '<div class="uprofile-buttons">';
+
+
+					   echo "   <a href='../trans.php?req_id=$req_id&regno=$fd&status=$iss&type=$url' "; echo ' class="btn btn-md btn-primary"> ISSUE GATE PASS </a> </div>';
+                                    ?>
+							   </div>
+                               </div>							   
                             </div>
                         </section></div>
 

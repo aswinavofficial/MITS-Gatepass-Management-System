@@ -291,11 +291,11 @@ $no1=mysqli_num_rows( $act );
                                  }else{
                                 while( $row = mysqli_fetch_assoc( $act ) ){
 									$req_id=$row['reqid'];
-									$appr="FACULTY_APPROVED";
-									$rej="FACULTY_REJECTED";
+									$appr="HOD_APPROVED";
+									$rej="HOD_REJECTED";
 									$fwd="FORWARD_HOD";
 									$fd=$_SESSION['regno'];
-									$url="faculty.php";
+									$url="hod.php";
 									//{$row['regno']}
 									$photo1=$row['photo'];
 									//<img src='../images/faculty/{$photo}' alt='' class='img-responsive img-circle'>;
