@@ -40,9 +40,13 @@ class User {
     return $req_id;
 
    }
-
-  
-  
+   
+   public function dis_req($reg_no)
+   {
+   $sql="select * from request where regno='$reg_no' order by curr_time desc LIMIT 1";
+   
+  	return $this->dbObj->ExecuteQuery($sql, 1);
+   }
 
     public function activity_log($regno)
 	{

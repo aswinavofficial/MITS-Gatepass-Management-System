@@ -35,7 +35,7 @@ if($_GET['type']=='faculty.php')
 	$res=$objUser->hod_sign($_GET['req_id'],$_GET['regno'],$_GET['status']);
 
 	
-	    header("location:hod/hod.php");
+	    header("location:hod/index.php");
 	  
 
    }
@@ -56,7 +56,7 @@ if($_GET['type']=='faculty.php')
 	$res=$objUser->guard_sign($_GET['req_id'],$_GET['regno'],$_GET['status']);
     
 	
-	  header("location:guard/guard.php");
+	  header("location:guard/index.php");
 	  
 
    }

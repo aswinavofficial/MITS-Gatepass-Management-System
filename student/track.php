@@ -11,12 +11,29 @@ include_once '../db/dboperations.php';
 $details=mysqli_fetch_assoc($rest);
 $act=$objUser->activity_stud($_SESSION['regno']);
 $no1=mysqli_num_rows( $act );
- $row = mysqli_fetch_assoc( $act )
+ $row = mysqli_fetch_assoc( $act );
+ 
 
+	
+   //$rt=$track['HOD']['h_regno'];
+	//echo "<script> alert('$rt'); </script>";
+ 
+//REQUEST
+$im=$objUser->dis_req($_SESSION['regno']);
+$req=mysqli_fetch_assoc($im);
 
-	
-	
-	
+//FACULTY
+$im1=$objUser->user_data($details['fad_regno'],"FACULTY");
+$track['FACULTY']=mysqli_fetch_assoc($im1);
+
+//HOD
+$im2=$objUser->user_data($details['hod_regno'],"HOD");
+$track['HOD']=mysqli_fetch_assoc($im2);
+
+//GUARD
+$im2=$objUser->user_data($details['hod_regno'],"HOD");
+$track['HOD']=mysqli_fetch_assoc($im2);
+
 	?>
 
 
@@ -273,14 +290,17 @@ $no1=mysqli_num_rows( $act );
         <div class="shipment">
 			<div class="confirm">
                 <div class="imgcircle">
-                    <img src="images/confirm.png" alt="">
+				<?php 
+				$track['FACULTY']['photo'] ?>
+                    <img src="" alt="">
             	</div>
 				<span class="line"></span>
 				<p>FACULTY</p>
 			</div>
 			<div class="process">
            	 	<div class="imgcircle">
-                	<img src="images/process.png" alt="">
+                	 <img src="" alt=""> 
+
             	</div>
 				<span class="line"></span>
 				<p>HOD</p>
