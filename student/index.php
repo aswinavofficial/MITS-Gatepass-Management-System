@@ -6,6 +6,8 @@ if (empty($_SESSION['regno'])) {
     exit();
 } 
 include_once '../db/dboperations.php';
+include_once '../sendmail.php';
+
  $objUser = new User();
  $rest=$objUser->user_data($_SESSION['regno'],"STUDENT");
 $details=mysqli_fetch_assoc($rest);
@@ -14,10 +16,17 @@ $details=mysqli_fetch_assoc($rest);
    if(isset($_POST['submit']))
    {
 	   $day1=$_POST['datetime'];
+	   $name=$details['parent'];
+	   $subject=$name." applied for Gate Pass";
+	   $ToEmail=$details['parent_email'];
+	   $message="Details of Request CATEGORY: ".$_POST['category']." REASON: ".$_POST['reason']." Time to leave : ".$day1;
+	   
 	   //$day1 = strtotime($_POST["datetime"]);
        //$day1 = date('Y-m-d H:i:s', $day1); 
 	   $result=$objUser->request($_SESSION['regno'],$_POST['category'],$_POST['reason'],$day1);
+	   $response=sendmail($subject,$name,$ToEmail,$message);
 	   echo "<script>alert('Request has been sent...Stay Tuned!!!')</script>";
+      
 
    }
 	

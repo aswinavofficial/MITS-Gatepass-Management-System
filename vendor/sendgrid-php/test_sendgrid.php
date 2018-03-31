@@ -5,7 +5,7 @@
 //require 'vendor/autoload.php';
 // If you are not using Composer
 require("vendor/sendgrid-php/sendgrid-php.php");
-$from = new SendGrid\Email("MITSEKURA", "info@mitsekura.me");
+$from = new SendGrid\Email("MITSEKURA", "mitsekura@iamaswin.me");
 $subject = "Notification from MITS";
 $to = new SendGrid\Email("Aswin", "aswinavofficial@gmail.com");
 $content = new SendGrid\Content("text/plain", "and easy to do anywhere, even with PHP");
