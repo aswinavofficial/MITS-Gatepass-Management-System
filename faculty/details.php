@@ -210,7 +210,7 @@ $request=mysqli_fetch_assoc($res);
                         <li class=""> 
                             <a href="index.php">
                                 <i class="fa fa-dashboard"></i>
-                                <span class="title">New Request</span>
+                                <span class="title">Gate Pass Requests</span>
                             </a>
                         </li>
 						
@@ -354,13 +354,15 @@ $request=mysqli_fetch_assoc($res);
                                <?php  
 							         $appr="FACULTY_APPROVED";
 									$rej="FACULTY_REJECTED";
+									$iss="GATEPASS_ISSUED";
 									$fd=$_SESSION['regno'];
 									$url="faculty.php";
 									$req_id=$request['reqid'];
 							   echo '<div class="uprofile-buttons">';
                                          echo " <a href='../trans.php?req_id=$req_id&regno=$fd&status=$rej&type=$url' "; echo ' class="btn btn-md btn-primary">REJECT</a> ';
-                                         echo "   <a href='../trans.php?req_id=$req_id&regno=$fd&status=$appr&type=$url' "; echo ' class="btn btn-md btn-primary">APPROVE </a>
-                                        </div>'; ?>
+                                       //  echo "   <a href='../trans.php?req_id=$req_id&regno=$fd&status=$appr&type=$url' "; echo ' class="btn btn-md btn-primary">APPROVE </a>
+                                       echo "   <a href='../trans.php?req_id=$req_id&regno=$fd&status=$iss&type=$url' "; echo ' class="btn btn-md btn-primary"> ISSUE GATE PASS (Special Case) </a>
+									   </div>'; ?>
 							   </div>
 							   <div class="col-md-6">
 							   <form action="../trans.php" method="get">

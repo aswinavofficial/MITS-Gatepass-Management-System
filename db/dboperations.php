@@ -50,7 +50,7 @@ class User {
 
     public function activity_log($regno)
 	{
-	$sql = "select r.reqid,r.regno,r.cat,r.reason,r.exp_time,s.name,s.photo,s.branch,s.batch from request r,student s where r.regno=s.s_regno and status='WAITING_FACULTY_APPROVAL' and 	s.fad_regno='$regno'";	
+	$sql = "select r.reqid,r.regno,r.cat,r.reason,r.exp_time,s.name,s.photo,s.branch,s.batch from request r,student s where r.regno=s.s_regno and status='WAITING_FACULTY_APPROVAL' and s.fad_regno='$regno' order by r.reqid desc";	
 		
 		return $this->dbObj->ExecuteQuery($sql, 1);
 	
@@ -68,7 +68,7 @@ class User {
 	
 	public function activity_fac($regno)
 	{
-	$sql = "select * from request r,student s where r.regno=s.s_regno and s.fad_regno='$regno'";	
+	$sql = "select * from request r,student s where r.regno=s.s_regno and s.fad_regno='$regno'order by r.reqid desc";	
 		
 		return $this->dbObj->ExecuteQuery($sql, 1);
 	
