@@ -372,7 +372,7 @@ a:hover, a:focus {
 }
 .page-topbar .logo-area {
     width: 300px;
-    background-color: #9972b5;
+    background-color: #fff;
     display: block;
     min-height: 60px;
     float: left;
@@ -4845,7 +4845,7 @@ code {
 /*collapsed menu and chat open states*/
 
 .page-topbar.sidebar_shift .logo-area {
-    background-color: #1fb5ac;
+    background-color: #fff;
 }
 .page-topbar.chat_shift .logo-area {
     background-color: #1fb5ac;

@@ -224,6 +224,13 @@ $no1=mysqli_num_rows( $act );
                             </a>
                         </li>
 						
+						<li class=""> 
+                            <a href="qr.php">
+                                <i class="fa fa-dashboard"></i>
+                                <span style="font-size:1.5em;" class="title">QR Code</span>
+                            </a>
+                        </li>
+						
                         <li class=""> 
                             <a href="activity.php">
                                 <i class="fa fa-dashboard"></i>

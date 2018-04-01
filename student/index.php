@@ -89,6 +89,7 @@ $details=mysqli_fetch_assoc($rest);
     <body class=" "><!-- START TOPBAR -->
         <div class='page-topbar '>
             <div class='logo-area'>
+	<!--	<div style="padding-left:"10px"">	<img  src="../images/mits.png" > </div> -->
 
             </div>
             <div class='quick-area'>

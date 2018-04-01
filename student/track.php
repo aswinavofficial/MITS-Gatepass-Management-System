@@ -236,6 +236,13 @@ $track['HOD']=mysqli_fetch_assoc($im2);
                             </a>
                         </li>
 						
+						<li class=""> 
+                            <a href="qr.php">
+                                <i class="fa fa-dashboard"></i>
+                                <span style="font-size:1.5em;" class="title">QR Code</span>
+                            </a>
+                        </li>
+						
                         <li class=""> 
                             <a href="activity.php">
                                 <i class="fa fa-dashboard"></i>
@@ -284,8 +291,9 @@ $track['HOD']=mysqli_fetch_assoc($im2);
                             </header>
                             <div class="content-body">  
 							
+							<?php echo $req['STATUS'] ?>
 									
-	
+	<!--
 	<div class="content3">
         <div class="shipment">
 			<div class="confirm">
@@ -327,9 +335,9 @@ $track['HOD']=mysqli_fetch_assoc($im2);
 			</div>
 			<div class="clear"></div>
 		</div>
-	</div>
+	</div> -->
 	
-	<img src="../qr.php?regno=<?php echo $_SESSION['regno'];?>" >
+	
 
 									
                             </div>

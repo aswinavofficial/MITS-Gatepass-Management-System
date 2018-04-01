@@ -314,7 +314,7 @@ $track['HOD']=mysqli_fetch_assoc($im2);
  </div>
 </div>
 	<div class="col-xl-3">
-	
+	<div align="center" > <a > RESEND MAIL </a> </div>
 </div>
 </div>
 </div>
