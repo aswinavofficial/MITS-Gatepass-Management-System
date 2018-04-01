@@ -73,6 +73,7 @@ $student=mysqli_fetch_assoc($det);
         <link href="../assets/css/style.css" rel="stylesheet" type="text/css"/>
         <link href="../assets/css/responsive.css" rel="stylesheet" type="text/css"/>
         <!-- CORE CSS TEMPLATE - END -->
+ <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 
     </head>
     <!-- END HEAD -->
@@ -279,6 +280,12 @@ $student=mysqli_fetch_assoc($det);
                             <div class="content-body"> 
 							<div class="row">
                                  <div class="col-md-12 col-sm-12 col-xs-12">
+								 <video id="preview"></video>
+									
+									</div>	
+									</div>
+							<div class="row">
+                                 <div class="col-md-12 col-sm-12 col-xs-12">
 									<form action="index.php" method="post">
 								
 									
@@ -414,11 +421,27 @@ echo "
 
         <!-- CORE TEMPLATE JS - START --> 
         <script src="../assets/js/scripts.js" type="text/javascript"></script> 
+		
         <!-- END CORE TEMPLATE JS - END --> 
 
 
 
-
+       <script type="text/javascript">
+      let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+      scanner.addListener('scan', function (content) {
+        console.log(content);
+		alert(content);
+      });
+      Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length > 0) {
+          scanner.start(cameras[0]);
+        } else {
+          console.error('No cameras found.');
+        }
+      }).catch(function (e) {
+        console.error(e);
+      });
+    </script>
 
 
 
