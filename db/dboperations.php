@@ -119,8 +119,9 @@ class User {
 	    public function search_student($s_regno)
 	{
 		
-		$sql="select r.reqid,r.regno,s.name,s.branch,s.batch,s.photo,r.cat,r.reason,r.exp_time,r.office_regno,r.status,s.fad_regno,s.hod_regno  from request r,student s where r.regno=s.s_regno and r.regno='$s_regno'";	
+		//$sql="select r.reqid,r.regno,s.name,s.branch,s.batch,s.photo,r.cat,r.reason,r.exp_time,r.office_regno,r.status,s.fad_regno,s.hod_regno  from request r,student s where r.regno=s.s_regno and r.regno='$s_regno'";	
 
+		$sql="select *  from request r,student s  where r.regno=s.s_regno and r.regno='$s_regno' order by r.exp_time desc LIMIT 1";	
 		return $this->dbObj->ExecuteQuery($sql, 1);
 	
 		
