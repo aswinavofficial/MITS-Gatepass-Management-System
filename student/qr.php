@@ -6,32 +6,34 @@ if (empty($_SESSION['regno'])) {
     exit();
 } 
 include_once '../db/dboperations.php';
-include_once '../sendmail.php';
-
  $objUser = new User();
  $rest=$objUser->user_data($_SESSION['regno'],"STUDENT");
 $details=mysqli_fetch_assoc($rest);
+$act=$objUser->activity_stud($_SESSION['regno']);
+$no1=mysqli_num_rows( $act );
+ $row = mysqli_fetch_assoc( $act );
+ 
 
+	
+   //$rt=$track['HOD']['h_regno'];
+	//echo "<script> alert('$rt'); </script>";
+ 
+//REQUEST
+$im=$objUser->dis_req($_SESSION['regno']);
+$req=mysqli_fetch_assoc($im);
 
-   if(isset($_POST['submit']))
-   {
-	   $day1=$_POST['datetime'];
-	   $name=$details['parent'];
-	   $subject=$name." applied for Gate Pass";
-	   $ToEmail=$details['parent_email'];
-	   $message="Details of Request CATEGORY: ".$_POST['category']." REASON: ".$_POST['reason']." Time to leave : ".$day1;
-	   
-	   //$day1 = strtotime($_POST["datetime"]);
-       //$day1 = date('Y-m-d H:i:s', $day1); 
-	   $result=$objUser->request($_SESSION['regno'],$_POST['category'],$_POST['reason'],$day1);
-	   $response=sendmail($subject,$name,$ToEmail,$message);
-	   echo "<script>alert('Request has been sent...Stay Tuned!!!')</script>";
-      
+//FACULTY
+$im1=$objUser->user_data($details['fad_regno'],"FACULTY");
+$track['FACULTY']=mysqli_fetch_assoc($im1);
 
-   }
-	
-	
-	
+//HOD
+$im2=$objUser->user_data($details['hod_regno'],"HOD");
+$track['HOD']=mysqli_fetch_assoc($im2);
+
+//GUARD
+$im2=$objUser->user_data($details['hod_regno'],"HOD");
+$track['HOD']=mysqli_fetch_assoc($im2);
+
 	?>
 
 
@@ -63,7 +65,10 @@ $details=mysqli_fetch_assoc($rest);
         <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START --> 
 	 <link href="../assets/plugins/jquery-ui/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" media="screen"/>
 	 <link href="../assets/plugins/datepicker/css/datepicker.css" rel="stylesheet" type="text/css" media="screen"/>
-<!--	 <link href="../assets/plugins/daterangepicker/css/daterangepicker-bs3.css" rel="stylesheet" type="text/css" media="screen"/> -->
+     <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+     <link href="../css/track.css" rel="stylesheet" type="text/css" media="all" />
+	 
+	 <!--	 <link href="../assets/plugins/daterangepicker/css/daterangepicker-bs3.css" rel="stylesheet" type="text/css" media="screen"/> -->
 	 <link href="../assets/plugins/timepicker/css/bootstrap-timepicker.css" rel="stylesheet" type="text/css" media="screen"/>
 	 <link href="../assets/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" media="screen"/>
 <!--	 <link href="../assets/plugins/tagsinput/css/bootstrap-tagsinput.css" rel="stylesheet" type="text/css" media="screen"/> -->
@@ -218,7 +223,7 @@ $details=mysqli_fetch_assoc($rest);
 
 
                         <li class=""> 
-                            <a href="index.html">
+                            <a href="index.php">
                                 <i class="fa fa-dashboard"></i>
                                 <span style="font-size:1.5em;" class="title">New Request</span>
                             </a>
@@ -277,7 +282,7 @@ $details=mysqli_fetch_assoc($rest);
                     <div class="col-lg-12">
                         <section class="box ">
                             <header class="panel_header">
-                                <h2 class="title pull-left">NEW GATE PASS REQUEST</h2>
+                                <h2 class="title pull-left">QR CODE</h2>
                                 <div class="actions panel_actions pull-right">
                                     <i class="box_toggle fa fa-chevron-down"></i>
                                     <i class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></i>
@@ -285,44 +290,43 @@ $details=mysqli_fetch_assoc($rest);
                                 </div>
                             </header>
                             <div class="content-body">  
-							<div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-									<form action="index.php" method="post">
-								<p style="font-size:20px;">	REASON CATEGORY </p>
-									<select name="category" class="form-control input-lg m-bot15">
-                                            <option>Please Choose</option>
-                                            <option>Health Problems</option>
-                                            <option>Attending Events</option>
-											<option>Private Functions</option>
-											<option>Other</option>
-                                        </select>
-										<br/>
-										<p style="font-size:20px;"> REQUIRED DEPERATURE TIME </p>
-									<!--	<input type="text" name="datetime" value="Wed, 14 March 2018" class="form-control datepicker col-md-4" data-format="D, dd MM yyyy">
-                                       <br/> <br/> <br/>
-									   <p style="font-size:20px;"> REQUIRED DEPERATURE TIME </p>
-									   <input type="text" name="time" class="form-control timepicker col-md-4" data-template="dropdown" data-show-seconds="true" data-default-time="11:30 AM" data-show-meridian="true" data-minute-step="5" data-second-step="5">
-                                      -->
-									  <div class="form-group">
-                                            <div class="input-group date form_datetime_meridian"  data-date-format="Y-m-d H:i:s" data-link-field="dtpick_2">
-                                                <input name="datetime" class="form-control" size="16" type="text" value="" readonly>
-                                                <span class="input-group-addon"><span class="fa fa-times"></span></span>
-                                                <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
-                                            </div>
-                                            <input type="hidden" id="dtpick_2" value="" />
-                                        </div>
-									  <br> 
-				                    <p style="font-size:20px;"> REASON</p>
-
-									  <textarea  name="reason" class="form-control autogrow" cols="5" id="field-7" placeholder="Enter your request here" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 150px;"></textarea>
-                                      <br/>
-									  
-
-									  <button type="submit" name="submit" class="btn btn-primary ">Submit</button>
-									</form>	
-									</div>
+							
 									
-							</div>		
+	
+	
+	
+	
+
+									<div class="row">
+                                 <div class="col-md-4 col-sm-4 col-xs-4">
+								 
+                                  </div>
+
+									<div class="col-md-4 col-sm-4 col-xs-4">
+								     
+                           <div class="row" >
+                       <div class="col-xl-3">
+					   <h3 align="center"> Show this at the Gate </h3>
+</div>
+<div class="col-xl-3">
+<div class="card">
+		<img src="../qr.php?regno=<?php echo $_SESSION['regno'];?>" height="300px" width="100%;" alt="">
+ </div>
+</div>
+	<div class="col-xl-3">
+	
+</div>
+</div>
+</div>
+
+                                  </div>
+								  
+								  <div class="col-md-4 col-sm-4 col-xs-4">
+								 
+                                  </div>
+								  
+                                 </div>	
+									
                             </div>
                         </section></div>
 
