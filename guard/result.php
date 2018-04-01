@@ -17,15 +17,12 @@ if (empty($_SESSION['regno'])) {
  $objUser = new User();
  $res=$objUser->user_data($_SESSION['regno'],"GUARD");
  $details=mysqli_fetch_assoc($res);
- if(isset($_POST['submit']))
- {
-$det=$objUser->search_student($_POST['regno']);
-$rf=$_POST['regno'];
+
+$det=$objUser->search_student($_GET['regno']);
 
 $no1=mysqli_num_rows( $det);
 $student=mysqli_fetch_assoc($det);
-$res=json_encode($student);
- }
+
 
 ?>	
 	
@@ -277,7 +274,7 @@ $res=json_encode($student);
                     <div class="col-lg-12">
                         <section class="box ">
                             <header class="panel_header">
-                                <h2 class="title pull-left">SEARCH FOR GATEPASS</h2>
+                                <h2 class="title pull-left">GATEPASS DETAILS</h2>
                                 <div class="actions panel_actions pull-right">
                                     <i class="box_toggle fa fa-chevron-down"></i>
                                     <i class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></i>
@@ -286,52 +283,86 @@ $res=json_encode($student);
                             </header>
                             <div class="content-body"> 
 							
-							<div id="search" class="row">
-                                 <div class="col-md-6 col-sm-6 col-xs-6">
-								 <h3  >Scan QR </h3>
-								 <video width="320" height="240" id="preview"></video> 
+							
+							
+							
+							
+						
 									
-									</div>
-									
-                                  <div class="col-md-6 col-sm-6 col-xs-6">
-								  <br/> <br/>  <br/> <br/>
-									<form action="result.php" method="get">
-				               
-									  <input type="text" name="regno" class="form-control" placeholder="Enter Registration Number">
-									  
-                                      <br/>
-									  <button style=" margin-left: 70px;" type="submit" name="submit" class="btn btn-primary ">Submit</button>
-									</form>	
-									</div>
+								<div class="row">
+                                 <div class="col-md-4 col-sm-4 col-xs-4">
+								 
+                                  </div>
 
-									
-									</div>
-							
-							
-							
-						<!-- <div class="row">
-                                 <div class="col-md-12 col-sm-12 col-xs-12">
-								 <video width="320" height="240" id="preview"></video> 
-									
-									</div>	
-									</div>
-							<div class="row">
-                                 <div class="col-md-12 col-sm-12 col-xs-12">
-									<form action="index.php" method="post">
-								
-									
-										
-									 
-				               
-									  <input type="text" name="regno" class="form-control" placeholder="Enter Registration Number">
-									  
-                                      <br/>
-									  <button type="submit" name="submit" class="btn btn-primary ">Submit</button>
-									</form>	
-									</div>	
-									</div> -->
-									
-							
+									<div class="col-md-4 col-sm-4 col-xs-4">
+								      <?php
+        if($no1==-1)
+		{
+			
+		}
+		else if($no1==0)
+		{
+			echo "<p style='align:center;'> No results found</p>";
+		}
+		else
+		{
+			$photo=$student['photo'];
+			$branch=$student['branch'];
+			$name=$student['name'];
+			$batch=$student['batch'];
+			$time=$student['exp_time'];
+			$status=$student['STATUS'];
+			$regno=$student['regno'];
+			$req_id=$student['reqid'];
+			$gd=$_SESSION['regno'];
+			$st="DEPARTED";
+			$url="guard.php";
+			if($status=="GATEPASS_ISSUED")
+			{
+				$stat_photo="../images/appr.png";
+				$permit="1";
+			}
+			else if($status=="FACULTY_REJECTED"||$status=="HOD_REJECTED"||$status=="GATEPASS_REJECTED")
+			{
+				$stat_photo="../images/rej.png";
+				$permit="0";
+			}
+			else
+			{
+				$stat_photo="../images/waiting.png";
+				$permit="0";
+			}
+				
+echo "	
+<div class='row' >
+<div class='col-xl-3'>
+</div>
+<div class='col-xl-3'>
+<div class='card'>
+		<img src='../images/students/$photo' height='200px' width='100%;'alt=''>
+	<a href='profile.php?regno=$regno'>	<h1>{$name}</h1> </a>
+  <p class='title'>{$branch} {$batch}</p>
+  <p>Time : {$time}</p>
+  <p>Status : {$status}</p>
+  <img src='$stat_photo' height='100px' width='100%;'alt=''>";
+  if($permit==1)
+  {
+  echo "<br/><p><a href='../trans.php?req_id=$req_id&regno=$gd&status=$st&type=$url'>PERMIT</a></p>";
+  }
+ echo " </div>
+</div>
+	<div class='col-xl-3'>
+</div>
+</div>";
+		}
+ ?>
+                                  </div>
+								  
+								  <div class="col-md-4 col-sm-4 col-xs-4">
+								 
+                                  </div>
+								  
+                                 </div>								
 									
                             </div>
                         </section></div>
@@ -388,8 +419,15 @@ $res=json_encode($student);
       let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
       scanner.addListener('scan', function (content) {
         console.log(content);
-		 window.location="result.php?regno="+content;
-		
+		alert(content);
+		$("#search").hide();
+		$.post("index.php",
+        {
+          regno: content,
+        },
+        function(data,status){
+            //alert("Data: " + data + "\nStatus: " + status);
+        });
       });
       Instascan.Camera.getCameras().then(function (cameras) {
         if (cameras.length > 0) {
