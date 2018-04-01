@@ -328,6 +328,8 @@ $track['HOD']=mysqli_fetch_assoc($im2);
 			<div class="clear"></div>
 		</div>
 	</div>
+	
+	<img src="../qr.php?regno=<?php echo $_SESSION['regno'];?>" >
 
 									
                             </div>
