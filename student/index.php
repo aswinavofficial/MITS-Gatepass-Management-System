@@ -297,7 +297,7 @@ $details=mysqli_fetch_assoc($rest);
 									   <input type="text" name="time" class="form-control timepicker col-md-4" data-template="dropdown" data-show-seconds="true" data-default-time="11:30 AM" data-show-meridian="true" data-minute-step="5" data-second-step="5">
                                       -->
 									  <div class="form-group">
-                                            <div class="input-group date form_datetime_meridian" data-date="2018-03-14T05:35:07Z" data-date-format="dd MM  yyyy - HH:ii p" data-link-field="dtpick_2">
+                                            <div class="input-group date form_datetime_meridian"  data-date-format="Y-m-d H:i:s" data-link-field="dtpick_2">
                                                 <input name="datetime" class="form-control" size="16" type="text" value="" readonly>
                                                 <span class="input-group-addon"><span class="fa fa-times"></span></span>
                                                 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
