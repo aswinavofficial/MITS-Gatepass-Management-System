@@ -57,6 +57,23 @@ class User {
 		
 	}
 	
+	public function gatepass_log()
+	{
+	$sql = "select g.id,s.name,s.s_regno,g.appr_regno,g.appr_time,r.reason,g.remarks,g.out_time from gatepass g,student s,request r where g.reqid=r.reqid and r.regno=s.s_regno order by g.id desc";	
+		
+		return $this->dbObj->ExecuteQuery($sql, 1);
+	
+		
+	}
+	
+	public function new_gatepass($reqid,$regno,$remarks)
+	{
+		$sql = "INSERT INTO gatepass( reqid,appr_regno,remarks) VALUES
+		('$reqid', '$regno','$remarks')";
+    return $this->dbObj->ExecuteQuery($sql, 2);
+		
+	}
+	
 	 public function activity_stud($regno)
 	{
 	$sql = "select * from request r,student s where r.regno=s.s_regno and s.s_regno='$regno'";	

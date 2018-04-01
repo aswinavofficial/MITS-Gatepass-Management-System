@@ -1,40 +1,33 @@
-<?php
-session_start();
 
+<?php
+
+$no1=-1;
+$permit=0;
+session_start();
+include_once '../db/dboperations.php';
+$student['name']="";
+$student['photo']="";
+$student['branch']="";
+$student['batch']="";
 if (empty($_SESSION['regno'])) {
     header("location:../index.php");
     exit();
 } 
-include_once '../db/dboperations.php';
-include_once '../sendmail.php';
-
+$no1=0;
  $objUser = new User();
- $rest=$objUser->user_data($_SESSION['regno'],"STUDENT");
-$details=mysqli_fetch_assoc($rest);
+ $res=$objUser->user_data($_SESSION['regno'],"GUARD");
+ $details=mysqli_fetch_assoc($res);
+ $act=$objUser->gatepass_log();
+ $no1=mysqli_num_rows( $act );
+ if(isset($_POST['submit']))
+ {
+$det=$objUser->search_student($_POST['regno']);
+$no1=mysqli_num_rows( $det);
+$student=mysqli_fetch_assoc($det);
+ }
 
-
-   if(isset($_POST['submit']))
-   {
-	   $day1=$_POST['datetime'];
-	   $pname=$details['parent'];
-	   $name=$details['name'];
-	   $subject=$name." applied for Gate Pass";
-	   $ToEmail=$details['parent_email'];
-	   $message="Details of Request CATEGORY: ".$_POST['category']." REASON: ".$_POST['reason']." Time to leave : ".$day1;
-	   
-	   //$day1 = strtotime($_POST["datetime"]);
-       //$day1 = date('Y-m-d H:i:s', $day1); 
-	   $result=$objUser->request($_SESSION['regno'],$_POST['category'],$_POST['reason'],$day1);
-	   $response=sendmail_parent1($subject,$pname,$ToEmail,$message);
-	   echo "<script>alert('Request has been sent...Stay Tuned!!!')</script>";
-      
-
-   }
+?>	
 	
-	
-	
-	?>
-
 
 <!DOCTYPE html>
 <html class=" ">
@@ -73,9 +66,13 @@ $details=mysqli_fetch_assoc($rest);
       <link href="../assets/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css" media="screen"/>      
 
 
-		<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END --> 
 
-        <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END --> 
+		<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END --> 
+         <link href="../assets/plugins/responsive-tables/css/rwd-table.min.css" rel="stylesheet" type="text/css" media="screen"/>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
+  integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+  crossorigin=""/>
+		<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END --> 
 
 
         <!-- CORE CSS TEMPLATE - START -->
@@ -90,7 +87,6 @@ $details=mysqli_fetch_assoc($rest);
     <body class=" "><!-- START TOPBAR -->
         <div class='page-topbar '>
             <div class='logo-area'>
-	<!--	<div style="padding-left:"10px"">	<img  src="../images/mits.png" > </div> -->
 
             </div>
             <div class='quick-area'>
@@ -153,7 +149,7 @@ $details=mysqli_fetch_assoc($rest);
                     <ul class="info-menu right-links list-inline list-unstyled">
                         <li class="profile">
                             <a href="#" data-toggle="dropdown" class="toggle">
-                                <img src="../images/students/<?php echo $details['photo']; ?>" alt="" class="img-circle img-inline">
+                                <img src="../images/guard/<?php echo $details['photo']; ?>" alt="" class="img-circle img-inline">
                                 <span><?php echo $details['name']; ?><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul class="dropdown-menu profile animated fadeIn">
@@ -192,13 +188,13 @@ $details=mysqli_fetch_assoc($rest);
                     <!-- USER INFO - START -->
                     <div class="profile-info row">
 
-                        <div class="profile-image col-md-5 col-sm-5 col-xs-5">
+                        <div class="profile-image col-md-4 col-sm-4 col-xs-4">
                             <a href="">
-                                <img src="../images/students/<?php echo $details['photo']; ?>" alt="" class="img-responsive img-circle">
+                                <img src="../images/guard/<?php echo $details['photo']; ?>" alt="" class="img-responsive img-circle">
                             </a>
                         </div>
 
-                        <div class="profile-details col-md-7 col-sm-7 col-xs-7">
+                        <div class="profile-details col-md-8 col-sm-8 col-xs-8">
 
                             <h2>
                                 <a href=""><?php echo $details['name']; ?></a>
@@ -207,7 +203,7 @@ $details=mysqli_fetch_assoc($rest);
                                 <span class="profile-status online"></span>
                             </h2>
 
-                            <p class="profile-title"><?php echo $details['branch'].' '.$details['batch']; ?></p>
+                            <p class="profile-title"><?php echo $details['position']; ?></p>
 
                         </div>
 
@@ -220,30 +216,30 @@ $details=mysqli_fetch_assoc($rest);
 
 
                         <li class=""> 
-                            <a href="index.html">
+                            <a href="index.php">
                                 <i class="fa fa-dashboard"></i>
-                                <span style="font-size:1.5em;" class="title">New Request</span>
+                                <span class="title">Search for Gatepass</span>
                             </a>
                         </li>
 						
                         <li class=""> 
-                            <a href="track.php">
+                            <a href="notifications.php">
                                 <i class="fa fa-dashboard"></i>
-                                <span style="font-size:1.5em;" class="title">Track Your Request</span>
-                            </a>
-                        </li>
-						
-						<li class=""> 
-                            <a href="qr.php">
-                                <i class="fa fa-dashboard"></i>
-                                <span style="font-size:1.5em;" class="title">QR Code</span>
+                                <span class="title">Notifications</span>
                             </a>
                         </li>
 						
                         <li class=""> 
-                            <a href="activity.php">
+                            <a href="details.php">
                                 <i class="fa fa-dashboard"></i>
-                                <span style="font-size:1.5em;" class="title">Activity Log</span>
+                                <span class="title">Activity Log</span>
+                            </a>
+                        </li>
+						
+						 <li class=""> 
+                            <a href="parking_status.php">
+                                <i class="fa fa-dashboard"></i>
+                                <span class="title">Parking Status</span>
                             </a>
                         </li>
              
@@ -279,52 +275,58 @@ $details=mysqli_fetch_assoc($rest);
                     <div class="col-lg-12">
                         <section class="box ">
                             <header class="panel_header">
-                                <h2 class="title pull-left">NEW GATE PASS REQUEST</h2>
+                                <h2 class="title pull-left">GATEPASS LOG</h2>
                                 <div class="actions panel_actions pull-right">
                                     <i class="box_toggle fa fa-chevron-down"></i>
                                     <i class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></i>
                                     <i class="box_close fa fa-times"></i>
                                 </div>
                             </header>
-                            <div class="content-body">  
-							<div class="row">
+                            <div class="content-body"> 
+									<div class="row">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
-									<form action="index.php" method="post">
-								<p style="font-size:20px;">	REASON CATEGORY </p>
-									<select name="category" class="form-control input-lg m-bot15">
-                                            <option>Please Choose</option>
-                                            <option>Health Problems</option>
-                                            <option>Attending Events</option>
-											<option>Private Functions</option>
-											<option>Other</option>
-                                        </select>
-										<br/>
-										<p style="font-size:20px;"> REQUIRED DEPERATURE TIME </p>
-									<!--	<input type="text" name="datetime" value="Wed, 14 March 2018" class="form-control datepicker col-md-4" data-format="D, dd MM yyyy">
-                                       <br/> <br/> <br/>
-									   <p style="font-size:20px;"> REQUIRED DEPERATURE TIME </p>
-									   <input type="text" name="time" class="form-control timepicker col-md-4" data-template="dropdown" data-show-seconds="true" data-default-time="11:30 AM" data-show-meridian="true" data-minute-step="5" data-second-step="5">
-                                      -->
-									  <div class="form-group">
-                                            <div class="input-group date form_datetime_meridian"  data-date-format="Y-m-d H:i:s" data-link-field="dtpick_2">
-                                                <input name="datetime" class="form-control" size="16" type="text" value="" readonly>
-                                                <span class="input-group-addon"><span class="fa fa-times"></span></span>
-                                                <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
-                                            </div>
-                                            <input type="hidden" id="dtpick_2" value="" />
-                                        </div>
-									  <br> 
-				                    <p style="font-size:20px;"> REASON</p>
-
-									  <textarea  name="reason" class="form-control autogrow" cols="5" id="field-7" placeholder="Enter your request here" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 150px;"></textarea>
-                                      <br/>
-									  
-
-									  <button type="submit" name="submit" class="btn btn-primary ">Submit</button>
-									</form>	
+									       <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>GatePass ID</th>
+				  <th>Student Name</th>
+                  <th>Student RegNO</th>
+                  <th>Approved By</th>
+				  <th>Approval Time </th>
+				  <th>Reason</th>
+				  <th>Remarks</th>
+				  <th>Out Time</th>
+				  
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  
+                </tr>
+              </tfoot>
+              <tbody>
+                 <?php
+                              if( $no1==0 ){
+                                 echo '<tr><td colspan="6">No Result Found!!!</td></tr>';
+		
+                                 }else{
+                                while( $row = mysqli_fetch_assoc( $act ) ){
+									$req_id=$row['reqid'];
+									
+                               echo " <tr > <td>{$row['id']} </td><td>{$row['name']} </td><td>{$row['cat']}</td><td>{$row['exp_time']}</td> <td>{$row['out_time']}</td><td>{$row['reason']}</td> <td>{$row['STATUS']}</td> </tr>\n";
+                                }
+                                  }
+                                      ?>
+              </tbody>
+            </table>
+          </div>
 									</div>
 									
-							</div>		
+							</div>
+									
+							
+									
                             </div>
                         </section></div>
 
@@ -366,7 +368,11 @@ $details=mysqli_fetch_assoc($rest);
 		<!--		<script src="assets/plugins/multi-select/js/jquery.quicksearch.js" type="text/javascript"></script> --><!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END --> 
 
         <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END --> 
+                <script src="../assets/plugins/responsive-tables/js/rwd-table.min.js" type="text/javascript"></script><!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END --> 
 
+				<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
+  integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+  crossorigin=""></script>
 
         <!-- CORE TEMPLATE JS - START --> 
         <script src="../assets/js/scripts.js" type="text/javascript"></script> 
