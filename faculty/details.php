@@ -358,10 +358,11 @@ $request=mysqli_fetch_assoc($res);
 									$fd=$_SESSION['regno'];
 									$url="faculty.php";
 									$req_id=$request['reqid'];
+									$s_regno=$request['regno'];
 							   echo '<div class="uprofile-buttons">';
-                                         echo " <a href='../trans.php?req_id=$req_id&regno=$fd&status=$rej&type=$url' "; echo ' class="btn btn-md btn-primary">REJECT</a> ';
+                                         echo " <a href='../trans.php?req_id=$req_id&regno=$fd&status=$rej&type=$url&s_regno=$s_regno' "; echo ' class="btn btn-md btn-primary">REJECT</a> ';
                                        //  echo "   <a href='../trans.php?req_id=$req_id&regno=$fd&status=$appr&type=$url' "; echo ' class="btn btn-md btn-primary">APPROVE </a>
-                                       echo "   <a href='../trans.php?req_id=$req_id&regno=$fd&status=$iss&type=$url' "; echo ' class="btn btn-md btn-primary"> ISSUE GATE PASS (Special Case) </a>
+                                       echo "   <a href='../trans.php?req_id=$req_id&regno=$fd&status=$iss&type=$url&s_regno=$s_regno' "; echo ' class="btn btn-md btn-primary"> ISSUE GATE PASS (Special Case) </a>
 									   </div>'; ?>
 							   </div>
 							   <div class="col-md-6">
@@ -372,7 +373,8 @@ $request=mysqli_fetch_assoc($res);
                                  <br/> 
                                       <input type="hidden" name="type" value="forward_hod">
 									  <input type="hidden" name="req_id" value="<?php echo $request['reqid']; ?>">
-									  <input type="hidden" name="regno" value="$_SESSION['regno']">
+									  <input type="hidden" name="regno" value="<?php echo $_SESSION['regno']; ?>">
+									  <input type="hidden" name="s_regno" value="<?php echo $s_regno; ?>">
 									  <button type="submit" name="submit" class="btn btn-primary ">Submit</button>
 									</form>	
 							   </div>
