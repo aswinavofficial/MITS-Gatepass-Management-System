@@ -372,6 +372,7 @@ $request=mysqli_fetch_assoc($res);
 									$fd=$_SESSION['regno'];
 									$url="hod.php";
 									$req_id=$request['reqid'];
+									$s_regno=$request['regno'];
 							   echo '<div class="uprofile-buttons">';
 
                                          echo " <a href='../trans.php?req_id=$req_id&regno=$fd&status=$rej&type=$url' "; echo ' class="btn btn-md btn-primary">REJECT</a> ';
@@ -390,7 +391,7 @@ $request=mysqli_fetch_assoc($res);
 							 echo '<div class="uprofile-buttons">';
 
 
-					   echo "   <a href='../trans.php?req_id=$req_id&regno=$fd&status=$iss&type=$url' "; echo ' class="btn btn-md btn-primary"> ISSUE GATE PASS </a> </div>';
+					   echo "   <a href='../trans.php?req_id=$req_id&regno=$fd&status=$iss&type=$url&s_regno=$s_regno' "; echo ' class="btn btn-md btn-primary"> ISSUE GATE PASS </a> </div>';
                                     ?>
 							   </div>
                                </div>							   
