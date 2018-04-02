@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 02, 2018 at 09:50 AM
+-- Generation Time: Apr 02, 2018 at 10:39 AM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -390,7 +390,7 @@ INSERT INTO `register` (`id`, `regno`, `password`, `reg_as`) VALUES
 (7, 'EMP500/16', 'guard123', 'GUARD'),
 (10, '15CS134', 'fRl3aVkTHc6G3xB1YglYDdf9MLOEDK04', 'STUDENT'),
 (14, 'EMP158/16', 'mtzDo8FeeKBRNS4UAEibzE02cXqksbgo', 'FACULTY'),
-(15, '15CS181', 'NpJ4cfzH8LY8zzFIYLTijWlc3aeha4jT', 'STUDENT');
+(15, '15CS181', 'Aswin9037#', 'STUDENT');
 
 -- --------------------------------------------------------
 
@@ -416,7 +416,7 @@ CREATE TABLE IF NOT EXISTS `request` (
   `ffor_time` datetime DEFAULT NULL,
   `fa_hod_msg` text,
   PRIMARY KEY (`reqid`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `request`
@@ -432,7 +432,11 @@ INSERT INTO `request` (`reqid`, `regno`, `cat`, `reason`, `exp_time`, `curr_time
 (45, '15CS181', 'Attending Events', 'kjm', '20 April 2018 - 09:30', '2018-04-01 23:58:01', 'GATEPASS_ISSUED', '2018-04-01 23:58:13', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (46, '15CS181', 'Private Functions', 'kkml', '11 April 2018 - 09:30', '2018-04-01 23:59:02', 'GATEPASS_ISSUED', '2018-04-01 23:59:14', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (47, '15CS181', 'Other', 'xgxd', '05 April 2018 - 09:30', '2018-04-02 00:00:14', 'GATEPASS_ISSUED', '2018-04-02 00:00:38', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(48, '15CS181', 'Health Problems', 'Fever', '02 April 2018 - 15:50', '2018-04-02 14:06:22', 'GATEPASS_ISSUED', '2018-04-02 14:07:59', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(48, '15CS181', 'Health Problems', 'Fever', '02 April 2018 - 15:50', '2018-04-02 14:06:22', 'GATEPASS_ISSUED', '2018-04-02 14:07:59', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(49, '15CS181', 'Attending Events', 'hackathon\r\n', '02 April 2018 - 15:50', '2018-04-02 15:45:26', 'GATEPASS_ISSUED', '2018-04-02 15:47:15', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, '15CS181', 'Private Functions', 'hjghjb', '05 April 2018 - 15:50', '2018-04-02 15:53:26', 'GATEPASS_ISSUED', '2018-04-02 15:54:13', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(51, '15CS181', 'Health Problems', 'kjghb', '04 April 2018 - 08:45', '2018-04-02 15:55:39', 'GATEPASS_ISSUED', '2018-04-02 15:55:53', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(52, '15CS181', 'Attending Events', 'ibhj', '13 April 2018 - 16:45', '2018-04-02 15:59:05', 'GATEPASS_ISSUED', '2018-04-02 15:59:37', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -448,7 +452,7 @@ CREATE TABLE IF NOT EXISTS `req_trans` (
   `trans_time` datetime NOT NULL,
   `trans_status` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`trans_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `req_trans`
@@ -489,7 +493,15 @@ INSERT INTO `req_trans` (`trans_id`, `req_id`, `trans_type`, `trans_time`, `tran
 (34, 47, 'STUDENT', '2018-04-02 00:00:14', 'REQUEST SEND'),
 (35, 47, 'FACULTY', '2018-04-02 00:00:38', 'GATEPASS_ISSUED'),
 (36, 48, 'STUDENT', '2018-04-02 14:06:22', 'REQUEST SEND'),
-(37, 48, 'FACULTY', '2018-04-02 14:07:59', 'GATEPASS_ISSUED');
+(37, 48, 'FACULTY', '2018-04-02 14:07:59', 'GATEPASS_ISSUED'),
+(38, 49, 'STUDENT', '2018-04-02 15:45:26', 'REQUEST SEND'),
+(39, 49, 'FACULTY', '2018-04-02 15:47:15', 'GATEPASS_ISSUED'),
+(40, 50, 'STUDENT', '2018-04-02 15:53:26', 'REQUEST SEND'),
+(41, 50, 'FACULTY', '2018-04-02 15:54:13', 'GATEPASS_ISSUED'),
+(42, 51, 'STUDENT', '2018-04-02 15:55:39', 'REQUEST SEND'),
+(43, 51, 'FACULTY', '2018-04-02 15:55:53', 'GATEPASS_ISSUED'),
+(44, 52, 'STUDENT', '2018-04-02 15:59:05', 'REQUEST SEND'),
+(45, 52, 'FACULTY', '2018-04-02 15:59:37', 'GATEPASS_ISSUED');
 
 -- --------------------------------------------------------
 
