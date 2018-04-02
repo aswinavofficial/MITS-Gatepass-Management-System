@@ -95,15 +95,14 @@ if($_GET['type']=='faculty.php')
 
    }
    if($_GET['type']=='guard.php')
-   { 
+   { $res=$objUser->guard_sign($_GET['req_id'],$_GET['regno'],$_GET['status']);
  /*  $rest=$objUser->user_data($_SESSION['regno'],"STUDENT");
    $details=mysqli_fetch_assoc($rest);
-	$res=$objUser->guard_sign($_GET['req_id'],$_GET['regno'],$_GET['status']);
+	
      $subject=$name." applied for Gate Pass";
 	   $ToEmail=$details['parent_email'];
-	   $message="Details of Request CATEGORY: ".$_POST['category']." REASON: ".$_POST['reason']." Time to leave : ".$day1;
-*/	 $response=sendmail_parent1($subject,$pname,$ToEmail,$message);
-	  header("location:guard/index.php");
+	   $message="Details of Request CATEGORY: ".$_POST['category']." REASON: ".$_POST['reason']." Time to leave : ".$day1;	 $response=sendmail_parent1($subject,$pname,$ToEmail,$message);
+	  header("location:guard/index.php"); */
 	  
 
    }
