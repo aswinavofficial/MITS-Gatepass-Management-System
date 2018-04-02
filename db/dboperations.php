@@ -74,14 +74,14 @@ class User {
 		
 	}
 	
-	public function add_student($s_regno,$name,$gender,$photo,$branch,$batch,$email,$mobno,$pname,$parent_email,$parent_mobno)
+	public function add_student($s_regno,$name,$gender,$branch,$batch,$email,$mobno,$pname,$parent_email,$parent_mobno)
 	{
 		$sql= "select h.h_regno,a.fadv1,a.fadv2 from hod h,adv a where h.branch=a.branch and h.branch='$branch' and a.batch='$batch'";
 		$im1=$this->dbObj->ExecuteQuery($sql, 1);
 		$details=mysqli_fetch_assoc($im1);
 	
 		
-		$phot=$s_regno;
+		$phot=$s_regno.".jpg";
 		//echo "<script>alert('$phot')</script>";
 		$fad_regno=$details['fadv1'];
 		$fad2_regno=$details['fadv2'];
@@ -90,8 +90,9 @@ class User {
 		//('$s_regno','$name','$branch','$batch','$phot','$fad_regno','$fad2_regno','$hod_regno','$parent_email','$pname','$email','$mobno','$parent_mobno','$gender')";
 		
 		
-		$sql = "INSERT INTO student(s_regno,name,branch,batch,photo) VALUES
-		('$s_regno','$name','$branch','$batch','$phot')";
+		
+		$sql = "INSERT INTO student(s_regno,name,branch,batch,photo,fad_regno,fad2_regno,hod_regno,parent_email,parent,email,mobno,parent_mobno,gender) VALUES
+		('$s_regno','$name','$branch','$batch','$phot','$fad_regno','$fad2_regno','$hod_regno','$parent_email','$pname','$email','$mobno','$parent_mobno','$gender')";
     $RES= $this->dbObj->ExecuteQuery($sql, 2);
 	return $RES;
 		

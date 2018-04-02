@@ -21,9 +21,8 @@ if (empty($_SESSION['regno'])) {
  {
 	 $dob = strtotime($_POST["dob"]);
        $dob = date('Y-m-d H:i:s', $dob); 
-$det=$objUser->add_student($_POST['s_regno'],$_POST['name'],$dob,$_POST['gender'],"hi",$_POST['branch'],$_POST['batch'],$_POST['email'],$_POST['mobno'],$_POST['pname'],$_POST['parent_email'],$_POST['parent_mobno']);
- echo $det;
- echo "<script>alert('$det')</script>";
+$det=$objUser->add_student($_POST['s_regno'],$_POST['name'],$_POST['gender'],$_POST['branch'],$_POST['batch'],$_POST['email'],$_POST['mobno'],$_POST['pname'],$_POST['parent_email'],$_POST['parent_mobno']);
+ echo "<script>Added new Student</script>";
  }
 
 ?>	
