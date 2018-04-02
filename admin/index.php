@@ -5,6 +5,7 @@ $no1=-1;
 $permit=0;
 session_start();
 include_once '../db/dboperations.php';
+include_once '../sendmail.php';
 $student['name']="";
 $student['photo']="";
 $student['branch']="";
@@ -25,6 +26,17 @@ $objUser->add_student($_POST['s_regno'],$_POST['name'],$_POST['gender'],$_POST['
 move_uploaded_file($_FILES["photo"]["tmp_name"], "../images/students/{$_POST['s_regno']}.jpg");
 $password=$objUser->random_str(32);
 $det=$objUser->reg($_POST['s_regno'],$password,"STUDENT");
+$subject="Welcome to MITSEKURA";
+$ToName=$_POST['name'];
+$ToEmail=$_POST['email'];
+$message='<html> <body><br/>Hello '.$ToName.'<br/>
+         Your User ID : '.$_POST['s_regno'].'<br/> Password : '.$password.'
+		Login to : <a href="https://iamaswin.me/mitsekurav2">MITSEKURA</a><br/> <br/>
+		Change password on first login
+		<br/><br/>
+		
+		</body></html>';
+sendmail_welcome($subject,$ToName,$ToEmail,$message);
  echo "<script>Added new Student with id : '$det' </script>";
  }
 
