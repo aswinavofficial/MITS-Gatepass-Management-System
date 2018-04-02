@@ -20,13 +20,23 @@ class User {
         return $this->dbObj->ExecuteQuery($sql, 2);
     }
 
-   public function  reg($email_id,$password,$reg_as)
+   public function  reg($regno,$password,$reg_as)
    {
-    $sql = "INSERT INTO register( email_id,password,reg_as) VALUES
-		('$email_id', '$password','$reg_as')";
+    $sql = "INSERT INTO register( regno,password,reg_as) VALUES
+		('$regno', '$password','$reg_as')";
     return $this->dbObj->ExecuteQuery($sql, 2);
 
    }
+   
+ public function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
+{
+    $pieces = [];
+    $max = mb_strlen($keyspace, '8bit') - 1;
+    for ($i = 0; $i < $length; ++$i) {
+        $pieces []= $keyspace[random_int(0, $max)];
+    }
+    return implode('', $pieces);
+}
    
     public function  request($regno,$cat,$reason,$date1)
    { 

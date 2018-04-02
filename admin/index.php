@@ -21,8 +21,11 @@ if (empty($_SESSION['regno'])) {
  {
 	 $dob = strtotime($_POST["dob"]);
        $dob = date('Y-m-d H:i:s', $dob); 
-$det=$objUser->add_student($_POST['s_regno'],$_POST['name'],$_POST['gender'],$_POST['branch'],$_POST['batch'],$_POST['email'],$_POST['mobno'],$_POST['pname'],$_POST['parent_email'],$_POST['parent_mobno']);
- echo "<script>Added new Student</script>";
+$objUser->add_student($_POST['s_regno'],$_POST['name'],$_POST['gender'],$_POST['branch'],$_POST['batch'],$_POST['email'],$_POST['mobno'],$_POST['pname'],$_POST['parent_email'],$_POST['parent_mobno']);
+move_uploaded_file($_FILES["photo"]["tmp_name"], "../images/students/{$_POST['s_regno']}.jpg");
+$password=$objUser->random_str(32);
+$det=$objUser->reg($_POST['s_regno'],$password,"STUDENT");
+ echo "<script>Added new Student with id : '$det' </script>";
  }
 
 ?>	
@@ -285,7 +288,7 @@ $det=$objUser->add_student($_POST['s_regno'],$_POST['name'],$_POST['gender'],$_P
 							<div class="row">
                                  <div class="col-md-12 col-sm-12 col-xs-12">
 								 <div class="row">
-                                    <form action ="index.php" method="post">
+                                    <form action ="index.php" method="post" enctype="multipart/form-data">
                                         <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12">
 
 										<div class="form-group">
