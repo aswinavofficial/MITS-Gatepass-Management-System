@@ -20,24 +20,24 @@ if (empty($_SESSION['regno'])) {
  $details=mysqli_fetch_assoc($res);
  if(isset($_POST['submit']))
  {
-	 $dob = strtotime($_POST["dob"]);
-       $dob = date('Y-m-d H:i:s', $dob); 
-$objUser->add_student($_POST['s_regno'],$_POST['name'],$_POST['gender'],$_POST['branch'],$_POST['batch'],$_POST['email'],$_POST['mobno'],$_POST['pname'],$_POST['parent_email'],$_POST['parent_mobno']);
-move_uploaded_file($_FILES["photo"]["tmp_name"], "../images/students/{$_POST['s_regno']}.jpg");
+	$fileName = str_replace('/', '_', $_POST['f_regno']);
+$objUser->add_faculty($_POST['f_regno'],$_POST['name'],$_POST['branch'],$_POST['batch'],$_POST['email'],$_POST['contact'],$_POST['position'],$fileName);
+
+move_uploaded_file($_FILES["photo"]["tmp_name"], "../images/faculty/{$fileName}.jpg");
 $password=$objUser->random_str(32);
-$det=$objUser->reg($_POST['s_regno'],$password,"STUDENT");
+$det=$objUser->reg($_POST['f_regno'],$password,"FACULTY");
 $subject="Welcome to MITSEKURA";
 $ToName=$_POST['name'];
 $ToEmail=$_POST['email'];
 $message='<html> <body><br/>Hello '.$ToName.'<br/>
-         Your User ID : '.$_POST['s_regno'].'<br/> Password : '.$password.'
+         Your User ID : '.$_POST['f_regno'].'<br/> Password : '.$password.'
 		Login to : <a href="https://iamaswin.me/mitsekurav2">MITSEKURA</a><br/> <br/>
 		Change password on first login
 		<br/><br/>
 		
 		</body></html>';
 sendmail_welcome($subject,$ToName,$ToEmail,$message);
- echo "<script>Added new Student with id : '$det' </script>";
+ echo "<script>Added new Faculty with id : '$det' </script>";
  }
 
 ?>	
@@ -289,7 +289,7 @@ sendmail_welcome($subject,$ToName,$ToEmail,$message);
                     <div class="col-lg-12">
                         <section class="box ">
                             <header class="panel_header">
-                                <h2 class="title pull-left">ADD STUDENT</h2>
+                                <h2 class="title pull-left">ADD FACULTY</h2>
                                 <div class="actions panel_actions pull-right">
                                     <i class="box_toggle fa fa-chevron-down"></i>
                                     <i class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></i>
@@ -300,14 +300,14 @@ sendmail_welcome($subject,$ToName,$ToEmail,$message);
 							<div class="row">
                                  <div class="col-md-12 col-sm-12 col-xs-12">
 								 <div class="row">
-                                    <form action ="index.php" method="post" enctype="multipart/form-data">
+                                    <form action ="add_faculty.php" method="post" enctype="multipart/form-data">
                                         <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12">
 
 										<div class="form-group">
                                                 <label class="form-label" for="field-1">Registration Number</label>
                                                 <span class="desc"></span>
                                                 <div class="controls">
-                                                    <input type="text" value="" name="s_regno" class="form-control" id="field-1">
+                                                    <input type="text" value="" name="f_regno" class="form-control" id="field-1">
                                                 </div>
                                             </div>
 										
@@ -320,23 +320,8 @@ sendmail_welcome($subject,$ToName,$ToEmail,$message);
                                             </div>
 
 
-                                            <div class="form-group">
-                                                <label class="form-label" for="field-5">Date of Birth</label>
-                                                <span class="desc">e.g. "04/03/2015"</span>
-                                                <div class="controls">
-                                                    <input type="text" name="dob" value="" class="form-control datepicker" data-format="mm/dd/yyyy" value="">
-                                                </div>
-                                            </div>
+                                            
 
-                                            <div class="form-group">
-                                                <label class="form-label" for="field-5">Gender</label>
-                                                <span class="desc"></span>
-                                                <select name="gender" class="form-control">
-                                                    <option></option>
-                                                    <option >Male</option>
-                                                    <option >Female</option>
-                                                </select>
-                                            </div>
                                             <div class="form-group">
                                                 <label class="form-label" for="field-1">Profile Image</label>
                                                 <span class="desc"></span>
@@ -365,6 +350,19 @@ sendmail_welcome($subject,$ToName,$ToEmail,$message);
                                                     <input type="text" name="batch" value="" class="form-control" id="field-1">
                                                 </div>
                                             </div>
+											
+											<div class="form-group">
+                                                <label class="form-label" for="field-5">Position</label>
+                                                <span class="desc"></span>
+                                                <select name="position" class="form-control ">
+                                                    <option></option>
+                                                    <option  value="Assistant Professor">Assistant Professor</option>
+                                                    <option value="Associate Professor">Associate Professor</option>
+                                                    <option value="Professor">Professor</option>
+                                                    
+                               
+                                                </select>
+                                            </div>
 
                                             <div class="form-group">
                                                 <label class="form-label" for="field-1">Email</label>
@@ -378,35 +376,15 @@ sendmail_welcome($subject,$ToName,$ToEmail,$message);
                                                 <label class="form-label" for="field-2">Mobile Number</label>
                                                 <span class="desc">Eg: 987654321</span>
                                                 <div class="controls">
-                                                    <input type="text" name="mobno" value="" class="form-control" id="field-2" >
+                                                    <input type="text" name="contact" value="" class="form-control" id="field-2" >
                                                 </div>
                                             </div>
 											
 											
-											<div class="form-group">
-                                                <label class="form-label" for="field-1">Parent Name</label>
-                                                <span class="desc"></span>
-                                                <div class="controls">
-                                                    <input type="text" name="pname" value="" class="form-control" id="field-1">
-                                                </div>
-                                            </div>
-											
-											<div class="form-group">
-                                                <label class="form-label" for="field-1">Parent Email</label>
-                                                <span class="desc"></span>
-                                                <div class="controls">
-                                                    <input type="email" name="parent_email" value="" class="form-control" id="field-3">
-                                                </div>
-                                            </div>
 											
 											
-											<div class="form-group">
-                                                <label class="form-label" for="field-2">Parent Mobile Number</label>
-                                                <span class="desc">Eg: 987654321</span>
-                                                <div class="controls">
-                                                    <input type="text" name="parent_mobno" value="" class="form-control" id="field-2" >
-                                                </div>
-                                            </div>
+											
+				
                      
                                             
 

@@ -117,6 +117,41 @@ function random_str($length = 10) {
 	return $RES;
 		
 	}
+	
+	
+	public function add_faculty($f_regno,$name,$branch,$batch,$email,$contact,$position,$fileName)
+	{
+		$sql= "select h.h_regno from hod h where  h.branch='$branch' ";
+		$im1=$this->dbObj->ExecuteQuery($sql, 1);
+		$details=mysqli_fetch_assoc($im1);
+	
+		
+		$phot=$fileName.".jpg";
+		//echo "<script>alert('$phot')</script>";
+		
+		$hod_regno=$details['h_regno'];
+		$sql = "INSERT INTO fac_adv(f_regno,name,branch,batch,hod_regno,email,contact,position,photo) VALUES
+		('$f_regno','$name','$branch','$batch','$hod_regno','$email','$contact','$position','$phot')";
+		
+		
+		
+		//$sql = "INSERT INTO student(s_regno,name,branch,batch,photo,fad_regno,fad2_regno,hod_regno,parent_email,parent,email,mobno,parent_mobno,gender) VALUES
+		//('$s_regno','$name','$branch','$batch','$phot','$fad_regno','$fad2_regno','$hod_regno','$parent_email','$pname','$email','$mobno','$parent_mobno','$gender')";
+    $RES= $this->dbObj->ExecuteQuery($sql, 2);
+	$sql1 = "update adv set fadv1='$f_regno' where branch='$branch' and batch='$batch'";
+		$er=$this->dbObj->ExecuteQuery($sql1, 3);
+	
+	return $RES;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	 public function activity_stud($regno)
 	{
 	$sql = "select * from request r,student s where r.regno=s.s_regno and s.s_regno='$regno'";	
@@ -154,6 +189,11 @@ function random_str($length = 10) {
 		if($type=="OFFICE")
 		{
 	$sql = "select * from office where o_regno='$regno'";	
+		}
+		
+		if($type=="ADMIN")
+		{
+	$sql = "select * from admin where admin_regno='$regno'";	
 		}
 		
 	if($type=="HOD")
