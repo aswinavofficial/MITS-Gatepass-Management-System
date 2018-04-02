@@ -27,7 +27,7 @@ class User {
     return $this->dbObj->ExecuteQuery($sql, 2);
 
    }
-   
+   /*
  public function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
 {
     $pieces = [];
@@ -37,7 +37,17 @@ class User {
     }
     return implode('', $pieces);
 }
-   
+    */
+function random_str($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+	
     public function  request($regno,$cat,$reason,$date1)
    { 
    
