@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 02, 2018 at 03:56 AM
+-- Generation Time: Apr 02, 2018 at 09:50 AM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -25,6 +25,28 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `admin`
+--
+
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE IF NOT EXISTS `admin` (
+  `admin_regno` varchar(30) NOT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `contact` varchar(50) DEFAULT NULL,
+  `photo` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`admin_regno`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`admin_regno`, `name`, `contact`, `photo`) VALUES
+('ADMIN100', 'Admin', '123456789', 'ADMIN100.jpg');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `adv`
 --
 
@@ -35,16 +57,36 @@ CREATE TABLE IF NOT EXISTS `adv` (
   `fadv1` varchar(30) DEFAULT NULL,
   `fadv2` varchar(30) DEFAULT NULL,
   `batch` varchar(10) DEFAULT NULL,
+  `c` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `branch` (`branch`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `adv`
 --
 
-INSERT INTO `adv` (`id`, `branch`, `fadv1`, `fadv2`, `batch`) VALUES
-(1, 'CSE', 'EMP172/16', 'EMP184/15', '2015');
+INSERT INTO `adv` (`id`, `branch`, `fadv1`, `fadv2`, `batch`, `c`) VALUES
+(1, 'CSE', 'EMP158/16', '', '2015', 1),
+(3, 'CSE', NULL, NULL, '2016', 1),
+(4, 'CSE', NULL, NULL, '2017', 1),
+(5, 'CSE', NULL, NULL, '2014', 1),
+(6, 'CE', NULL, NULL, '2015', 1),
+(7, 'CE', NULL, NULL, '2016', 1),
+(8, 'CE', NULL, NULL, '2017', 1),
+(9, 'CE', NULL, NULL, '2014', 1),
+(10, 'ECE', NULL, NULL, '2015', 1),
+(11, 'ECE', NULL, NULL, '2016', 1),
+(12, 'ECE', NULL, NULL, '2017', 1),
+(13, 'ECE', NULL, NULL, '2014', 1),
+(14, 'EEE', NULL, NULL, '2015', 1),
+(15, 'EEE', NULL, NULL, '2016', 1),
+(16, 'EEE', NULL, NULL, '2017', 1),
+(17, 'EEE', NULL, NULL, '2014', 1),
+(18, 'ME', NULL, NULL, '2015', 1),
+(19, 'ME', NULL, NULL, '2016', 1),
+(20, 'ME', NULL, NULL, '2017', 1),
+(21, 'ME', NULL, NULL, '2014', 1);
 
 -- --------------------------------------------------------
 
@@ -71,6 +113,7 @@ CREATE TABLE IF NOT EXISTS `fac_adv` (
 --
 
 INSERT INTO `fac_adv` (`f_regno`, `name`, `hod_regno`, `batch`, `contact`, `branch`, `position`, `photo`, `email`) VALUES
+('EMP158/16', 'Dhanya Sudarsan', 'hodcse', '2015', 12345678, 'CSE', 'Assistant Professor', 'EMP158_16.jpg', 'mitsekura@gmail.com'),
 ('EMP172/16', 'Bineeth Kuriakose', 'EMP200/17', '2017', 987654321, 'CSE', 'Asst Professor', 'EMP172_16.jpg', 'mitsekura@gmail.com');
 
 -- --------------------------------------------------------
@@ -329,24 +372,25 @@ DROP TABLE IF EXISTS `register`;
 CREATE TABLE IF NOT EXISTS `register` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `regno` varchar(20) NOT NULL,
-  `password` varchar(30) NOT NULL,
+  `password` varchar(50) NOT NULL,
   `reg_as` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `register`
 --
 
 INSERT INTO `register` (`id`, `regno`, `password`, `reg_as`) VALUES
-(1, '15CS181', 'Aswin9037#', 'STUDENT'),
 (2, '15GA101', 'guard123', 'GUARD'),
-(3, 'admin', 'admin123', 'ADMIN'),
+(3, 'ADMIN100', 'admin123', 'ADMIN'),
 (4, 'EMP172/16', 'faculty1', 'FACULTY'),
 (5, 'hodcse', 'hod123', 'HOD'),
 (6, 'EMP100/13', 'office123', 'OFFICE'),
 (7, 'EMP500/16', 'guard123', 'GUARD'),
-(8, '15CS100', 'anjana123', 'STUDENT');
+(10, '15CS134', 'fRl3aVkTHc6G3xB1YglYDdf9MLOEDK04', 'STUDENT'),
+(14, 'EMP158/16', 'mtzDo8FeeKBRNS4UAEibzE02cXqksbgo', 'FACULTY'),
+(15, '15CS181', 'NpJ4cfzH8LY8zzFIYLTijWlc3aeha4jT', 'STUDENT');
 
 -- --------------------------------------------------------
 
@@ -372,7 +416,7 @@ CREATE TABLE IF NOT EXISTS `request` (
   `ffor_time` datetime DEFAULT NULL,
   `fa_hod_msg` text,
   PRIMARY KEY (`reqid`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `request`
@@ -387,7 +431,8 @@ INSERT INTO `request` (`reqid`, `regno`, `cat`, `reason`, `exp_time`, `curr_time
 (44, '15CS181', 'Other', 'scxa', '05 April 2018 - 09:30', '2018-04-01 23:54:48', 'GATEPASS_ISSUED', '2018-04-01 23:55:18', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (45, '15CS181', 'Attending Events', 'kjm', '20 April 2018 - 09:30', '2018-04-01 23:58:01', 'GATEPASS_ISSUED', '2018-04-01 23:58:13', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (46, '15CS181', 'Private Functions', 'kkml', '11 April 2018 - 09:30', '2018-04-01 23:59:02', 'GATEPASS_ISSUED', '2018-04-01 23:59:14', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(47, '15CS181', 'Other', 'xgxd', '05 April 2018 - 09:30', '2018-04-02 00:00:14', 'GATEPASS_ISSUED', '2018-04-02 00:00:38', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(47, '15CS181', 'Other', 'xgxd', '05 April 2018 - 09:30', '2018-04-02 00:00:14', 'GATEPASS_ISSUED', '2018-04-02 00:00:38', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, '15CS181', 'Health Problems', 'Fever', '02 April 2018 - 15:50', '2018-04-02 14:06:22', 'GATEPASS_ISSUED', '2018-04-02 14:07:59', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -403,7 +448,7 @@ CREATE TABLE IF NOT EXISTS `req_trans` (
   `trans_time` datetime NOT NULL,
   `trans_status` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`trans_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `req_trans`
@@ -442,7 +487,9 @@ INSERT INTO `req_trans` (`trans_id`, `req_id`, `trans_type`, `trans_time`, `tran
 (32, 46, 'STUDENT', '2018-04-01 23:59:02', 'REQUEST SEND'),
 (33, 46, 'FACULTY', '2018-04-01 23:59:15', 'GATEPASS_ISSUED'),
 (34, 47, 'STUDENT', '2018-04-02 00:00:14', 'REQUEST SEND'),
-(35, 47, 'FACULTY', '2018-04-02 00:00:38', 'GATEPASS_ISSUED');
+(35, 47, 'FACULTY', '2018-04-02 00:00:38', 'GATEPASS_ISSUED'),
+(36, 48, 'STUDENT', '2018-04-02 14:06:22', 'REQUEST SEND'),
+(37, 48, 'FACULTY', '2018-04-02 14:07:59', 'GATEPASS_ISSUED');
 
 -- --------------------------------------------------------
 
@@ -475,9 +522,7 @@ CREATE TABLE IF NOT EXISTS `student` (
 --
 
 INSERT INTO `student` (`s_regno`, `name`, `branch`, `batch`, `photo`, `fad_regno`, `fad2_regno`, `hod_regno`, `parent_email`, `parent`, `email`, `mobno`, `parent_mobno`, `gender`) VALUES
-('15CS100', 'Anjana George', 'CSE', '2015', '15CS100.jpg\r\n', 'EMP172/16', '', 'hodcse', NULL, NULL, 'mitsekura@gmail.com', '0', '0', NULL),
-('15CS181', 'A V Aswin', 'CSE', '2015', '15CS181.jpg', 'EMP172/16', '', 'hodcse', 'mitsekura@gmail.com', 'Sunil Kumar', 'mitsekura@gmail.com', '0', '0', NULL),
-('15CS187', ' vbc', 'hi', NULL, '15CS187', NULL, NULL, NULL, 'mitsekura@gmail.com', NULL, 'mitsekura@gmail.com', '0', NULL, NULL);
+('15CS181', 'A V Aswin', 'CSE', '2015', '15CS181.jpg', 'EMP158/16', NULL, 'hodcse', 'sunilkunhath@gmail.com', 'Sunil Kumar', 'aswinavofficial@gmail.com', '9746354664', '8891803255', 'Male');
 
 --
 -- Constraints for dumped tables

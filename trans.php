@@ -25,12 +25,12 @@ if($_GET['type']=='faculty.php')
 		
 		$res=$objUser->new_gatepass($_GET['req_id'],$_GET['regno'],$remarks);
 		$subject="GATEPASS ISSUED";
-		$message='<html> <body> <h1>GATEPASS ISSUED</h1><br/>
+		$message="<html> <body> <h1>GATEPASS ISSUED</h1><br/>
 		
-		<img src="https://iamaswin.me/mitsekurav2/qr.php?regno=<?php echo $s_regno ;?>"  alt="failed">
+		<img src='https://iamaswin.me/mitsekurav2/qr.php?regno={$s_regno}'  alt='failed'>
 		<br/><br/>
 		
-		</body></html>';
+		</body></html>";
 		$response=sendmail_issued_gatepass($subject,$pname,$ToEmail,$message);
 	}
 	    header("location:faculty/index.php");
