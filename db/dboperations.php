@@ -146,7 +146,24 @@ function random_str($length = 10) {
 	}
 	
 	
+	public function get_pass($regno)
+	{
+	$sql = "select password from register where regno='$regno'";	
+		
+		return $this->dbObj->ExecuteQuery($sql, 1);
 	
+		
+	}
+	
+	
+	public function update_pass($regno,$pass)
+	{
+	$sql = "update register set password='$pass' where regno='$regno'";	
+		
+		return $this->dbObj->ExecuteQuery($sql, 3);
+	
+		
+	}
 	
 	
 	

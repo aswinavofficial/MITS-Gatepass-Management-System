@@ -102,7 +102,7 @@ if($_GET['type']=='faculty.php')
      $subject=$name." applied for Gate Pass";
 	   $ToEmail=$details['parent_email'];
 	   $message="Details of Request CATEGORY: ".$_POST['category']." REASON: ".$_POST['reason']." Time to leave : ".$day1;	 $response=sendmail_parent1($subject,$pname,$ToEmail,$message);
-	  header("location:guard/index.php"); */
+	*/  header("location:guard/index.php"); 
 	  
 
    }
