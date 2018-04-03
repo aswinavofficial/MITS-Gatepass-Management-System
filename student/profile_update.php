@@ -13,40 +13,27 @@ $details=mysqli_fetch_assoc($rest);
 $act=$objUser->activity_stud($_SESSION['regno']);
 $no1=mysqli_num_rows( $act );
  $row = mysqli_fetch_assoc( $act );
- 
 
-	
+
+
  if(isset($_POST['submit']))
  {
-	 $tmp1=$objUser->get_pass($_SESSION['regno']);
-	 $pass_details=mysqli_fetch_assoc($tmp1);
-	 $current_pass=$pass_details['password'];
-	  echo "<script>alert($current_pass); </script>";
-	 if(strcmp($_POST['current_pass'],$current_pass)!=0)
-	 {
-		 
-		  echo '<script>alert("Invalid Current Password!!!!"); </script>';
-	 }
-	else 
-	 {
-		$det=$objUser->update_pass($_SESSION['regno'],$_POST['new_pass']);
-$subject="PASSWORD CHANGED";
-$ToName=$details['name'];
-$ToEmail=$details['email'];
-$message='<html> <body><br/>Hello '.$ToName.'<br/>
-         Your Password has been Changed.
-		Login to : <a href="https://iamaswin.me/mitsekurav2">MITSEKURA</a><br/> <br/>
-		
-		<br/><br/>
-		
-		</body></html>';
-sendmail_welcome($subject,$ToName,$ToEmail,$message);
- echo '<script>alert("Password Changed "); </script>';
-		 
-	 }
+
+if(!file_exists($_FILES['photo']['tmp_name']) || !is_uploaded_file($_FILES['photo']['tmp_name'])) {
+   
+   $upd=$objUser->update_student($_SESSION['regno'],$_POST['email'],$_POST['mobno']);
+}	
+else
+{
+	move_uploaded_file($_FILES["photo"]["tmp_name"], "../images/students/{$_SESSION['regno']}.jpg");
+	
+}
+  
 	
 
+
  }
+
 
 	?>
 
@@ -311,7 +298,7 @@ sendmail_welcome($subject,$ToName,$ToEmail,$message);
                     <div class="col-lg-12">
                         <section class="box ">
                             <header class="panel_header">
-                                <h2 class="title pull-left">CHANGE PASSWORD</h2>
+                                <h2 class="title pull-left">PROFILE UPDATE</h2>
                                 <div class="actions panel_actions pull-right">
                                     <i class="box_toggle fa fa-chevron-down"></i>
                                     <i class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></i>
@@ -323,37 +310,44 @@ sendmail_welcome($subject,$ToName,$ToEmail,$message);
 							<div class="row">
                                  <div class="col-md-12 col-sm-12 col-xs-12">
 								 <div class="row">
-                                    <form action ="pass_change.php" method="post" enctype="multipart/form-data">
+                                    <form action ="profile_update.php" method="post" enctype="multipart/form-data">
                                         <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12">
 
-										<div class="form-group">
-                                                <label class="form-label" for="field-1">Current Password</label>
+										
+
+
+                                           
+
+                                  
+                                            <div class="form-group">
+                                                <label class="form-label" for="field-1">Profile Image</label>
                                                 <span class="desc"></span>
                                                 <div class="controls">
-                                                    <input type="password" value="" name="current_pass" class="form-control" id="field-1" required>
+                                                    <input type="file" name="photo" class="form-control" id="field-5">
                                                 </div>
                                             </div>
-										
+                                            
+
+                                           
+
                                             <div class="form-group">
-                                                <label class="form-label" for="field-1">New Password</label>
+                                                <label class="form-label" for="field-1">Email</label>
                                                 <span class="desc"></span>
                                                 <div class="controls">
-                                                    <input type="password" name="new_pass" value="" class="form-control" id="new_pass" required>
+                                                    <input type="email" name="email" value="<?php echo $details['email'] ?> " class="form-control" id="field-3">
                                                 </div>
                                             </div>
 											
-											 <div class="form-group">
-                                                <label class="form-label" for="field-1">Confirm Password</label>
-                                                <span id="message" class="desc"></span>
+											<div class="form-group">
+                                                <label class="form-label" for="field-2">Mobile Number</label>
+                                                <span class="desc"></span>
                                                 <div class="controls">
-                                                    <input type="password" name="conf_pass" value="" class="form-control" id="conf_pass" required>
+                                                    <input type="text" name="mobno" value="<?php echo $details['mobno'] ?>" class="form-control" id="field-2" >
                                                 </div>
                                             </div>
-
-
-                                            
-
-                                          
+											
+											
+											
                      
                                             
 
@@ -372,7 +366,6 @@ sendmail_welcome($subject,$ToName,$ToEmail,$message);
 									
 									</div>	
 									</div>
-									
 	
 
 									

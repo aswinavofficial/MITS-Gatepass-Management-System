@@ -119,6 +119,18 @@ function random_str($length = 10) {
 	}
 	
 	
+	public function update_student($regno,$email,$mobno)
+	{
+	$sql = "update student set email='$email',mobno='$mobno' where s_regno='$regno'";	
+		
+		return $this->dbObj->ExecuteQuery($sql, 3);
+	
+		
+	}
+	
+	
+	
+	
 	public function add_faculty($f_regno,$name,$branch,$batch,$email,$contact,$position,$fileName)
 	{
 		$sql= "select h.h_regno from hod h where  h.branch='$branch' ";

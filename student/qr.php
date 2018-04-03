@@ -249,6 +249,21 @@ $track['HOD']=mysqli_fetch_assoc($im2);
                                 <span style="font-size:1.5em;" class="title">Activity Log</span>
                             </a>
                         </li>
+						
+						<li class=""> 
+                            <a href="pass_change.php">
+                                <i class="fa fa-dashboard"></i>
+                                <span style="font-size:1.5em;" class="title">Change Password</span>
+                            </a>
+                        </li>
+						
+						
+						<li class=""> 
+                            <a href="profile_update.php">
+                                <i class="fa fa-dashboard"></i>
+                                <span style="font-size:1.5em;" class="title">Profile Update</span>
+                            </a>
+                        </li>
              
 
                     </ul>
