@@ -307,7 +307,7 @@ sendmail_welcome($subject,$ToName,$ToEmail,$message);
                                                 <label class="form-label" for="field-1">Registration Number</label>
                                                 <span class="desc"></span>
                                                 <div class="controls">
-                                                    <input type="text" value="" name="s_regno" class="form-control" id="field-1">
+                                                    <input type="text" value="" name="s_regno" class="form-control" id="field-1" required>
                                                 </div>
                                             </div>
 										
@@ -315,7 +315,7 @@ sendmail_welcome($subject,$ToName,$ToEmail,$message);
                                                 <label class="form-label" for="field-1">Name</label>
                                                 <span class="desc"></span>
                                                 <div class="controls">
-                                                    <input type="text" name="name" value="" class="form-control" id="field-1">
+                                                    <input type="text" name="name" value="" class="form-control" id="field-1" required>
                                                 </div>
                                             </div>
 
@@ -324,7 +324,7 @@ sendmail_welcome($subject,$ToName,$ToEmail,$message);
                                                 <label class="form-label" for="field-5">Date of Birth</label>
                                                 <span class="desc">e.g. "04/03/2015"</span>
                                                 <div class="controls">
-                                                    <input type="text" name="dob" value="" class="form-control datepicker" data-format="mm/dd/yyyy" value="">
+                                                    <input type="text" name="dob" value="" class="form-control datepicker" data-format="mm/dd/yyyy" value="" required>
                                                 </div>
                                             </div>
 
@@ -332,7 +332,7 @@ sendmail_welcome($subject,$ToName,$ToEmail,$message);
                                                 <label class="form-label" for="field-5">Gender</label>
                                                 <span class="desc"></span>
                                                 <select name="gender" class="form-control">
-                                                    <option></option>
+                                                   
                                                     <option >Male</option>
                                                     <option >Female</option>
                                                 </select>
@@ -348,7 +348,7 @@ sendmail_welcome($subject,$ToName,$ToEmail,$message);
                                                 <label class="form-label" for="field-5">Department</label>
                                                 <span class="desc"></span>
                                                 <select name="branch" class="form-control ">
-                                                    <option></option>
+                                                   
                                                     <option  value="CSE">Computer Science & Engineering</option>
                                                     <option value="ECE">Electronics & Communication Engineering</option>
                                                     <option value="ME">Mechanical Engineering</option>
@@ -362,7 +362,7 @@ sendmail_welcome($subject,$ToName,$ToEmail,$message);
                                                 <label class="form-label" for="field-1">Batch</label>
                                                 <span class="desc">Eg : 2015</span>
                                                 <div class="controls">
-                                                    <input type="text" name="batch" value="" class="form-control" id="field-1">
+                                                    <input type="text" name="batch" value="" class="form-control" id="field-1" required>
                                                 </div>
                                             </div>
 
@@ -370,7 +370,7 @@ sendmail_welcome($subject,$ToName,$ToEmail,$message);
                                                 <label class="form-label" for="field-1">Email</label>
                                                 <span class="desc"></span>
                                                 <div class="controls">
-                                                    <input type="email" name="email" value="" class="form-control" id="field-3">
+                                                    <input type="email" name="email" value="" class="form-control" id="field-3" required>
                                                 </div>
                                             </div>
 											
@@ -378,7 +378,7 @@ sendmail_welcome($subject,$ToName,$ToEmail,$message);
                                                 <label class="form-label" for="field-2">Mobile Number</label>
                                                 <span class="desc">Eg: 987654321</span>
                                                 <div class="controls">
-                                                    <input type="text" name="mobno" value="" class="form-control" id="field-2" >
+                                                    <input type="text" name="mobno" value="" class="form-control" id="field-2" required>
                                                 </div>
                                             </div>
 											
@@ -387,7 +387,7 @@ sendmail_welcome($subject,$ToName,$ToEmail,$message);
                                                 <label class="form-label" for="field-1">Parent Name</label>
                                                 <span class="desc"></span>
                                                 <div class="controls">
-                                                    <input type="text" name="pname" value="" class="form-control" id="field-1">
+                                                    <input type="text" name="pname" value="" class="form-control" id="field-1" required>
                                                 </div>
                                             </div>
 											
@@ -395,7 +395,7 @@ sendmail_welcome($subject,$ToName,$ToEmail,$message);
                                                 <label class="form-label" for="field-1">Parent Email</label>
                                                 <span class="desc"></span>
                                                 <div class="controls">
-                                                    <input type="email" name="parent_email" value="" class="form-control" id="field-3">
+                                                    <input type="email" name="parent_email" value="" class="form-control" id="field-3" required>
                                                 </div>
                                             </div>
 											
@@ -404,7 +404,7 @@ sendmail_welcome($subject,$ToName,$ToEmail,$message);
                                                 <label class="form-label" for="field-2">Parent Mobile Number</label>
                                                 <span class="desc">Eg: 987654321</span>
                                                 <div class="controls">
-                                                    <input type="text" name="parent_mobno" value="" class="form-control" id="field-2" >
+                                                    <input type="text" name="parent_mobno" value="" class="form-control" id="field-2" required>
                                                 </div>
                                             </div>
                      

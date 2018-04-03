@@ -220,7 +220,7 @@ $details=mysqli_fetch_assoc($rest);
 
 
                         <li class=""> 
-                            <a href="index.html">
+                            <a href="index.php">
                                 <i class="fa fa-dashboard"></i>
                                 <span style="font-size:1.5em;" class="title">New Request</span>
                             </a>
@@ -305,7 +305,7 @@ $details=mysqli_fetch_assoc($rest);
                                     <div class="col-md-12 col-sm-12 col-xs-12">
 									<form action="index.php" method="post">
 								<p style="font-size:20px;">	REASON CATEGORY </p>
-									<select name="category" class="form-control input-lg m-bot15">
+									<select name="category" class="form-control input-lg m-bot15" >
                                             <option>Please Choose</option>
                                             <option>Health Problems</option>
                                             <option>Attending Events</option>
@@ -320,17 +320,17 @@ $details=mysqli_fetch_assoc($rest);
 									   <input type="text" name="time" class="form-control timepicker col-md-4" data-template="dropdown" data-show-seconds="true" data-default-time="11:30 AM" data-show-meridian="true" data-minute-step="5" data-second-step="5">
                                       -->
 									  <div class="form-group">
-                                            <div class="input-group date form_datetime_meridian"  data-date-format="Y-m-d H:i:s" data-link-field="dtpick_2">
-                                                <input name="datetime" class="form-control" size="16" type="text" value="" readonly>
+                                            <div class="input-group date form_datetime_meridian"  data-date-format="Y-m-d H:i:s" data-link-field="dtpick_2" >
+                                                <input name="datetime" class="form-control" size="16" type="text" value="" readonly >
                                                 <span class="input-group-addon"><span class="fa fa-times"></span></span>
                                                 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
                                             </div>
-                                            <input type="hidden" id="dtpick_2" value="" />
+                                            <input type="hidden" id="dtpick_2" value=""  />
                                         </div>
 									  <br> 
 				                    <p style="font-size:20px;"> REASON</p>
 
-									  <textarea  name="reason" class="form-control autogrow" cols="5" id="field-7" placeholder="Enter your request here" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 150px;"></textarea>
+									  <textarea  name="reason" class="form-control autogrow" cols="5" id="field-7" placeholder="Enter your request here" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 150px;" required></textarea>
                                       <br/>
 									  
 
