@@ -264,6 +264,16 @@ function random_str($length = 10) {
 		return $this->dbObj->ExecuteQuery($sql, 1);
 	
 		
+	} 
+	
+	
+	public function list_hod($regno)
+	{
+	$sql = "select * from request r,student s where r.regno=s.s_regno and s.hod_regno='$regno'order by r.reqid desc";	
+		
+		return $this->dbObj->ExecuteQuery($sql, 1);
+	
+		
 	}
 
 

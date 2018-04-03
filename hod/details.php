@@ -213,18 +213,18 @@ $request=mysqli_fetch_assoc($res);
                                 <span class="title">Gate Pass Requests</span>
                             </a>
                         </li>
-						
-                        <li class=""> 
-                            <a href="notifications.php">
+					
+					 <li class=""> 
+                            <a href="activity.php">
                                 <i class="fa fa-dashboard"></i>
-                                <span class="title">Notifications</span>
+                                <span class="title">Activity Log</span>
                             </a>
                         </li>
 						
-                        <li class=""> 
-                            <a href="history.php">
+						<li class=""> 
+                            <a href="gatepass_log.php">
                                 <i class="fa fa-dashboard"></i>
-                                <span class="title">History</span>
+                                <span class="title">Gate Pass History</span>
                             </a>
                         </li>
              

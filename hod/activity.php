@@ -11,8 +11,12 @@ include_once '../db/dboperations.php';
   $res=$objUser->user_data($_SESSION['regno'],"HOD");
  $details=mysqli_fetch_assoc($res);
 
-$act=$objUser->activity_hod($_SESSION['regno']);
+$act=$objUser->list_hod($_SESSION['regno']);
 $no1=mysqli_num_rows( $act );
+
+
+//$act=$objUser->activity_fac($_SESSION['regno']);
+//$no1=mysqli_num_rows( $act );
 
 
 ?>
@@ -182,12 +186,12 @@ $no1=mysqli_num_rows( $act );
 
                         <div class="profile-details col-md-7 col-sm-7 col-xs-7">
 
-                            <h2>
+                            <h4>
                                 <a href=""><?php echo $details['name']; ?></a>
 
                                 <!-- Available statuses: online, idle, busy, away and offline -->
                                 <span class="profile-status online"></span>
-                            </h2>
+                            </h4>
 
                             <p class="profile-title"><?php echo "HOD ".$details['branch']; ?></p>
 
@@ -208,7 +212,9 @@ $no1=mysqli_num_rows( $act );
                             </a>
                         </li>
 						
-                      <li class=""> 
+                        
+						
+                        <li class=""> 
                             <a href="activity.php">
                                 <i class="fa fa-dashboard"></i>
                                 <span class="title">Activity Log</span>
@@ -221,7 +227,6 @@ $no1=mysqli_num_rows( $act );
                                 <span class="title">Gate Pass History</span>
                             </a>
                         </li>
-             
              
 
                     </ul>
@@ -255,7 +260,7 @@ $no1=mysqli_num_rows( $act );
                     <div class="col-lg-12">
                         <section class="box ">
                             <header class="panel_header">
-                                <h2 class="title pull-left">GATE PASS REQUESTS</h2>
+                                <h2 class="title pull-left">ACTIVITY LOG</h2>
                                 <div class="actions panel_actions pull-right">
                                     <i class="box_toggle fa fa-chevron-down"></i>
                                     <i class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></i>
@@ -263,20 +268,20 @@ $no1=mysqli_num_rows( $act );
                                 </div>
                             </header>
                             <div class="content-body">  
-							<div class="row">
+										<div class="row">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
 									       <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
-                  <th></th>
-				  <th>Name</th> 
+                  <th>Request ID</th>
+				  <th>Name</th>
 				  <th>Batch</th>
                   <th>Category</th>
-                  <th>Time</th>
-				  <th>Reason </th>
-				  <th></th>
-				  <th></th>
+                  <th>Requested Time</th>
+				  <th>Out Time </th>
+				  <th>Reason</th>
+				  <th>Status</th>
 				  
                 </tr>
               </thead>
@@ -288,20 +293,13 @@ $no1=mysqli_num_rows( $act );
               <tbody>
                  <?php
                               if( $no1==0 ){
-                                 echo '<tr><td colspan="7">No Rows Returned</td></tr>';
+                                 echo '<tr><td colspan="6">No Result Found!!!</td></tr>';
 		
                                  }else{
                                 while( $row = mysqli_fetch_assoc( $act ) ){
 									$req_id=$row['reqid'];
-									$appr="HOD_APPROVED";
-									$rej="HOD_REJECTED";
-									$fwd="FORWARD_HOD";
-									$fd=$_SESSION['regno'];
-									$url="hod.php";
-									//{$row['regno']}
-									$photo1=$row['photo'];
-									//<img src='../images/faculty/{$photo}' alt='' class='img-responsive img-circle'>;
-                               echo " <tr > <td><img src='../images/students/{$photo1}' alt='' class='tb img-circle'> </td><td>{$row['name']} </td><td>{$row['batch']} </td><td>{$row['cat']}</td><td>{$row['exp_time']}</td> <td>{$row['reason']}</td> <td> <a href='details.php?req_id=$req_id&regno=$fd&type=$url'>MORE DETAILS</a></td><td> <a href='../trans.php?req_id=$req_id&regno=$fd&status=$rej&type=$url'>REJECT</a></td></tr>\n";
+									
+                               echo " <tr > <td>{$req_id} </td><td>{$row['name']} </td><td>{$row['batch']} </td><td>{$row['cat']}</td><td>{$row['exp_time']}</td> <td>{$row['out_time']}</td><td>{$row['reason']}</td> <td>{$row['STATUS']}</td> </tr>\n";
                                 }
                                   }
                                       ?>
@@ -310,7 +308,8 @@ $no1=mysqli_num_rows( $act );
           </div>
 									</div>
 									
-							</div>		
+							</div>	
+							
                             </div>
                         </section></div>
 
