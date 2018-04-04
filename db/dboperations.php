@@ -199,6 +199,16 @@ function random_str($length = 10) {
 		
 	}
 	
+	
+	public function gatepass_fac($regno)
+	{
+	$sql = "select * from request r,student s where r.regno=s.s_regno and s.fad_regno='$regno' and r.status='DEPARTED' order by r.reqid desc";	
+		
+		return $this->dbObj->ExecuteQuery($sql, 1);
+	
+		
+	}
+	
 	public function user_data($regno,$type)
 	{
 		if($type=="STUDENT")
@@ -270,6 +280,16 @@ function random_str($length = 10) {
 	public function list_hod($regno)
 	{
 	$sql = "select * from request r,student s where r.regno=s.s_regno and s.hod_regno='$regno'order by r.reqid desc";	
+		
+		return $this->dbObj->ExecuteQuery($sql, 1);
+	
+		
+	}
+	
+	
+	public function gatepass_hod($regno)
+	{
+	$sql = "select * from request r,student s where r.regno=s.s_regno and s.hod_regno='$regno' and  r.status='DEPARTED'   order by r.reqid desc";	
 		
 		return $this->dbObj->ExecuteQuery($sql, 1);
 	

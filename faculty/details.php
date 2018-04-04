@@ -214,17 +214,20 @@ $request=mysqli_fetch_assoc($res);
                             </a>
                         </li>
 						
-                        <li class=""> 
-                            <a href="notifications.php">
-                                <i class="fa fa-dashboard"></i>
-                                <span class="title">Notifications</span>
-                            </a>
-                        </li>
+                        
 						
                         <li class=""> 
                             <a href="activity.php">
                                 <i class="fa fa-dashboard"></i>
                                 <span class="title">Activity Log</span>
+                            </a>
+                        </li>
+						
+						
+						<li class=""> 
+                            <a href="gatepass_log.php">
+                                <i class="fa fa-dashboard"></i>
+                                <span  style="font-size:1.5em;" class="title">Gatepass History</span>
                             </a>
                         </li>
              

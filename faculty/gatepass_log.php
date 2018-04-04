@@ -10,7 +10,7 @@ include_once '../db/dboperations.php';
  $objUser = new User();
   $res=$objUser->user_data($_SESSION['regno'],"FACULTY");
  $details=mysqli_fetch_assoc($res);
-$act=$objUser->activity_fac($_SESSION['regno']);
+$act=$objUser->gatepass_fac($_SESSION['regno']);
 $no1=mysqli_num_rows( $act );
 
 
@@ -208,7 +208,7 @@ $no1=mysqli_num_rows( $act );
                             </a>
                         </li>
 						
-
+                        
 						
                         <li class=""> 
                             <a href="activity.php">
@@ -257,7 +257,7 @@ $no1=mysqli_num_rows( $act );
                     <div class="col-lg-12">
                         <section class="box ">
                             <header class="panel_header">
-                                <h2 class="title pull-left">ACTIVITY LOG</h2>
+                                <h2 class="title pull-left">GATE PASS HISTORY</h2>
                                 <div class="actions panel_actions pull-right">
                                     <i class="box_toggle fa fa-chevron-down"></i>
                                     <i class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></i>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 02, 2018 at 10:39 AM
+-- Generation Time: Apr 03, 2018 at 07:27 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -181,7 +181,7 @@ CREATE TABLE IF NOT EXISTS `hod` (
 
 INSERT INTO `hod` (`h_regno`, `name`, `contact`, `branch`, `photo`) VALUES
 ('hodce', 'HODCE', NULL, 'CE', 'hodce.jpg'),
-('hodcse', 'Dr. Tripti S Warrier', 987654321, 'CSE', 'hodcse.jpg'),
+('hodcse', 'Mahalingam P R', 987654321, 'CSE', 'hodcse.jpg'),
 ('hodece', 'HODECE', NULL, 'ECE', 'hodece.jpg'),
 ('hodeee', 'HODEEE', NULL, 'EEE', 'hodeee.jpg'),
 ('hodme', 'HODME', NULL, 'ME', 'hodme.jpg');
@@ -375,7 +375,7 @@ CREATE TABLE IF NOT EXISTS `register` (
   `password` varchar(50) NOT NULL,
   `reg_as` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `register`
@@ -389,8 +389,9 @@ INSERT INTO `register` (`id`, `regno`, `password`, `reg_as`) VALUES
 (6, 'EMP100/13', 'office123', 'OFFICE'),
 (7, 'EMP500/16', 'guard123', 'GUARD'),
 (10, '15CS134', 'fRl3aVkTHc6G3xB1YglYDdf9MLOEDK04', 'STUDENT'),
-(14, 'EMP158/16', 'mtzDo8FeeKBRNS4UAEibzE02cXqksbgo', 'FACULTY'),
-(15, '15CS181', 'Aswin9037#', 'STUDENT');
+(14, 'EMP158/16', 'dhanya123', 'FACULTY'),
+(15, '15CS181', 'Aswin9037#', 'STUDENT'),
+(16, '15CS100', 'hanu2020', 'STUDENT');
 
 -- --------------------------------------------------------
 
@@ -416,7 +417,7 @@ CREATE TABLE IF NOT EXISTS `request` (
   `ffor_time` datetime DEFAULT NULL,
   `fa_hod_msg` text,
   PRIMARY KEY (`reqid`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `request`
@@ -436,7 +437,12 @@ INSERT INTO `request` (`reqid`, `regno`, `cat`, `reason`, `exp_time`, `curr_time
 (49, '15CS181', 'Attending Events', 'hackathon\r\n', '02 April 2018 - 15:50', '2018-04-02 15:45:26', 'GATEPASS_ISSUED', '2018-04-02 15:47:15', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (50, '15CS181', 'Private Functions', 'hjghjb', '05 April 2018 - 15:50', '2018-04-02 15:53:26', 'GATEPASS_ISSUED', '2018-04-02 15:54:13', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (51, '15CS181', 'Health Problems', 'kjghb', '04 April 2018 - 08:45', '2018-04-02 15:55:39', 'GATEPASS_ISSUED', '2018-04-02 15:55:53', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(52, '15CS181', 'Attending Events', 'ibhj', '13 April 2018 - 16:45', '2018-04-02 15:59:05', 'GATEPASS_ISSUED', '2018-04-02 15:59:37', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(52, '15CS181', 'Attending Events', 'ibhj', '13 April 2018 - 16:45', '2018-04-02 15:59:05', 'GATEPASS_ISSUED', '2018-04-02 15:59:37', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(53, '15CS181', 'Private Functions', 'Hack', '03 April 2018 - 15:25', '2018-04-02 16:24:31', 'DEPARTED', '2018-04-02 16:27:21', NULL, NULL, '2018-04-02 16:27:57', NULL, 'EMP500/16', NULL, NULL),
+(54, '15CS100', 'Health Problems', 'FEVER', '03 April 2018 - 14:35', '2018-04-03 12:36:45', 'DEPARTED', '2018-04-03 12:37:58', NULL, NULL, '2018-04-03 12:38:57', NULL, 'EMP500/16', NULL, NULL),
+(55, '15CS181', 'Health Problems', 'Fever ', '04 April 2018 - 16:05', '2018-04-03 15:04:45', 'WAITING_FACULTY_APPROVAL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(56, '15CS181', 'Health Problems', 'Fever ', '04 April 2018 - 16:05', '2018-04-03 15:04:48', 'GATEPASS_ISSUED', '2018-04-03 15:06:39', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(58, '15CS181', 'Attending Events', 'Hackathon ', '04 April 2018 - 00:42', '2018-04-04 00:42:46', 'GATEPASS_ISSUED', NULL, '2018-04-04 00:47:06', NULL, NULL, NULL, NULL, '2018-04-04 00:43:47', 'Attendance OK');
 
 -- --------------------------------------------------------
 
@@ -452,7 +458,7 @@ CREATE TABLE IF NOT EXISTS `req_trans` (
   `trans_time` datetime NOT NULL,
   `trans_status` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`trans_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=59 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `req_trans`
@@ -501,7 +507,20 @@ INSERT INTO `req_trans` (`trans_id`, `req_id`, `trans_type`, `trans_time`, `tran
 (42, 51, 'STUDENT', '2018-04-02 15:55:39', 'REQUEST SEND'),
 (43, 51, 'FACULTY', '2018-04-02 15:55:53', 'GATEPASS_ISSUED'),
 (44, 52, 'STUDENT', '2018-04-02 15:59:05', 'REQUEST SEND'),
-(45, 52, 'FACULTY', '2018-04-02 15:59:37', 'GATEPASS_ISSUED');
+(45, 52, 'FACULTY', '2018-04-02 15:59:37', 'GATEPASS_ISSUED'),
+(46, 53, 'STUDENT', '2018-04-02 16:24:31', 'REQUEST SEND'),
+(47, 53, 'FACULTY', '2018-04-02 16:27:21', 'GATEPASS_ISSUED'),
+(48, 53, 'GUARD', '2018-04-02 16:27:57', 'DEPARTED'),
+(49, 54, 'STUDENT', '2018-04-03 12:36:45', 'REQUEST SEND'),
+(50, 54, 'FACULTY', '2018-04-03 12:37:58', 'GATEPASS_ISSUED'),
+(51, 54, 'GUARD', '2018-04-03 12:38:57', 'DEPARTED'),
+(52, 55, 'STUDENT', '2018-04-03 15:04:46', 'REQUEST SEND'),
+(53, 56, 'STUDENT', '2018-04-03 15:04:49', 'REQUEST SEND'),
+(54, 56, 'FACULTY', '2018-04-03 15:06:39', 'GATEPASS_ISSUED'),
+(55, 57, 'STUDENT', '2018-04-04 00:03:49', 'REQUEST SEND'),
+(56, 58, 'STUDENT', '2018-04-04 00:42:46', 'REQUEST SEND'),
+(57, 58, 'FACULTY', '2018-04-04 00:43:47', 'FORWARD_HOD'),
+(58, 58, 'HOD', '2018-04-04 00:47:06', 'GATEPASS_ISSUED');
 
 -- --------------------------------------------------------
 
@@ -534,6 +553,7 @@ CREATE TABLE IF NOT EXISTS `student` (
 --
 
 INSERT INTO `student` (`s_regno`, `name`, `branch`, `batch`, `photo`, `fad_regno`, `fad2_regno`, `hod_regno`, `parent_email`, `parent`, `email`, `mobno`, `parent_mobno`, `gender`) VALUES
+('15CS100', 'Anjana George', 'CSE', '2015', '15CS100.jpg', 'EMP158/16', NULL, 'hodcse', 'anjanamg97@gmail.com', 'Anitha', 'anjanamg97@gmail.com', '9061457130', '9061457130', 'Female'),
 ('15CS181', 'A V Aswin', 'CSE', '2015', '15CS181.jpg', 'EMP158/16', NULL, 'hodcse', 'sunilkunhath@gmail.com', 'Sunil Kumar', 'aswinavofficial@gmail.com', '9746354664', '8891803255', 'Male');
 
 --

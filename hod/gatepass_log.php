@@ -8,15 +8,19 @@ if (empty($_SESSION['regno'])) {
 } 
 include_once '../db/dboperations.php';
  $objUser = new User();
-  $res=$objUser->user_data($_SESSION['regno'],"FACULTY");
+  $res=$objUser->user_data($_SESSION['regno'],"HOD");
  $details=mysqli_fetch_assoc($res);
-$act=$objUser->activity_fac($_SESSION['regno']);
+
+$act=$objUser->gatepass_hod($_SESSION['regno']);
 $no1=mysqli_num_rows( $act );
 
 
+//$act=$objUser->activity_fac($_SESSION['regno']);
+//$no1=mysqli_num_rows( $act );
+
 
 ?>
-	
+
 	
 
 <!DOCTYPE html>
@@ -135,7 +139,7 @@ $no1=mysqli_num_rows( $act );
                     <ul class="info-menu right-links list-inline list-unstyled">
                         <li class="profile">
                             <a href="#" data-toggle="dropdown" class="toggle">
-                                <img src="../images/faculty/<?php echo $details['photo']; ?>" alt="" class="img-circle img-inline">
+                                <img src="../images/hod/<?php echo $details['photo']; ?>" alt="" class="img-circle img-inline">
                                 <span><?php echo $details['name']; ?><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul class="dropdown-menu profile animated fadeIn">
@@ -174,22 +178,22 @@ $no1=mysqli_num_rows( $act );
                     <!-- USER INFO - START -->
                     <div class="profile-info row">
 
-                        <div class="profile-image col-md-4 col-sm-4 col-xs-4">
+                        <div class="profile-image col-md-5 col-sm-5 col-xs-5">
                             <a href="">
-                                <img src="../images/faculty/<?php echo $details['photo']; ?>" alt="" class="img-responsive img-circle">
+                                <img src="../images/hod/<?php echo $details['photo']; ?>" alt="" class="img-responsive img-circle">
                             </a>
                         </div>
 
-                        <div class="profile-details col-md-8 col-sm-8 col-xs-8">
+                        <div class="profile-details col-md-7 col-sm-7 col-xs-7">
 
-                            <h2>
+                            <h4>
                                 <a href=""><?php echo $details['name']; ?></a>
 
                                 <!-- Available statuses: online, idle, busy, away and offline -->
                                 <span class="profile-status online"></span>
-                            </h2>
+                            </h4>
 
-                            <p class="profile-title"><?php echo $details['position'].' '.$details['branch']; ?></p>
+                            <p class="profile-title"><?php echo "HOD ".$details['branch']; ?></p>
 
                         </div>
 
@@ -204,24 +208,23 @@ $no1=mysqli_num_rows( $act );
                         <li class=""> 
                             <a href="index.php">
                                 <i class="fa fa-dashboard"></i>
-                                <span style="font-size:1.5em;" class="title">Gate Pass Requests</span>
+                                <span class="title">Gate Pass Requests</span>
                             </a>
                         </li>
 						
-
+                        
 						
                         <li class=""> 
                             <a href="activity.php">
                                 <i class="fa fa-dashboard"></i>
-                                <span style="font-size:1.5em;" class="title">Activity Log</span>
+                                <span class="title">Activity Log</span>
                             </a>
                         </li>
-						
 						
 						<li class=""> 
                             <a href="gatepass_log.php">
                                 <i class="fa fa-dashboard"></i>
-                                <span  style="font-size:1.5em;" class="title">Gatepass History</span>
+                                <span class="title">Gate Pass History</span>
                             </a>
                         </li>
              
@@ -257,7 +260,7 @@ $no1=mysqli_num_rows( $act );
                     <div class="col-lg-12">
                         <section class="box ">
                             <header class="panel_header">
-                                <h2 class="title pull-left">ACTIVITY LOG</h2>
+                                <h2 class="title pull-left">GATE PASS HISTORY</h2>
                                 <div class="actions panel_actions pull-right">
                                     <i class="box_toggle fa fa-chevron-down"></i>
                                     <i class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></i>
@@ -265,7 +268,7 @@ $no1=mysqli_num_rows( $act );
                                 </div>
                             </header>
                             <div class="content-body">  
-							<div class="row">
+										<div class="row">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
 									       <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -273,6 +276,7 @@ $no1=mysqli_num_rows( $act );
                 <tr>
                   <th>Request ID</th>
 				  <th>Name</th>
+				  <th>Batch</th>
                   <th>Category</th>
                   <th>Requested Time</th>
 				  <th>Out Time </th>
@@ -295,7 +299,7 @@ $no1=mysqli_num_rows( $act );
                                 while( $row = mysqli_fetch_assoc( $act ) ){
 									$req_id=$row['reqid'];
 									
-                               echo " <tr > <td>{$req_id} </td><td>{$row['name']} </td><td>{$row['cat']}</td><td>{$row['exp_time']}</td> <td>{$row['out_time']}</td><td>{$row['reason']}</td> <td>{$row['STATUS']}</td> </tr>\n";
+                               echo " <tr > <td>{$req_id} </td><td>{$row['name']} </td><td>{$row['batch']} </td><td>{$row['cat']}</td><td>{$row['exp_time']}</td> <td>{$row['out_time']}</td><td>{$row['reason']}</td> <td>{$row['STATUS']}</td> </tr>\n";
                                 }
                                   }
                                       ?>
@@ -304,7 +308,8 @@ $no1=mysqli_num_rows( $act );
           </div>
 									</div>
 									
-							</div>		
+							</div>	
+							
                             </div>
                         </section></div>
 

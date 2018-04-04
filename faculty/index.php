@@ -208,12 +208,7 @@ $no1=mysqli_num_rows( $act );
                             </a>
                         </li>
 						
-                        <li class=""> 
-                            <a href="notifications.php">
-                                <i class="fa fa-dashboard"></i>
-                                <span style="font-size:1.5em;"  class="title">Notifications</span>
-                            </a>
-                        </li>
+                      
 						
                         <li class=""> 
                             <a href="activity.php">
@@ -221,7 +216,14 @@ $no1=mysqli_num_rows( $act );
                                 <span style="font-size:1.5em;" class="title">Activity Log</span>
                             </a>
                         </li>
-             
+                 
+				 
+				         <li class=""> 
+                            <a href="gatepass_log.php">
+                                <i class="fa fa-dashboard"></i>
+                                <span  style="font-size:1.5em;" class="title">Gatepass History</span>
+                            </a>
+                        </li>
 
                     </ul>
 
