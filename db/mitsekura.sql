@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 03, 2018 at 07:27 PM
+-- Generation Time: Apr 04, 2018 at 01:12 AM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -385,7 +385,7 @@ INSERT INTO `register` (`id`, `regno`, `password`, `reg_as`) VALUES
 (2, '15GA101', 'guard123', 'GUARD'),
 (3, 'ADMIN100', 'admin123', 'ADMIN'),
 (4, 'EMP172/16', 'faculty1', 'FACULTY'),
-(5, 'hodcse', 'hod123', 'HOD'),
+(5, 'hodcse', '123', 'HOD'),
 (6, 'EMP100/13', 'office123', 'OFFICE'),
 (7, 'EMP500/16', 'guard123', 'GUARD'),
 (10, '15CS134', 'fRl3aVkTHc6G3xB1YglYDdf9MLOEDK04', 'STUDENT'),

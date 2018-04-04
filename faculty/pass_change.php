@@ -7,20 +7,48 @@ if (empty($_SESSION['regno'])) {
     exit();
 } 
 include_once '../db/dboperations.php';
+include_once '../sendmail.php';
  $objUser = new User();
-  $res=$objUser->user_data($_SESSION['regno'],"HOD");
+  $res=$objUser->user_data($_SESSION['regno'],"FACULTY");
  $details=mysqli_fetch_assoc($res);
-
-$act=$objUser->list_hod($_SESSION['regno']);
+$act=$objUser->gatepass_fac($_SESSION['regno']);
 $no1=mysqli_num_rows( $act );
 
+	
+ if(isset($_POST['submit']))
+ {
+	 $tmp1=$objUser->get_pass($_SESSION['regno']);
+	 $pass_details=mysqli_fetch_assoc($tmp1);
+	 $current_pass=$pass_details['password'];
+	//  echo "<script>alert($current_pass); </script>";
+	 if(strcmp($_POST['current_pass'],$current_pass)!=0)
+	 {
+		 
+		  echo '<script>alert("Invalid Current Password!!!!"); </script>';
+	 }
+	else 
+	 {
+		$det=$objUser->update_pass($_SESSION['regno'],$_POST['new_pass']);
+$subject="PASSWORD CHANGED";
+$ToName=$details['name'];
+$ToEmail=$details['email'];
+$message='<html> <body><br/>Hello '.$ToName.'<br/>
+         Your Password has been Changed.
+		Login to : <a href="https://iamaswin.me/mitsekurav2">MITSEKURA</a><br/> <br/>
+		
+		<br/><br/>
+		
+		</body></html>';
+sendmail_welcome($subject,$ToName,$ToEmail,$message);
+ echo '<script>alert("Password Changed "); </script>';
+		 
+	 }
+	
 
-//$act=$objUser->activity_fac($_SESSION['regno']);
-//$no1=mysqli_num_rows( $act );
-
+ }
 
 ?>
-
+	
 	
 
 <!DOCTYPE html>
@@ -139,7 +167,7 @@ $no1=mysqli_num_rows( $act );
                     <ul class="info-menu right-links list-inline list-unstyled">
                         <li class="profile">
                             <a href="#" data-toggle="dropdown" class="toggle">
-                                <img src="../images/hod/<?php echo $details['photo']; ?>" alt="" class="img-circle img-inline">
+                                <img src="../images/faculty/<?php echo $details['photo']; ?>" alt="" class="img-circle img-inline">
                                 <span><?php echo $details['name']; ?><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul class="dropdown-menu profile animated fadeIn">
@@ -178,22 +206,22 @@ $no1=mysqli_num_rows( $act );
                     <!-- USER INFO - START -->
                     <div class="profile-info row">
 
-                        <div class="profile-image col-md-5 col-sm-5 col-xs-5">
+                        <div class="profile-image col-md-4 col-sm-4 col-xs-4">
                             <a href="">
-                                <img src="../images/hod/<?php echo $details['photo']; ?>" alt="" class="img-responsive img-circle">
+                                <img src="../images/faculty/<?php echo $details['photo']; ?>" alt="" class="img-responsive img-circle">
                             </a>
                         </div>
 
-                        <div class="profile-details col-md-7 col-sm-7 col-xs-7">
+                        <div class="profile-details col-md-8 col-sm-8 col-xs-8">
 
-                            <h4>
+                            <h2>
                                 <a href=""><?php echo $details['name']; ?></a>
 
                                 <!-- Available statuses: online, idle, busy, away and offline -->
                                 <span class="profile-status online"></span>
-                            </h4>
+                            </h2>
 
-                            <p class="profile-title"><?php echo "HOD ".$details['branch']; ?></p>
+                            <p class="profile-title"><?php echo $details['position'].' '.$details['branch']; ?></p>
 
                         </div>
 
@@ -208,7 +236,7 @@ $no1=mysqli_num_rows( $act );
                         <li class=""> 
                             <a href="index.php">
                                 <i class="fa fa-dashboard"></i>
-                                <span class="title">Gate Pass Requests</span>
+                                <span style="font-size:1.5em;" class="title">Gate Pass Requests</span>
                             </a>
                         </li>
 						
@@ -217,23 +245,25 @@ $no1=mysqli_num_rows( $act );
                         <li class=""> 
                             <a href="activity.php">
                                 <i class="fa fa-dashboard"></i>
-                                <span class="title">Activity Log</span>
+                                <span style="font-size:1.5em;" class="title">Activity Log</span>
                             </a>
                         </li>
+						
 						
 						<li class=""> 
                             <a href="gatepass_log.php">
                                 <i class="fa fa-dashboard"></i>
-                                <span class="title">Gate Pass History</span>
+                                <span  style="font-size:1.5em;" class="title">Gatepass History</span>
                             </a>
                         </li>
 						
 						<li class=""> 
                             <a href="pass_change.php">
                                 <i class="fa fa-dashboard"></i>
-                                <span  class="title">Change Password</span>
+                                <span style="font-size:1.5em;" class="title">Change Password</span>
                             </a>
                         </li>
+						
              
 
                     </ul>
@@ -267,7 +297,7 @@ $no1=mysqli_num_rows( $act );
                     <div class="col-lg-12">
                         <section class="box ">
                             <header class="panel_header">
-                                <h2 class="title pull-left">ACTIVITY LOG</h2>
+                                <h2 class="title pull-left">CHANGE PASSWORD</h2>
                                 <div class="actions panel_actions pull-right">
                                     <i class="box_toggle fa fa-chevron-down"></i>
                                     <i class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></i>
@@ -275,48 +305,61 @@ $no1=mysqli_num_rows( $act );
                                 </div>
                             </header>
                             <div class="content-body">  
-										<div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-									       <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-              <thead>
-                <tr>
-                  <th>Request ID</th>
-				  <th>Name</th>
-				  <th>Batch</th>
-                  <th>Category</th>
-                  <th>Requested Time</th>
-				  <th>Out Time </th>
-				  <th>Reason</th>
-				  <th>Status</th>
-				  
-                </tr>
-              </thead>
-              <tfoot>
-                <tr>
-                  
-                </tr>
-              </tfoot>
-              <tbody>
-                 <?php
-                              if( $no1==0 ){
-                                 echo '<tr><td colspan="6">No Result Found!!!</td></tr>';
-		
-                                 }else{
-                                while( $row = mysqli_fetch_assoc( $act ) ){
-									$req_id=$row['reqid'];
+					
+					         <div class="row">
+                                 <div class="col-md-12 col-sm-12 col-xs-12">
+								 <div class="row">
+                                    <form action ="pass_change.php" method="post" enctype="multipart/form-data">
+                                        <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12">
+
+										<div class="form-group">
+                                                <label class="form-label" for="field-1">Current Password</label>
+                                                <span class="desc"></span>
+                                                <div class="controls">
+                                                    <input type="password" value="" name="current_pass" class="form-control" id="field-1" required>
+                                                </div>
+                                            </div>
+										
+                                            <div class="form-group">
+                                                <label class="form-label" for="field-1">New Password</label>
+                                                <span class="desc"></span>
+                                                <div class="controls">
+                                                    <input type="password" name="new_pass" value="" class="form-control" id="new_pass" required>
+                                                </div>
+                                            </div>
+											
+											 <div class="form-group">
+                                                <label class="form-label" for="field-1">Confirm Password</label>
+                                                <span id="message" class="desc"></span>
+                                                <div class="controls">
+                                                    <input type="password" name="conf_pass" value="" class="form-control" id="conf_pass" required>
+                                                </div>
+                                            </div>
+
+
+                                            
+
+                                          
+                     
+                                            
+
+                                        </div>
+
+                                        <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12 padding-bottom-30">
+                                            <div class="text-left">
+                                                <button type="submit" name="submit" class="btn btn-primary">Save</button>
+                                             <!--   <button type="button" class="btn">Cancel</button> -->
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+								 
+								
 									
-                               echo " <tr > <td>{$req_id} </td><td>{$row['name']} </td><td>{$row['batch']} </td><td>{$row['cat']}</td><td>{$row['exp_time']}</td> <td>{$row['out_time']}</td><td>{$row['reason']}</td> <td>{$row['STATUS']}</td> </tr>\n";
-                                }
-                                  }
-                                      ?>
-              </tbody>
-            </table>
-          </div>
+									</div>	
 									</div>
 									
-							</div>	
-							
+					
                             </div>
                         </section></div>
 
@@ -366,7 +409,19 @@ $no1=mysqli_num_rows( $act );
         <!-- END CORE TEMPLATE JS - END --> 
 
 
-
+       
+         <script>
+		 
+		 $('#conf_pass').on('keyup', function () {
+  if ($('#new_pass').val() == $('#conf_pass').val()) {
+    $('#message').html('Matching').css('color', 'green');
+  } else 
+    $('#message').html('Not Matching').css('color', 'red');
+});
+		 
+		 
+		 
+		 </script>
 
 
 

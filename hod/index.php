@@ -221,6 +221,14 @@ $no1=mysqli_num_rows( $act );
                                 <span class="title">Gate Pass History</span>
                             </a>
                         </li>
+						
+						
+						<li class=""> 
+                            <a href="pass_change.php">
+                                <i class="fa fa-dashboard"></i>
+                                <span  class="title">Change Password</span>
+                            </a>
+                        </li>
              
              
 

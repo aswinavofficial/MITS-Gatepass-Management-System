@@ -21,7 +21,7 @@ $no1=mysqli_num_rows( $act );
 	 $tmp1=$objUser->get_pass($_SESSION['regno']);
 	 $pass_details=mysqli_fetch_assoc($tmp1);
 	 $current_pass=$pass_details['password'];
-	  echo "<script>alert($current_pass); </script>";
+	//  echo "<script>alert($current_pass); </script>";
 	 if(strcmp($_POST['current_pass'],$current_pass)!=0)
 	 {
 		 
