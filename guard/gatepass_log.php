@@ -13,18 +13,12 @@ if (empty($_SESSION['regno'])) {
     header("location:../index.php");
     exit();
 } 
-$no1=0;
+
  $objUser = new User();
  $res=$objUser->user_data($_SESSION['regno'],"GUARD");
  $details=mysqli_fetch_assoc($res);
- $act=$objUser->gatepass_log();
- $no1=mysqli_num_rows( $act );
- if(isset($_POST['submit']))
- {
-$det=$objUser->search_student($_POST['regno']);
-$no1=mysqli_num_rows( $det);
-$student=mysqli_fetch_assoc($det);
- }
+$act=$objUser->gatepass_guard();
+$no1=mysqli_num_rows( $act );
 
 ?>	
 	
@@ -222,24 +216,14 @@ $student=mysqli_fetch_assoc($det);
                             </a>
                         </li>
 						
-                        <li class=""> 
-                            <a href="notifications.php">
-                                <i class="fa fa-dashboard"></i>
-                                <span class="title">Notifications</span>
-                            </a>
-                        </li>
+                        
 						
-                        <li class=""> 
-                            <a href="details.php">
-                                <i class="fa fa-dashboard"></i>
-                                <span class="title">Activity Log</span>
-                            </a>
-                        </li>
+                        
 						
 						 <li class=""> 
-                            <a href="parking_status.php">
+                            <a href="gatepass_log.php">
                                 <i class="fa fa-dashboard"></i>
-                                <span class="title">Parking Status</span>
+                                <span class="title">Gate Pass History</span>
                             </a>
                         </li>
              
@@ -275,7 +259,7 @@ $student=mysqli_fetch_assoc($det);
                     <div class="col-lg-12">
                         <section class="box ">
                             <header class="panel_header">
-                                <h2 class="title pull-left">GATEPASS LOG</h2>
+                                <h2 class="title pull-left">GATE PASS HISTORY</h2>
                                 <div class="actions panel_actions pull-right">
                                     <i class="box_toggle fa fa-chevron-down"></i>
                                     <i class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></i>
@@ -283,20 +267,20 @@ $student=mysqli_fetch_assoc($det);
                                 </div>
                             </header>
                             <div class="content-body"> 
-									<div class="row">
+						
+										<div class="row">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
 									       <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
-                  <th>GatePass ID</th>
-				  <th>Student Name</th>
-                  <th>Student RegNO</th>
-                  <th>Approved By</th>
-				  <th>Approval Time </th>
+                  <th>Request ID</th>
+				  <th>Name</th>
+                  <th>Category</th>
+                  <th>Requested Time</th>
+				  <th>Out Time </th>
 				  <th>Reason</th>
-				  <th>Remarks</th>
-				  <th>Out Time</th>
+				  <th>Status</th>
 				  
                 </tr>
               </thead>
@@ -314,7 +298,7 @@ $student=mysqli_fetch_assoc($det);
                                 while( $row = mysqli_fetch_assoc( $act ) ){
 									$req_id=$row['reqid'];
 									
-                               echo " <tr > <td>{$row['id']} </td><td>{$row['name']} </td><td>{$row['cat']}</td><td>{$row['exp_time']}</td> <td>{$row['out_time']}</td><td>{$row['reason']}</td> <td>{$row['STATUS']}</td> </tr>\n";
+                               echo " <tr > <td>{$req_id} </td><td>{$row['name']} </td><td>{$row['cat']}</td><td>{$row['exp_time']}</td> <td>{$row['out_time']}</td><td>{$row['reason']}</td> <td>{$row['STATUS']}</td> </tr>\n";
                                 }
                                   }
                                       ?>
@@ -323,9 +307,7 @@ $student=mysqli_fetch_assoc($det);
           </div>
 									</div>
 									
-							</div>
-									
-							
+							</div>	
 									
                             </div>
                         </section></div>
@@ -370,9 +352,7 @@ $student=mysqli_fetch_assoc($det);
         <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END --> 
                 <script src="../assets/plugins/responsive-tables/js/rwd-table.min.js" type="text/javascript"></script><!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END --> 
 
-				<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
-  integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
-  crossorigin=""></script>
+				
 
         <!-- CORE TEMPLATE JS - START --> 
         <script src="../assets/js/scripts.js" type="text/javascript"></script> 

@@ -214,31 +214,21 @@ $student=mysqli_fetch_assoc($det);
                     <ul class='wraplist'>	
 
 
-                        <li class=""> 
+                       <li class=""> 
                             <a href="index.php">
                                 <i class="fa fa-dashboard"></i>
                                 <span class="title">Search for Gatepass</span>
                             </a>
                         </li>
 						
-                        <li class=""> 
-                            <a href="notifications.php">
-                                <i class="fa fa-dashboard"></i>
-                                <span class="title">Notifications</span>
-                            </a>
-                        </li>
+                        
 						
-                        <li class=""> 
-                            <a href="details.php">
-                                <i class="fa fa-dashboard"></i>
-                                <span class="title">Activity Log</span>
-                            </a>
-                        </li>
+                        
 						
-						<li class=""> 
-                            <a href="parking_status.php">
+						 <li class=""> 
+                            <a href="gatepass_log.php">
                                 <i class="fa fa-dashboard"></i>
-                                <span class="title">Parking Status</span>
+                                <span class="title">Gate Pass History</span>
                             </a>
                         </li>
              

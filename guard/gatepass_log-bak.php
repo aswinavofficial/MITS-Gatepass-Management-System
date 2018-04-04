@@ -13,10 +13,12 @@ if (empty($_SESSION['regno'])) {
     header("location:../index.php");
     exit();
 } 
-
+$no1=0;
  $objUser = new User();
  $res=$objUser->user_data($_SESSION['regno'],"GUARD");
  $details=mysqli_fetch_assoc($res);
+ $act=$objUser->gatepass_log();
+ $no1=mysqli_num_rows( $act );
  if(isset($_POST['submit']))
  {
 $det=$objUser->search_student($_POST['regno']);
@@ -273,7 +275,7 @@ $student=mysqli_fetch_assoc($det);
                     <div class="col-lg-12">
                         <section class="box ">
                             <header class="panel_header">
-                                <h2 class="title pull-left">PARKING STATUS</h2>
+                                <h2 class="title pull-left">GATEPASS LOG</h2>
                                 <div class="actions panel_actions pull-right">
                                     <i class="box_toggle fa fa-chevron-down"></i>
                                     <i class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></i>
@@ -281,14 +283,47 @@ $student=mysqli_fetch_assoc($det);
                                 </div>
                             </header>
                             <div class="content-body"> 
-							<div class="row">
-                                 <div class="col-md-12 col-sm-12 col-xs-12">
-								 
-								 
-								  <div id="mapid"></div>
+									<div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+									       <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>GatePass ID</th>
+				  <th>Student Name</th>
+                  <th>Student RegNO</th>
+                  <th>Approved By</th>
+				  <th>Approval Time </th>
+				  <th>Reason</th>
+				  <th>Remarks</th>
+				  <th>Out Time</th>
+				  
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  
+                </tr>
+              </tfoot>
+              <tbody>
+                 <?php
+                              if( $no1==0 ){
+                                 echo '<tr><td colspan="6">No Result Found!!!</td></tr>';
+		
+                                 }else{
+                                while( $row = mysqli_fetch_assoc( $act ) ){
+									$req_id=$row['reqid'];
 									
-									</div>	
+                               echo " <tr > <td>{$row['id']} </td><td>{$row['name']} </td><td>{$row['cat']}</td><td>{$row['exp_time']}</td> <td>{$row['out_time']}</td><td>{$row['reason']}</td> <td>{$row['STATUS']}</td> </tr>\n";
+                                }
+                                  }
+                                      ?>
+              </tbody>
+            </table>
+          </div>
 									</div>
+									
+							</div>
 									
 							
 									

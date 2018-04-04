@@ -209,6 +209,17 @@ function random_str($length = 10) {
 		
 	}
 	
+	
+	
+	public function gatepass_guard()
+	{
+	$sql = "select * from request r,student s where r.regno=s.s_regno  and r.status='DEPARTED' order by r.reqid desc";	
+		
+		return $this->dbObj->ExecuteQuery($sql, 1);
+	
+		
+	}
+	
 	public function user_data($regno,$type)
 	{
 		if($type=="STUDENT")
